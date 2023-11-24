@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<script type="text/javascript"></script>
+
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+	<title>Search Page</title>
+	<link rel="stylesheet" href="" th:href="@{/css/styles.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+</head>
+
+<body style="background-color: #C2D6A1;">
+<!--	<script src="js/search.js"></script>
+-->	<div class="row justify-content-center">
+		<div class="card" align="center">
+			<form method="post" class="form-horizontal">
+				<h1>STM:silicone test method</h1>
+				<div class="form-group" style="margin-top: 50px;">
+					<label for="username" class="col-sm-5 control-label">STMnumber</label>
+					<div class="col-sm-2">
+						<input style="border: 2px solid black;" type="text" class="form-control invalid-feedback"
+							name="STMnumber" required maxlength="11">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="confirm-password" class="col-sm-5 control-label">Revision
+						number</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="Revision number" name="revNumber"
+							style="border: 2px solid black;" value="00">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-5 control-label">Link
+						destination(STM_parent number) </label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="Link destination" name="Linkdest"
+							style="border: 2px solid black;" maxlength="11">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password" class="col-sm-5 control-label">Text
+						(short) Japanese</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="Japanese" name="Japanese"
+							style="border: 2px solid black;" maxlength="255">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="confirm-password" class="col-sm-5 control-label">Text
+						(short) English</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="English" name="TextEnglish"
+							style="border: 2px solid black;" maxlength="255">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="confirm-password" class="col-sm-5 control-label">final
+						drafter(Last name)</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="final drafter(Last name)" name="Finaldrafter"
+							style="border: 2px solid black;" maxlength="255">
+					</div>
+				</div>
+				<div class="input-group has-validation">
+					<p class="text-white bg-dark">
+						<label for="last updated(Drafting date)" class="col-sm-2 col-form-label">last updated(Drafting
+							date)</label> <input type="text" class="dobField timePeriodFrom1 datepicker-input"
+							placeholder="yyyy/mm/dd" name="Draftingdate" maxlength="8" /> ~ <input type="text"
+							class="dobField timePeriodTo1 datepicker-input" placeholder="yyyy/mm/dd"
+							name="Draftingdatetime" maxlength="8" />
+					</p>
+				</div>
+				<div class="form-group">
+					<label for="confirm-password" class="col-sm-5 control-label">oldSTMnumber</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="oldSTMnumber" name="oldnumber"
+							style="border: 2px solid black;" maxlength="11">
+					</div>
+				</div>
+				<table>
+					<tr>
+						<td align="center">
+							<button class="btn btn-lg btn-primary button1" style="padding: 3px 15px;" type="submit"
+								onclick="resetcall()" id="ButtonID">Search</button>
+						</td>
+						<td>
+							<button class="button2" type="reset">reset</button>
+						</td>
+					</tr>
+				</table>
+				<button type="button" class="btn btn-secondary btn-sm button3"
+					style="border: 2px solid black;">Menu</button>
+			<!--</form>
+			<div class="card" style="margin-left: 50px; margin-top: 60px;">
+				<table border="1">
+					<th>No</th>
+					<th>Name</th>
+					<c:forEach var="user" items="${list}" varStatus="status">
+						<tr>
+							<td>1</td>
+							<td>Samata</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>-->
+		</div>
+</body>
+</html>

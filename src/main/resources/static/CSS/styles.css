@@ -1,0 +1,95 @@
+/* style.css */
+/*Added for LoginScreen */
+#loginscreenbody{
+	    background-color: #cbe3b5;
+	
+}
+#adminMessage {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #062d73;
+            font-size: 18px;
+            font-weight: bold;
+        }
+/*End for LoginScreen */
+
+
+#dashboardBody {
+    background-color: #cbe3b5;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+.dashboard {
+    width: 200px;
+    margin-left:250px;
+}
+
+.dashboard-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #000066;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;   
+    border: 3px solid rgb(64, 0, 0);
+    border-radius: 10px;
+    
+}
+
+.dashboard-button:hover {
+    background-color: #2980b9;
+}
+.dash
+{
+	width: 200px;
+    margin: 0 450px;
+}
+.return
+{
+	width: 100px;
+    margin: 0 700px;
+}
+
+.disabled-link {
+            pointer-events: none;
+            color: #999;
+            text-decoration: none;
+        }
+.label-container {
+            display: flex;           
+            width: 100%;
+        }
+.label-container label {
+            width: 50%;
+            text-align:left;
+            margin: 10px 20px;
+           
+        }
+.registerclose
+{	
+    width: 20%;
+    background-color: #000066;
+    color: #fff;    
+    text-align: center;   
+    border: 3px solid rgb(64, 0, 0);
+    border-radius:10px;
+}
+
+.returnClear
+{	
+    width: 20%;
+    background-color: orange;
+    color: #fff;    
+    text-align: center;   
+    border: 2px solid rgb(64, 0, 0);
+    border-radius:10px;
+}
+input[type="text"]{
+	border: 2px solid rgb(0, 0, 0);
+}
+
+
+/* Add more CSS rules as needed */
