@@ -122,7 +122,13 @@ button:hover {
 <body>   
     <h1>STM: Silicone Test Method</h1>
     <p id="message" th:text="${message}"></p>
-    <p id="message" th:text="${error}"></p>
+    <p id="message" th:text="${error}"></p>    
+    <div th:if="${successMessage}">
+    <p style="color: green;" th:text="${successMessage}"></p>
+</div>
+<div th:if="${errorMessage}">
+    <p style="color: red;" th:text="${errorMessage}"></p>
+</div>
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -133,12 +139,12 @@ button:hover {
     <form th:action="@{/revise}" th:object="${stm}" enctype="multipart/form-data" method="post">            
         <div class="label-container">
             <label for="stmNumber">STM Number<br>(Quality inspection method_master <br>quality inspection characteristics)</label>
-            <input type="text" id="stmNumber" name="" th:field="*{stmNo}" th:value="${stmNo}" style="height: 15px;" readonly />
+            <input type="text" id="stmNumber" name="" th:field="*{stmNo}" th:value="${stmNo}" style="height: 15px;" readonly="readonly"/>
         </div>
 
         <div class="label-container">
             <label for="revisionNumber">Revision Number</label>
-            <input type="text" style="height: 15px;" th:field="*{stmVersion}" th:value="${stmVersion}" disabled="disabled"/>
+            <input type="text" style="height: 15px;" th:field="*{stmVersion}" th:value="${stmVersion}" readonly="readonly"/>
         </div>
 
         <div class="label-container">
@@ -159,16 +165,16 @@ button:hover {
         <div class="label-container">
             <label for="attachmentPdf">Attachment (PDF)</label>
             <div class="file-input">
-                <input type="text" id="attachedPdf"  th:field="*{pdfFile}"/>
-                <input type="file" id="attachmentPdf" name="pdfFile" onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" />
+                <input type="text" id="attachedPdf"  th:field="*{pdfFile}" th:value="${pdfFile}"/>
+                <input type="file" id="attachmentPdf"  name="pdfFile" onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" />
             </div>
         </div>
 
         <div class="label-container">
             <label for="attachmentWord">Attachment (Word)</label>
             <div class="file-input">
-                <input type="text" id="attachedWord" th:field="*{wordFile}"  />
-                <input type="file" id="attachmentWord" name="wordFile" onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" />
+                <input type="text" id="attachedWord" th:field="*{wordFile}" th:value="${wordFile}" />
+                <input type="file" id="attachmentWord"  name="wordFile" onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" />
             </div>
         </div>
 
@@ -219,7 +225,7 @@ button:hover {
         </div>
         <div style="margin-top: 20px;">
             <button type="submit" name="action" class="registerclose">Revise</button>
-            <button type="submit" name="action" class="returnClear">Return</button>
+            <button type="button" name="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage}'|">Return</button>
         </div>
     </form>
     
