@@ -8,11 +8,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.stmproject.model.STM;
-@Repository
-public interface ReviseRepository extends JpaRepository<STM, String> {
-	  
-		@Query(value = "SELECT * FROM STM WHERE STM_No = :stmNo", nativeQuery = true)
-		  Optional<STM> findByStmNo(@Param ("stmNo") String id);
-		
 
+@Repository
+public interface ReviseRepository extends JpaRepository<STM, String> {		
+	  
+	@Query(value = "SELECT * FROM STM WHERE STM_No = :stmNo", nativeQuery = true)
+	  Optional<STM> findByStmNo(@Param ("stmNo") String id);
+		
 }
