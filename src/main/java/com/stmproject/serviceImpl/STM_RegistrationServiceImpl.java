@@ -28,12 +28,5 @@ public class STM_RegistrationServiceImpl implements STM_RegistrationService {
 	@Override
 	public void saveSTM(STM stm) {
 		 stmRepository.save(stm);
-	}
-
-	/*
-	 * @Override public STM getSTMById(Long id) { return
-	 * stmRepository.findById(id).orElse(null); }
-	 * 
-	 * @Override public List<STM> getAllSTMs() { return stmRepository.findAll(); }
-	 */
+	}	
 }
