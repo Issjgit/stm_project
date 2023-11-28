@@ -27,7 +27,7 @@ public class STM_Histo {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "No")
-    private int no;
+    private Integer no;
 
     @Column(name = "STM_No", length = 15,nullable = false)
     private String stmNo;
@@ -84,7 +84,7 @@ public class STM_Histo {
     private Date lastUpdated;
     
    
-    public STM_Histo(int no, String stmNo, String stmVersion, String linkDestination, String textShortJP,
+    public STM_Histo(Integer no, String stmNo, String stmVersion, String linkDestination, String textShortJP,
 			String textShortEN, String pdfFile, String wordFile, Date draftingDate, String finalDrafterName,
 			String oldSTMNumber, String remarks1, String note2, String note3, String creatorSSOID, Date createdDate,
 			Date lastUpdated, boolean isDeleted) {
@@ -128,11 +128,11 @@ public class STM_Histo {
 				+ "]";
 	}
 
-	public int getNo() {
+	public Integer getNo() {
 		return no;
 	}
 
-	public void setNo(int no) {
+	public void setNo(Integer no) {
 		this.no = no;
 	}
 
