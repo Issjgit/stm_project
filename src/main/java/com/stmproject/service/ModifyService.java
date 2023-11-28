@@ -127,29 +127,3 @@ public class ModifyService {
     
 }
     
-
-	/*
-	 * @Transactional public void saveSTMHistory(STM_Histo stmHisto) {
-	 * stmHistoryRepository.save(stmHisto); }
-	 * 
-	 * @Transactional public void saveModifiedSTM(STM stm) {
-	 * modifyRepository.save(stm); }
-	 */
-  
-  
-  
-	/*
-	 * public String saveFile(MultipartFile file, String extension) throws
-	 * IOException { if (file != null && !file.isEmpty()) { String originalFileName
-	 * = file.getOriginalFilename(); Path uploadPath = Paths.get("/STM_File",
-	 * UPLOAD_DIR); Path filePath = uploadPath.resolve(originalFileName);
-	 * 
-	 * // Create directories if they don't exist
-	 * Files.createDirectories(uploadPath);
-	 * 
-	 * // Save the file to the specified directory Files.copy(file.getInputStream(),
-	 * filePath);
-	 * 
-	 * // Return the file name to be stored in your model return originalFileName; }
-	 * return null; } }
-	 */
