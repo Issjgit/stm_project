@@ -49,11 +49,11 @@ public class ModifyController {
 	        STM stm = modifyService.getSTMByStmNoQuery(modifySTM.getStmNo());
 
 	        // Add success message to the model
-	        model.addAttribute("message", "STM Revised successfully!");
+	        model.addAttribute("message", "STM Modify successfully!");
 	        model.addAttribute("stm", stm);
 	    } catch (Exception e) {
 	        // Add error message to the model
-	        model.addAttribute("error", "Failed to Revised STM. Please try again.");
+	        model.addAttribute("error", "Failed to Modify STM. Please try again.");
 	        e.printStackTrace(); 
 	    }
 
