@@ -102,7 +102,7 @@ public class ModifyService {
         stmHistory.setCreatorSSOID(existingSTM.getCreatorSSOID());
         stmHistory.setCreatedDate(existingSTM.getCreatedDate());
         stmHistory.setLastUpdated(existingSTM.getLastUpdated());
-        stmHistory.setDeleted(existingSTM.getIsDeleted());
+        stmHistory.setDeleted(true);
         stmHistoryRepository.save(stmHistory);		
 	}
     
