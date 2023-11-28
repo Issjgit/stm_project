@@ -26,5 +26,5 @@ public class DeleteController {
 		}
 		return "ModifyScreen";
 	}
-
 }
+
