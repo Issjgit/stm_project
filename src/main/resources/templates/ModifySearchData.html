@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<script type="text/javascript"></script>
+<style>
+	body {
+		font-family: Arial, sans-serif;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+	}
+
+	h1 {
+		padding: 10px 0;
+	}
+
+	form {
+		max-width: 600px;
+		margin: 0 auto;
+		padding: 20px;
+		background-color: #cbe3b5;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	}
+
+	input[type="text"],
+	input[type="file"] {
+		display: inline-block;
+		width: 30%;
+		padding: 10px;
+		margin: 5px 0;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+	}
+
+	input[type="file"] {
+		width: 50%;
+	}
+
+	button {
+		display: inline-block;
+		padding: 10px 20px;
+		margin: 10px 5px;
+		background-color: #333;
+		color: #fff;
+		border: none;
+		border-radius: 3px;
+		cursor: pointer;
+	}
+
+	button:hover {
+		background-color: #555;
+	}
+
+	/* Modal styles */
+	.modal {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+
+	.modal-content {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #fefefe;
+		padding: 20px;
+		border: 1px solid #888;
+		width: 300px;
+		color: red;
+	}
+
+	/* #adminMessage {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #062d73;
+            font-size: 18px;
+            font-weight: bold;
+        } */
+
+	.close {
+		color: #aaa;
+		float: right;
+		font-size: 20px;
+		font-weight: bold;
+		cursor: pointer;
+	}
+
+	.close:hover {
+		color: black;
+	}
+
+	.file-input {
+		display: flex;
+		align-items: center;
+	}
+
+	.download-button {
+		margin-left: 10px;
+		padding: 8px;
+		background-color: red;
+		color: white;
+		border: black;
+		border-radius: 3px;
+		cursor: pointer;
+	}
+
+	.download-button:hover {
+		background-color: #555;
+	}
+</style>
+
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<!--<script th:src="@{/assets/js/jquery-3.6.0.js}"></script>-->
+	<title>Search Page</title>
+	<link rel="stylesheet" href="" th:href="@{/css/styles.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="js/search.js"></script>
+</head>
+
+<body style="background-color: #C2D6A1;" th:onload="onLoadcall([[${STM}]])">
+	<h1>STM:Silicone Test Method</h1>
+	<!-- <div id="pdfError" class="error-message"></div>
+    <div id="wordError" class="error-message"></div> -->
+
+	<p id="message" th:text="${message}"></p>
+	<p id="message" th:text="${error}"></p>
+	<div id="modal" class="modal">
+		<div class="modal-content">
+			<span class="close" onclick="closeModal()">&times;</span>
+			<div id="modalMessage"></div>
+		</div>
+	</div>
+
+	<form method="get" enctype="multipart/form-data">
+		<div class="label-container">
+			<label for="stmNumber">STM Number<br>(Quality inspection
+				method_master <br>quality inspection characteristics)
+			</label> <input type="text" id="stmNumber" style="height: 15px;" disabled="disabled" th:value="${stmNo}"
+				oninput="updateDisabledField(this),updateFields()">
+		</div>
+		<div class="label-container">
+
+			<label for="Revision number">Revision number</label>
+			<input type="text" id="disabledField" disabled="disabled" th:value="${stmVer}">
+		</div>
+		<!-- <div class="label-container"><label for="inspectionCharacteristics">Quality Inspection Characteristics</label>
+        <input type="text" id="inspectionCharacteristics" name="inspectionCharacteristics" ></div> -->
+
+		<div class="label-container">
+			<label for="linkDestination">Link Destination(STM_parent
+				number)</label> 
+				<input type="text" id="linkDestination" disabled="disabled" th:value="${linkdest}">
+		</div>
+
+		<div class="label-container">
+			<label for="textJapanese">Text (Short) Japanese</label>
+			 <input type="text" id="textJapanese"
+				disabled="disabled" th:value="${jpText}">
+		</div>
+
+		<div class="label-container">
+			<label for="textEnglish">Text (Short) English</label> 
+			<input type="text" id="textEnglish"
+				disabled="disabled" th:value="${enText}">
+		</div>
+
+		<div class="label-container">
+			<label for="attachmentPdf">Attachment (PDF)</label>
+			<div class="file-input">
+				<input type="text" id="attachedPdf" disabled="disabled" th:value="${pdf}">
+				<label for="attachmentpdf">download</label>
+				<button  type="button" class="download-button">PdfDownload</button>
+			</div>
+		</div>
+
+		<div class="label-container">
+			<label for="attachmentWord">Attachment (Word)</label>
+			<div class="file-input">
+				<input type="text" id="attachedWord" disabled="disabled" th:value="${word}">
+				<label for="attachmentWord">download</label>
+				<button class="download-button" onclick="downloadFile('wordFile')">DocDownload</button>
+			</div>
+		</div>
+		<!-- Modal for PDF error -->
+		<div id="pdfError" class="modal">
+			<div class="modal-content">
+				<span class="close-modal" onclick="closeModal('pdfError')">&times;</span>
+				<p>Invalid file format. Please select a PDF file.</p>
+			</div>
+		</div>
+
+		<!-- Modal for Word error -->
+		<div id="wordError" class="modal">
+			<div class="modal-content">
+				<span class="close-modal" onclick="closeModal('wordError')">&times;</span>
+				<p>Invalid file format. Please select a Word file (doc or docx).</p>
+			</div>
+		</div>
+
+		<div class="label-container">
+			<label for="lastUpdated">Last Updated (Drafting Date)</label>
+			 <input type="text" id="lastUpdated"
+				disabled="disabled" >
+		</div>
+
+		<div class="label-container">
+			<label for="finalDrafter">Final Drafter (Last Name)</label>
+			 <input type="text" id="finalDrafter"
+				disabled="disabled" th:value="${lastName}">
+		</div>
+
+		<div class="label-container">
+			<label for="oldStmNumber">Old STM Number</label> 
+			<input type="text" id="oldStmNumber" disabled="disabled" th:value="${oldSTMNo}">
+		</div>
+
+		<div class="label-container">
+			<label for="remarks1">Remarks 1</label> 
+			<input id="remarks1" type="text" disabled="disabled" th:value="${remarks}">
+		</div>
+
+		<div class="label-container">
+			<label for="note2">Note 2</label> 
+			<input type="text" id="note2" disabled="disabled" th:value="${note2}">
+		</div>
+
+		<div class="label-container">
+			<label for="note3">Note 3</label>
+<input type="text" id="note3" disabled="disabled" th:value="${note3}">
+		</div>
+
+		<div style="margin-top: 20px;">
+			<button type="submit" name="action" value="register" class="registerclose">Modify</button>
+
+			<button type="submit" name="action" value="return" class="returnClear">Return</button>
+			<button type="reset" name="action" value="clear" class="returnClear">Clear</button>
+			<button type="button" name="action" value="close" class="registerclose"
+				onclick="window.close();">Close</button>
+		</div>
+	</form>
+</body>
+
+</html>
