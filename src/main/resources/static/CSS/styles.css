@@ -93,3 +93,74 @@ input[type="text"]{
 
 
 /* Add more CSS rules as needed */
+
+/* 
+ADD[S]Samata 2023/11/14
+*/
+body{
+	background-color: #C2D6A1;
+}
+.button1{
+	background-color: navy;
+	text-align: center;
+	padding: 3px 15px;
+	min-width:400px;
+	color: white;
+	font-size: 17px;
+}
+.button2{
+	background-color: darkorange;
+	text-align: center;
+	min-width:400px;
+	border-radius: 2px;
+	color: white;
+	font-size: 17px;
+	margin-right: 30px;
+	margin-left: 5%;
+}
+.button3{
+	background-color: #50C878;
+	color: white;
+	border: 2px solid black;
+}
+.form-control
+{
+	  border: 2px solid black;
+	  color: red;
+}
+h1
+{
+	text-align: center;
+}
+
+/*ADD[S] Samata*/
+.content { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 500px; 
+            height: 200px; 
+            text-align: center; 
+            background-color: #e8eae6; 
+            box-sizing: border-box; 
+            padding: 10px; 
+            z-index: 100; 
+            display: none; 
+             border-radius: 20px;
+            /*to hide popup initially*/ 
+        } 
+          
+       /* .close-btn { 
+            position: absolute; 
+            right: 20px; 
+            top: 15px; 
+            background-color: black; 
+            color: white; 
+            border-radius: 50%; 
+            padding: 4px; 
+        } */
+        
+ 
+/*ADD[E] Samata*/
+
