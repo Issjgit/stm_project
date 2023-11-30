@@ -5,109 +5,155 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
-	<title>Search Page</title>
+	<!--<script th:src="@{/assets/js/jquery-3.6.0.js}"></script>-->
 	<link rel="stylesheet" href="" th:href="@{/css/styles.css}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="js/search.js"></script>
 </head>
 
-<body style="background-color: #C2D6A1;">
-<!--	<script src="js/search.js"></script>
--->	<div class="row justify-content-center">
+<body style="background-color: #C2D6A1;" th:onload="onLoadcall([[${STM}]])">
+	<div class="row justify-content-center">
 		<div class="card" align="center">
-			<form method="post" class="form-horizontal">
+			<form method="post" class="form-horizontal" action="/searchClick">
 				<h1>STM:silicone test method</h1>
 				<div class="form-group" style="margin-top: 50px;">
 					<label for="username" class="col-sm-5 control-label">STMnumber</label>
 					<div class="col-sm-2">
-						<input style="border: 2px solid black;" type="text" class="form-control invalid-feedback"
-							name="STMnumber" required maxlength="11">
+						<input style="border: 3px solid black;" type="text" class="form-control invalid-feedback"
+							name="sTM_No" maxlength="11" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="confirm-password" class="col-sm-5 control-label">Revision
 						number</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="Revision number" name="revNumber"
-							style="border: 2px solid black;" value="00">
+						<input type="text" class="form-control" id="Revision number" name=""
+							style="border: 3px solid black;" maxlength="2">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-5 control-label">Link
 						destination(STM_parent number) </label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="Link destination" name="Linkdest"
-							style="border: 2px solid black;" maxlength="11">
+						<input type="text" class="form-control" id="Link destination" name="link_destination"
+							style="border: 3px solid black;" maxlength="11">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="password" class="col-sm-5 control-label">Text
 						(short) Japanese</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="Japanese" name="Japanese"
-							style="border: 2px solid black;" maxlength="255">
+						<input type="text" class="form-control" id="Japanese" name="text_short_jpn"
+							style="border: 3px solid black;" maxlength="255">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="confirm-password" class="col-sm-5 control-label">Text
 						(short) English</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="English" name="TextEnglish"
-							style="border: 2px solid black;" maxlength="255">
+						<input type="text" class="form-control" id="English" name="text_short_eng"
+							style="border: 3px solid black;" maxlength="255">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="confirm-password" class="col-sm-5 control-label">final
 						drafter(Last name)</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="final drafter(Last name)" name="Finaldrafter"
-							style="border: 2px solid black;" maxlength="255">
+						<input type="text" class="form-control" id="final drafter(Last name)" name="final_drafter_Name"
+							style="border: 3px solid black;" maxlength="255">
 					</div>
 				</div>
 				<div class="input-group has-validation">
 					<p class="text-white bg-dark">
 						<label for="last updated(Drafting date)" class="col-sm-2 col-form-label">last updated(Drafting
-							date)</label> <input type="text" class="dobField timePeriodFrom1 datepicker-input"
-							placeholder="yyyy/mm/dd" name="Draftingdate" maxlength="8" /> ~ <input type="text"
-							class="dobField timePeriodTo1 datepicker-input" placeholder="yyyy/mm/dd"
+							date)</label>
+						<input type="text" class="dobField timePeriodFrom1 datepicker-input" placeholder="yyyy/mm/dd"
+							name="Draftingdate" maxlength="8" /> ~
+						<input type="text" class="dobField timePeriodTo1 datepicker-input" placeholder="yyyy/mm/dd"
 							name="Draftingdatetime" maxlength="8" />
 					</p>
 				</div>
 				<div class="form-group">
 					<label for="confirm-password" class="col-sm-5 control-label">oldSTMnumber</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="oldSTMnumber" name="oldnumber"
-							style="border: 2px solid black;" maxlength="11">
+						<input type="text" class="form-control" id="oldSTMnumber" name="old_stm_number"
+							style="border: 3px solid black;" maxlength="11">
 					</div>
 				</div>
 				<table>
 					<tr>
-						<td align="center">
-							<button class="btn btn-lg btn-primary button1" style="padding: 3px 15px;" type="submit"
-								onclick="resetcall()" id="ButtonID">Search</button>
+						<td>
+							<button class="btn btn-lg btn-primary button1" type="submit"
+								style="background-color: darkblue;" onsubmit="searchcall()">Search</button>
 						</td>
 						<td>
-							<button class="button2" type="reset">reset</button>
+							<button class="btn btn-primary btn-lg button2" type="reset" style="background-color: coral;"
+								onclick="resetcall()">reset</button>
 						</td>
 					</tr>
 				</table>
-				<button type="button" class="btn btn-secondary btn-sm button3"
-					style="border: 2px solid black;">Menu</button>
-			<!--</form>
-			<div class="card" style="margin-left: 50px; margin-top: 60px;">
-				<table border="1">
-					<th>No</th>
-					<th>Name</th>
-					<c:forEach var="user" items="${list}" varStatus="status">
+			</form>
+			<tr>
+				<td>
+					<button type="submit" class="btn btn-primary btn-lg button3"
+						th:onclick="|window.location.href='@{/returntoDashboard}'|">Menu</button>
+				</td>
+			</tr>
+			<div class="table-responsive" style="margin-left: 10px; margin-top: 60px;">
+				<table border="3px solid black" class="table table-striped table-hover" style="width: 20%"
+					id="searchTable" title="Confidential information">
+					<thead>
 						<tr>
-							<td>1</td>
-							<td>Samata</td>
+							<th>No</th>
+							<th>STM_No</th>
+							<th>STM_Vesion</th>
+							<th>Link_Destination</th>
+							<th>Text_Short_JP</th>
+							<th>Text_Short_EN</th>
+							<th>Pdf_File</th>
+							<th>Word_file</th>
+							<!--							<th>Drafting_Date</th>
+-->
+							<th>Final_Drafter_Name</th>
+							<th>Old_STM_Number</th>
+							<th>Remarks1</th>
+							<th>Note2</th>
+							<th>Note3</th>
+							<!--							<th>User Modify</th>
+--> <!--<th>Action</th>-->
 						</tr>
-					</c:forEach>
+					</thead>
+					<tbody>
+						<tr th:each="n:${list}" onclick="">
+							<th th:text="${n.getNo()}"></th>
+							<th th:text="${n.getsTM_No()}"></th>
+							<th th:text="${n.getStm_version()}"></th>
+							<th th:text="${n.getLink_destination()}"></th>
+							<th th:text="${n.getText_short_jpn()}"></th>
+							<th th:text="${n.getText_short_eng()}"></th>
+							<th th:text="${n.getPdf_file()}"></th>
+							<th th:text="${n.getWord_file()}"></th>
+							<!--							<th th:text="${n.getDrafting_date()}"></th>
+-->
+							<th th:text="${n.getFinal_drafter_Name()}"></th>
+							<th th:text="${n.getOld_stm_number()}"></th>
+							<th th:text="${n.getRemarks1()}"></th>
+							<th th:text="${n.getNote2()}"></th>
+							<th th:text="${n.getNote3()}"></th>
+						</tr>
+					<tbody>
 				</table>
-			</div>-->
+				<div style="margin-right: 70%;">
+					<form action="/viewClick" method="post">
+						<button style="color: white; background-color:darkblue" class="btn btn-lg btn-primary button1"
+							type="submit">View</button>
+					</form>
+				</div>
+			</div>
 		</div>
+	</div>
 </body>
+
 </html>
