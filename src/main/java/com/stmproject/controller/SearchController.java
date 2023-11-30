@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
-import com.stmproject.dao.SearchPageDao;
+import com.stmproject.model.SearchPageDao;
 import com.stmproject.model.STM;
 import com.stmproject.repository.S_UserRepository;
 import com.stmproject.service.S_UserService;
