@@ -3,11 +3,7 @@ package com.stmproject.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.jar.JarException;
-
-import javax.swing.text.Document;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -17,16 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
-import com.stmproject.model.SearchPageDao;
+import com.stmproject.model.SearchResultlist;
 import com.stmproject.model.STM;
-import com.stmproject.repository.S_UserRepository;
+import com.stmproject.repository.STM_RegistrationRepository;
+import com.stmproject.service.STM_RegistrationService;
 import com.stmproject.service.S_UserService;
-import com.stmproject.serviceImpl.S_UserServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -41,6 +38,12 @@ public class SearchController {
 	@Autowired
 	private S_UserService sUserService;
 
+	@Autowired
+	STM_RegistrationRepository stm_RegistrationRepository;
+
+	@Autowired
+	STM_RegistrationService stmService;
+
 	public SearchController() {
 		modelAndView = new ModelAndView();
 	}
@@ -49,16 +52,6 @@ public class SearchController {
 	public ModelAndView searchPage(Model model) {
 		model.addAttribute("STM", "1");
 		modelAndView.setViewName("SearchPage");
-		return modelAndView;
-	}
-
-	// after clicking Modify button from Search Page
-	@PostMapping("/modifyClick")
-	public ModelAndView modifyClickBtn(@RequestParam("modifyValue") String value, Model model,
-			@ModelAttribute SearchPageDao sDao, HttpSession session) throws ClassNotFoundException, SQLException {
-
-		System.out.println("Value is : " + value);
-		modelAndView.setViewName("ModifySearchData");
 		return modelAndView;
 	}
 
@@ -76,10 +69,9 @@ public class SearchController {
 
 	// After Clicking Search button from Search Page
 	@PostMapping("/searchClick")
-	public ModelAndView searchBtnClick(Model model, @ModelAttribute SearchPageDao sDao) throws SQLException,
+	public ModelAndView searchBtnClick(Model model, @ModelAttribute SearchResultlist sDao) throws SQLException,
 			ClassNotFoundException, StreamReadException, DatabindException, JsonProcessingException, IOException {
-
-		List<SearchPageDao> searchList = sUserService.getValuesBySetValue(sDao);
+		List<SearchResultlist> searchList = sUserService.getValuesBySetValue(sDao);
 		model.addAttribute("list", searchList);
 		model.addAttribute("STM", "2");
 		session.setAttribute("ListData", searchList);
@@ -91,7 +83,7 @@ public class SearchController {
 	@PostMapping("/viewClick")
 	public ModelAndView viewBtnClick(Model model) throws ClassNotFoundException, SQLException {
 		// fetching Data from searchUerServiceImpl class
-		List<SearchPageDao> searchList = sUserService.getAllValues();
+		List<SearchResultlist> searchList = sUserService.getAllValues();
 		model.addAttribute("list", searchList);
 		model.addAttribute("STM", "2");
 		session.setAttribute("ListData", searchList);
@@ -100,11 +92,11 @@ public class SearchController {
 	}
 
 	@PostMapping("/doubleClickTableRow")
-	public ModelAndView getModifyTableRowData(@RequestBody SearchPageDao dao, Model model) {
+	public ModelAndView getModifyTableRowData(@RequestBody SearchResultlist dao, Model model) {
 
 		@SuppressWarnings("unchecked")
-		List<SearchPageDao> searchList = (List<SearchPageDao>) session.getAttribute("ListData");
-		for (SearchPageDao ent : searchList) {
+		List<SearchResultlist> searchList = (List<SearchResultlist>) session.getAttribute("ListData");
+		for (SearchResultlist ent : searchList) {
 			if (ent.getRowIndex() == dao.getRowIndex()) {
 				System.out.println(ent);
 				session.setAttribute("modifyRowData", ent);
@@ -116,19 +108,21 @@ public class SearchController {
 	}
 
 	@GetMapping("/Modify")
-	public ModelAndView ModifyPage(Model model) {
+	public ModelAndView ModifyViewPage(Model model,
+			@RequestParam(value = "pdfFile", required = false) MultipartFile pdfFile,
+			@RequestParam(value = "wordFile", required = false) MultipartFile wordFile) {
 		ModelAndView model1 = modelAndView;
-		SearchPageDao modifyUser = (SearchPageDao) session.getAttribute("modifyRowData");
+		SearchResultlist modifyUser = (SearchResultlist) session.getAttribute("modifyRowData");
 		System.out.println("Dao is : " + modifyUser);
-		model.addAttribute("stmNo", modifyUser.getsTM_No());
-		model.addAttribute("stmVer", modifyUser.getStm_version());
-		model.addAttribute("linkdest", modifyUser.getLink_destination());
-		model.addAttribute("jpText", modifyUser.getText_short_jpn());
-		model.addAttribute("enText", modifyUser.getText_short_eng());
-		model.addAttribute("pdf", modifyUser.getPdf_file());
-		model.addAttribute("word", modifyUser.getWord_file());
-		model.addAttribute("lastName", modifyUser.getFinal_drafter_Name());
-		model.addAttribute("oldSTMNo", modifyUser.getOld_stm_number());
+		model.addAttribute("stmNo", modifyUser.getStmNo());
+		model.addAttribute("stmVer", modifyUser.getStmVersion());
+		model.addAttribute("linkdest", modifyUser.getLinkDestination());
+		model.addAttribute("jpText", modifyUser.getTextShortJP());
+		model.addAttribute("enText", modifyUser.getTextShortEN());
+		model.addAttribute("pdf", modifyUser.getPdfFile());
+		model.addAttribute("word", modifyUser.getWordFile());
+		model.addAttribute("lastName", modifyUser.getFinalDrafterName());
+		model.addAttribute("oldSTMNo", modifyUser.getOldSTMNumber());
 		model.addAttribute("remarks", modifyUser.getRemarks1());
 		model.addAttribute("note2", modifyUser.getNote2());
 		model.addAttribute("note3", modifyUser.getNote3());
@@ -137,9 +131,49 @@ public class SearchController {
 		return model1;
 	}
 
-	@GetMapping("/PdfFile")
-	public ModelAndView PdfFileDownload(HttpSession session, ModelAndView model) throws JarException, IOException {
-		return model;
+	@GetMapping("/stmNo")
+	public ModelAndView downloadFile(Model model) throws Exception {
+		String pdfFileName = (String) session.getAttribute("pdfFileName");
+		boolean isGeneratedPdfFile = sUserService.generatePDFFile(pdfFileName);
+		if (isGeneratedPdfFile) {
+		} else {
+		}
+		ModelAndView model1 = modelAndView;
+
+		SearchResultlist modifyUser = (SearchResultlist) session.getAttribute("modifyRowData");
+		System.out.println("Dao is : " + modifyUser);
+		model.addAttribute("stmNo", modifyUser.getStmNo());
+		model.addAttribute("stmVer", modifyUser.getStmVersion());
+		model.addAttribute("linkdest", modifyUser.getLinkDestination());
+		model.addAttribute("jpText", modifyUser.getTextShortJP());
+		model.addAttribute("enText", modifyUser.getTextShortEN());
+		model.addAttribute("pdf", modifyUser.getPdfFile());
+		model.addAttribute("word", modifyUser.getWordFile());
+		model.addAttribute("lastName", modifyUser.getFinalDrafterName());
+		model.addAttribute("oldSTMNo", modifyUser.getOldSTMNumber());
+		model.addAttribute("remarks", modifyUser.getRemarks1());
+		model.addAttribute("note2", modifyUser.getNote2());
+		model.addAttribute("note3", modifyUser.getNote3());
+
+		model1.setViewName("ModifySearchData");
+		return model1;
+	}
+
+	@PostMapping("/PDFBtnClick")
+	public ModelAndView onClickPDFBTNClick(@RequestBody SearchResultlist dao, Model model) {
+
+		session.setAttribute("pdfFileName", dao.getPdfFile());
+		model.addAttribute("STM", "2");
+		modelAndView.setViewName("ModifySearchData");
+		return modelAndView;
+	}
+
+	@PostMapping("/DocBtntnClick")
+	public ModelAndView onClickDocBtnClick(@RequestBody SearchResultlist dao, Model model) {
+		session.setAttribute("DocFileName", dao.getWordFile());
+		model.addAttribute("STM", "2");
+		modelAndView.setViewName("ModifySearchData");
+		return modelAndView;
 	}
 
 }
