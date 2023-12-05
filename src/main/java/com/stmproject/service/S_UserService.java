@@ -3,13 +3,17 @@ package com.stmproject.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import com.stmproject.model.SearchPageDao;
+import com.stmproject.model.SearchResultlist;
 
 @Service
 public interface S_UserService {
 
-	public List<SearchPageDao> getAllValues();
+	public List<SearchResultlist> getAllValues();
 
-	public List<SearchPageDao> getValuesBySetValue(SearchPageDao dao);
-
+	public List<SearchResultlist> getValuesBySetValue(SearchResultlist dao);
+	
+	public boolean generatePDFFile(String pdfFileName);
+	
+	public boolean generateDocFile(String docFileName);
+	
 }
