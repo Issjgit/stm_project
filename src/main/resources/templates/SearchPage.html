@@ -14,15 +14,18 @@
 </head>
 
 <body style="background-color: #C2D6A1;" th:onload="onLoadcall([[${STM}]])">
+	<input type="hidden" id="ssoid" name-="ssoid" th:value="${ssoid}" />
+	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
+
 	<div class="row justify-content-center">
 		<div class="card" align="center">
-			<form method="post" class="form-horizontal" action="/searchClick">
+			<form method="post" class="form-horizontal" th:action="@{/searchClick(ssoid = ${ssoid})}" >
 				<h1>STM:silicone test method</h1>
 				<div class="form-group" style="margin-top: 50px;">
 					<label for="username" class="col-sm-5 control-label">STMnumber</label>
 					<div class="col-sm-2">
 						<input style="border: 3px solid black;" type="text" class="form-control invalid-feedback"
-							name="sTM_No" maxlength="11" required>
+							name="stmNo" maxlength="11" required>
 					</div>
 				</div>
 				<div class="form-group">
@@ -37,7 +40,7 @@
 					<label class="col-sm-5 control-label">Link
 						destination(STM_parent number) </label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="Link destination" name="link_destination"
+						<input type="text" class="form-control" id="Link destination" name="linkDestination"
 							style="border: 3px solid black;" maxlength="11">
 					</div>
 				</div>
@@ -45,7 +48,7 @@
 					<label for="password" class="col-sm-5 control-label">Text
 						(short) Japanese</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="Japanese" name="text_short_jpn"
+						<input type="text" class="form-control" id="Japanese" name="textShortJP"
 							style="border: 3px solid black;" maxlength="255">
 					</div>
 				</div>
@@ -53,7 +56,7 @@
 					<label for="confirm-password" class="col-sm-5 control-label">Text
 						(short) English</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="English" name="text_short_eng"
+						<input type="text" class="form-control" id="English" name="textShortEN"
 							style="border: 3px solid black;" maxlength="255">
 					</div>
 				</div>
@@ -70,15 +73,15 @@
 						<label for="last updated(Drafting date)" class="col-sm-2 col-form-label">last updated(Drafting
 							date)</label>
 						<input type="text" class="dobField timePeriodFrom1 datepicker-input" placeholder="yyyy/mm/dd"
-							name="Draftingdate" maxlength="8" /> ~
+							name="" maxlength="8" /> ~
 						<input type="text" class="dobField timePeriodTo1 datepicker-input" placeholder="yyyy/mm/dd"
-							name="Draftingdatetime" maxlength="8" />
+							name="" maxlength="8" />
 					</p>
 				</div>
 				<div class="form-group">
 					<label for="confirm-password" class="col-sm-5 control-label">oldSTMnumber</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="oldSTMnumber" name="old_stm_number"
+						<input type="text" class="form-control" id="oldSTMnumber" name="oldSTMNumber"
 							style="border: 3px solid black;" maxlength="11">
 					</div>
 				</div>
@@ -97,8 +100,8 @@
 			</form>
 			<tr>
 				<td>
-					<button type="submit" class="btn btn-primary btn-lg button3"
-						th:onclick="|window.location.href='@{/returntoDashboard}'|">Menu</button>
+					<button type="button" class="btn btn-primary btn-lg button3"
+						th:onclick="|window.location.href='@{/admindash}'|">Menu</button>
 				</td>
 			</tr>
 			<div class="table-responsive" style="margin-left: 10px; margin-top: 60px;">
@@ -108,37 +111,33 @@
 						<tr>
 							<th>No</th>
 							<th>STM_No</th>
-							<th>STM_Vesion</th>
+							<th>STM_Version</th>
 							<th>Link_Destination</th>
 							<th>Text_Short_JP</th>
 							<th>Text_Short_EN</th>
 							<th>Pdf_File</th>
 							<th>Word_file</th>
-							<!--							<th>Drafting_Date</th>
--->
+							<th>Drafting_Date</th>
 							<th>Final_Drafter_Name</th>
 							<th>Old_STM_Number</th>
-							<th>Remarks1</th>
+							<th>Note1</th>
 							<th>Note2</th>
 							<th>Note3</th>
-							<!--							<th>User Modify</th>
---> <!--<th>Action</th>-->
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="n:${list}" onclick="">
 							<th th:text="${n.getNo()}"></th>
-							<th th:text="${n.getsTM_No()}"></th>
-							<th th:text="${n.getStm_version()}"></th>
-							<th th:text="${n.getLink_destination()}"></th>
-							<th th:text="${n.getText_short_jpn()}"></th>
-							<th th:text="${n.getText_short_eng()}"></th>
-							<th th:text="${n.getPdf_file()}"></th>
-							<th th:text="${n.getWord_file()}"></th>
-							<!--							<th th:text="${n.getDrafting_date()}"></th>
--->
-							<th th:text="${n.getFinal_drafter_Name()}"></th>
-							<th th:text="${n.getOld_stm_number()}"></th>
+							<th th:text="${n.getStmNo()}"></th>
+							<th th:text="${n.getStmVersion()}"></th>
+							<th th:text="${n.getLinkDestination()}"></th>
+							<th th:text="${n.getTextShortJP()}"></th>
+							<th th:text="${n.getTextShortEN()}"></th>
+							<th th:text="${n.getPdfFile()}"></th>
+							<th th:text="${n.getWordFile()}"></th>
+							<th th:text="${n.getDraftingDate()}"></th>
+							<th th:text="${n.getFinalDrafterName()}"></th>
+							<th th:text="${n.getOldSTMNumber()}"></th>
 							<th th:text="${n.getRemarks1()}"></th>
 							<th th:text="${n.getNote2()}"></th>
 							<th th:text="${n.getNote3()}"></th>
