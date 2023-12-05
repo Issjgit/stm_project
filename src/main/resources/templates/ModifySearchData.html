@@ -1,6 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <script type="text/javascript"></script>
+<script>
+	function downloadPDF() {
+		var pdf = document.getElementById("attachedPdf").value;
+		console.log("File name " + pdf)
+		fetch('/STM_File/' + pdf, {
+			method: 'GET',
+		})
+			.then(response => response.blob())
+			.then(blob => {
+				var link = document.createElement('a');
+
+				var blobUrl = window.URL.createObjectURL(blob);
+
+				link.href = blobUrl;
+				link.download = 'downloaded_file.pdf';
+				document.body.appendChild(link);
+				link.click();
+
+				document.body.removeChild(link);
+				window.URL.revokeObjectURL(blobUrl);
+			})
+			.catch(error => console.error('Error downloading file:', error));
+
+		var formData = {
+			pdfFile: pdf
+		}
+		console.log("Start")
+		$.ajax(
+			{
+				type: 'POST',
+				contentType: 'application/json; charset=utf-8',
+				url: 'http://localhost:8080/PDFBtnClick',
+				data: JSON.stringify(formData),
+				datatype: 'json',
+				success: function () {
+					window.location = '/stmNo';
+				}
+			}
+		);
+	}
+</script>
 <style>
 	body {
 		font-family: Arial, sans-serif;
@@ -126,9 +167,16 @@
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="js/search.js"></script>
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+		integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+	<!--<script src="html2pdf.bundle.min.js"></script>-->
+
 </head>
 
 <body style="background-color: #C2D6A1;" th:onload="onLoadcall([[${STM}]])">
+	<input type="hidden" id="ssoid" name-="ssoid" th:value="${ssoid}" />
+	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
 	<h1>STM:Silicone Test Method</h1>
 	<!-- <div id="pdfError" class="error-message"></div>
     <div id="wordError" class="error-message"></div> -->
@@ -159,37 +207,37 @@
 
 		<div class="label-container">
 			<label for="linkDestination">Link Destination(STM_parent
-				number)</label> 
-				<input type="text" id="linkDestination" disabled="disabled" th:value="${linkdest}">
+				number)</label>
+			<input type="text" id="linkDestination" disabled="disabled" th:value="${linkdest}">
 		</div>
 
 		<div class="label-container">
 			<label for="textJapanese">Text (Short) Japanese</label>
-			 <input type="text" id="textJapanese"
-				disabled="disabled" th:value="${jpText}">
+			<input type="text" id="textJapanese" disabled="disabled" th:value="${jpText}">
 		</div>
 
 		<div class="label-container">
-			<label for="textEnglish">Text (Short) English</label> 
-			<input type="text" id="textEnglish"
-				disabled="disabled" th:value="${enText}">
+			<label for="textEnglish">Text (Short) English</label>
+			<input type="text" id="textEnglish" disabled="disabled" th:value="${enText}">
 		</div>
 
 		<div class="label-container">
 			<label for="attachmentPdf">Attachment (PDF)</label>
 			<div class="file-input">
-				<input type="text" id="attachedPdf" disabled="disabled" th:value="${pdf}">
+				<input type="text" id="attachedPdf" disabled="disabled" th:value="${pdf}" name="pdfFileName">
 				<label for="attachmentpdf">download</label>
-				<button  type="button" class="download-button">PdfDownload</button>
+				<button type="button" class="download-button" onclick="downloadPDF()"
+					th:value="${pdf}">PdfDownload</button>
 			</div>
 		</div>
 
 		<div class="label-container">
 			<label for="attachmentWord">Attachment (Word)</label>
 			<div class="file-input">
-				<input type="text" id="attachedWord" disabled="disabled" th:value="${word}">
+				<input type="text" id="attachedWord" disabled="disabled" th:value="${word}" name="DocFileName">
 				<label for="attachmentWord">download</label>
-				<button class="download-button" onclick="downloadFile('wordFile')">DocDownload</button>
+				<button type="submit" class="download-button" onclick="downloadDocument()"
+					th:value="${word}">DocDownload</button>
 			</div>
 		</div>
 		<!-- Modal for PDF error -->
@@ -210,43 +258,39 @@
 
 		<div class="label-container">
 			<label for="lastUpdated">Last Updated (Drafting Date)</label>
-			 <input type="text" id="lastUpdated"
-				disabled="disabled" >
+			<input type="text" id="lastUpdated" disabled="disabled">
 		</div>
 
 		<div class="label-container">
 			<label for="finalDrafter">Final Drafter (Last Name)</label>
-			 <input type="text" id="finalDrafter"
-				disabled="disabled" th:value="${lastName}">
+			<input type="text" id="finalDrafter" disabled="disabled" th:value="${lastName}">
 		</div>
 
 		<div class="label-container">
-			<label for="oldStmNumber">Old STM Number</label> 
+			<label for="oldStmNumber">Old STM Number</label>
 			<input type="text" id="oldStmNumber" disabled="disabled" th:value="${oldSTMNo}">
 		</div>
 
 		<div class="label-container">
-			<label for="remarks1">Remarks 1</label> 
+			<label for="remarks1">Remarks 1</label>
 			<input id="remarks1" type="text" disabled="disabled" th:value="${remarks}">
 		</div>
 
 		<div class="label-container">
-			<label for="note2">Note 2</label> 
+			<label for="note2">Note 2</label>
 			<input type="text" id="note2" disabled="disabled" th:value="${note2}">
 		</div>
 
 		<div class="label-container">
 			<label for="note3">Note 3</label>
-<input type="text" id="note3" disabled="disabled" th:value="${note3}">
+			<input type="text" id="note3" disabled="disabled" th:value="${note3}">
 		</div>
 
 		<div style="margin-top: 20px;">
 			<button type="submit" name="action" value="register" class="registerclose">Modify</button>
-
+			<button type="submit" name="action" value="revise" class="returnClear">Revise</button>
+			<button type="submit" name="action" value="clear" class="returnClear">Delete</button>
 			<button type="submit" name="action" value="return" class="returnClear">Return</button>
-			<button type="reset" name="action" value="clear" class="returnClear">Clear</button>
-			<button type="button" name="action" value="close" class="registerclose"
-				onclick="window.close();">Close</button>
 		</div>
 	</form>
 </body>
