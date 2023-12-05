@@ -1,11 +1,13 @@
 package com.stmproject.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class DashBoardController {
-	@GetMapping("/")
+	@GetMapping("/admindash")
 	public String showDashboard() {
 		return "AdminDashBoard";
 	}
@@ -23,24 +25,28 @@ public class DashBoardController {
 	// Redirect to SearchPage
 
 	@GetMapping("/modify")
-	public String returnToAdminDashboardModify() {
+	public String returnToAdminDashboardModify(Model model,@RequestParam("ssoid") String ssoid) {
+		model.addAttribute("ssoid", ssoid);
 		return "SearchPage";
 	}
 
 	// Redirect to SearchPage
 	@GetMapping("/revise")
-	public String returnToAdminDashboardRevise() {
+	public String returnToAdminDashboardRevise(Model model,@RequestParam("ssoid") String ssoid) {
+		model.addAttribute("ssoid", ssoid);
 		return "SearchPage";
 	}
 
 	// Redirect to SearchPage
 	@GetMapping("/delete")
-	public String returnToAdminDashboardDelete() {
+	public String returnToAdminDashboardDelete(Model model,@RequestParam("ssoid") String ssoid) {
+		model.addAttribute("ssoid", ssoid);
 		return "SearchPage";
 	}
 
 	@GetMapping("/view")
-	public String returnToView() {
+	public String returnToView(Model model,@RequestParam("ssoid") String ssoid) {
+		model.addAttribute("ssoid", ssoid);
 		return "UserView";
 	}
 

@@ -27,11 +27,19 @@ public class ReviseController {
 	
 	@Autowired
 	private ReviseService reviseService;
+	
+//	@Autowired
+//	private M_UserService userService;
 
 	@GetMapping("/revise/{id}")
-	public String reviewSTM(@PathVariable String id, Model model) {
+	public String reviewSTM(@PathVariable String id, Model model,
+		    @RequestParam(value = "ssoid",required = false) String ssoid) {
+		// M_User user = userService.findBySsoid(ssoid);
+		System.out.println(ssoid);
 	    STM stm = reviseService.getSTMById(id);
-	    model.addAttribute("stm", stm);
+	    model.addAttribute("stm", stm);	   
+	    model.addAttribute("ssoid", ssoid);
+	    //System.out.println(stm.getCreatorSSOID());
 	    return "ReviseScreen";
 	}
 	
@@ -64,7 +72,7 @@ public class ReviseController {
 	        model.addAttribute("errorMessage", "Failed to Revised STM. Please try again.");
 	        e.printStackTrace(); 
 	    }
-
+	   
 	    return "ReviseScreen";
 	}
 

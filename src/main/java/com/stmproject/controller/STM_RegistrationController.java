@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import com.stmproject.service.STM_RegistrationService;
 @Controller
 public class STM_RegistrationController {
 
+	private static final Logger logger = LoggerFactory.getLogger(STM_RegistrationController.class);
 	@Autowired
 	private STM_RegistrationService stmService;
 
@@ -46,58 +49,66 @@ public class STM_RegistrationController {
 	STM_RegistrationRepository stm_RegistrationRepository;
 
 	// Registration operation
-	@PostMapping("/register")
-	public String registerSTM(@ModelAttribute("STM") STM_Model stmModel, Model model,
-			@RequestParam("ssoid") String ssoid,
-			@RequestParam(value = "pdfFile", required = false) MultipartFile pdfFile,
-			@RequestParam(value = "wordFile", required = false) MultipartFile wordFile) {
-		try {
-			messageForRegister = "0";
-			// Check if the STM number already exists
-			if (stmService.isSTMNumberExists(stmModel.getStmNo()) != null) {
-				// If the STM number already exists, return an error message
-				messageForRegister = "2";
-				return "redirect:/register?ssoid=" + ssoid;
-			}
+	 @PostMapping("/register")
+	 public String registerSTM(@ModelAttribute("STM") STM_Model stmModel, Model model,
+	            @RequestParam("ssoid") String ssoid,
+	            @RequestParam(value = "pdfFile", required = false) MultipartFile pdfFile,
+	            @RequestParam(value = "wordFile", required = false) MultipartFile wordFile) {
+	        try {
+	            messageForRegister = "0";
+	            // Check if the STM number already exists
+	            if (stmService.isSTMNumberExists(stmModel.getStmNo()) != null) {
+	                // If the STM number already exists, log an info message and return an error message
+	                logger.info("Registration failed. STM number {} already exists.", stmModel.getStmNo());
+	                messageForRegister = "2";
+	                return "redirect:/register?ssoid=" + ssoid;
+	            }
 
-			// Save the uploaded files
-			String pdfFileName = null;
-			String wordFileName = null;
-			if (pdfFile != null)
-				pdfFileName = saveFile(pdfFile, "pdf");
-			if (wordFile != null)
-				wordFileName = saveFile(wordFile, "doc");
-			// If the STM number doesn't exist, proceed with registration
-			STM stm = new STM();
-			stm.setNo(getNextCustomFieldValue());
-			stm.setStmNo(stmModel.getStmNo());
-			stm.setStmVersion("00");
-			stm.setLinkDestination(stmModel.getLinkDestination());
-			stm.setTextShortJP(stmModel.getTextShortJP());
-			stm.setTextShortEN(stmModel.getTextShortEN());
-			stm.setPdfFile(pdfFileName);
-			stm.setWordFile(wordFileName);
-			stm.setDraftingDate(stmModel.getDraftingDate());
-			stm.setFinalDrafterName(stmModel.getFinalDrafterName());
-			stm.setOldSTMNumber(stmModel.getOldSTMNumber());
-			stm.setRemarks1(stmModel.getRemarks1());
-			stm.setNote2(stmModel.getNote2());
-			stm.setNote3(stmModel.getNote3());
-			stm.setCreatorSSOID(ssoid);
-			stm.setCreatedDate(new Date());
-			stm.setLastUpdated(new Date());
-			stm.setIsDeleted(false);
+	            // Save the uploaded files
+	            String pdfFileName = null;
+	            String wordFileName = null;
+	            if (pdfFile != null)
+	                pdfFileName = saveFile(pdfFile, "pdf");
+	            if (wordFile != null)
+	                wordFileName = saveFile(wordFile, "doc");
 
-			stmService.saveSTM(stm);
-			messageForRegister = "1";
-			return "redirect:/register?ssoid=" + ssoid;
-		} catch (Exception e) {
-			e.printStackTrace();
-			messageForRegister = "2";
-			return "redirect:/register?ssoid=" + ssoid;
-		}
-	}
+	            // If the STM number doesn't exist, proceed with registration
+	            STM stm = new STM();
+	            stm.setNo(getNextCustomFieldValue());
+	            stm.setStmNo(stmModel.getStmNo());
+	            stm.setStmVersion("00");
+	            stm.setLinkDestination(stmModel.getLinkDestination());
+	            stm.setTextShortJP(stmModel.getTextShortJP());
+	            stm.setTextShortEN(stmModel.getTextShortEN());
+	            stm.setPdfFile(pdfFileName);
+	            stm.setWordFile(wordFileName);
+	            stm.setDraftingDate(stmModel.getDraftingDate());
+	            stm.setFinalDrafterName(stmModel.getFinalDrafterName());
+	            stm.setOldSTMNumber(stmModel.getOldSTMNumber());
+	            stm.setRemarks1(stmModel.getRemarks1());
+	            stm.setNote2(stmModel.getNote2());
+	            stm.setNote3(stmModel.getNote3());
+	            stm.setCreatorSSOID(ssoid);
+	            stm.setCreatedDate(new Date());
+	            stm.setLastUpdated(new Date());
+	            stm.setIsDeleted(false);
 
+	            stmService.saveSTM(stm);
+	            messageForRegister = "1";
+
+	            // Log successful registration
+	            logger.info("STM registration successful. STM number: {}", stmModel.getStmNo());
+
+	            return "redirect:/register?ssoid=" + ssoid;
+	        } catch (Exception e) {
+	            // Log the error
+	            logger.error("Error occurred during STM registration.", e);
+
+	            messageForRegister = "2";
+	            return "redirect:/register?ssoid=" + ssoid;
+	        }
+	    }
+	
 	private Integer getNextCustomFieldValue() {
 		Integer maxCustomFieldValue = stm_RegistrationRepository.findMaxCustomFieldValue().orElse(0);
 		return maxCustomFieldValue + 1;
