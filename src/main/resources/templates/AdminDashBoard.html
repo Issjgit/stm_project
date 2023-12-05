@@ -8,13 +8,13 @@
 <h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
          <h1>STM:Silicone Test Method</h1>
     <div class="dashboard">
-        <a href="#" class="dashboard-button" th:href="@{/register(ssoid = ${ssoid})}" style="margin-top:30px;">New Registration</a>
-        <a href="#" class="dashboard-button" th:href="@{/search}" style="margin-top:30px;">Search</a>
+        <a href="#" class="dashboard-button" th:href="@{/register(ssoid = ${ssoid})}" style="margin-top:30px;"><span>&#9733;</span>New Registration</a>
+        <a href="#" class="dashboard-button" th:href="@{/search(ssoid = ${ssoid})}" style="margin-top:30px;"><span>&#9733;</span>Search</a>
     </div>
         <div class="dash">                 
-        <a href="#" class="dashboard-button" th:href="@{/modify}" style="margin-top:30px;">Modify</a>
-        <a href="#" class="dashboard-button" th:href="@{/revise}" style="margin-top:30px;">Revise</a>
-        <a href="#" class="dashboard-button" th:href="@{/delete}" style="margin-top:30px;">Delete</a>
+        <a href="#" class="dashboard-button" th:href="@{/modify(ssoid = ${ssoid})}" style="margin-top:30px;">Modify</a>
+        <a href="#" class="dashboard-button" th:href="@{/revise(ssoid = ${ssoid})}" style="margin-top:30px;">Revise</a>
+        <a href="#" class="dashboard-button" th:href="@{/delete(ssoid = ${ssoid})}" style="margin-top:30px;">Delete</a>
         </div>
         <h2 style="margin-right:850px; font-size:20px;">Explanation link file 1: Format.doc</h2>
         <h2 style="margin-right:850px; font-size:20px;">Explanation link file 2: Guidelines</h2>

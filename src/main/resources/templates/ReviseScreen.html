@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>View Details</title>
+    <title>ReVies Details</title>
     <link rel="stylesheet" type="text/css" href="CSS/styles.css">
     <style>
 body {
@@ -21,8 +21,8 @@ form {
 	margin: 0 auto;
 	padding: 20px;
 	background-color: #cbe3b5;
-	border: 1px solid #ddd;
-	border-radius: 5px;
+	/* border: 1px solid #ddd; 
+	border-radius: 5px;*/
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -89,7 +89,7 @@ button:hover {
 	color: black;
 }
 
-.registerclose {
+ .registerclose {
 	width: 20%;
 	background-color: #000066;
 	color: #fff;
@@ -105,7 +105,7 @@ button:hover {
 	text-align: center;
 	border: 3px solid rgb(64, 0, 0);
 	border-radius: 10px;
-}
+} 
 
 .label-container {
 	display: flex;
@@ -117,9 +117,21 @@ button:hover {
 	text-align: left;
 	margin: 10px 20px;
 }
+
+#adminMessage {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #062d73;
+    font-size: 18px;
+    font-weight: bold;
+}
 </style>
 </head>
-<body>   
+<body> 
+
+<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
+<h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>  
     <h1>STM: Silicone Test Method</h1>
     <p id="message" th:text="${message}"></p>
     <p id="message" th:text="${error}"></p>    
@@ -224,8 +236,18 @@ button:hover {
             <input type="text" id="note3" th:field="*{note3}" th:value="${note3}" />
         </div>
         <div style="margin-top: 20px;">
-            <button type="submit" name="action" class="registerclose">Revise</button>
-            <button type="button" name="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage}'|">Return</button>
+            <button type="button" name="revise" class="registerclose" onclick="openModal('reviseConfirmation')">Revise</button>
+            <button type="button" name="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage}'|">Return</button>            
+        </div>
+        
+        <!-- Modal for Revise confirmation -->
+        <div id="reviseConfirmation" class="modal">
+         <div class="modal-content">
+         <span class="close-modal" onclick="closeModal('reviseConfirmation')">&times;</span>
+         <p>Is it okay to revise it?</p>
+         <button onclick="confirmRevise()">yes(Y)</button>
+         <button type="button" onclick="closeModal('reviseConfirmation')">no(N)</button>
+         </div>
         </div>
     </form>
     
@@ -294,6 +316,12 @@ button:hover {
 				textInput.value = '';
 				closeModal(errorElementId);
 			}
+		}
+		
+		function confirmRevise() {
+		    console.log("Confirming revise...");
+		    closeModal('reviseConfirmation');		    
+		    document.getElementById('reviseForm').submit();
 		}
 	</script>
 </body>

@@ -175,7 +175,7 @@
 </head>
 
 <body style="background-color: #C2D6A1;" th:onload="onLoadcall([[${STM}]])">
-	<input type="hidden" id="ssoid" name-="ssoid" th:value="${ssoid}" />
+	<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
 	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
 	<h1>STM:Silicone Test Method</h1>
 	<!-- <div id="pdfError" class="error-message"></div>
@@ -286,13 +286,32 @@
 			<input type="text" id="note3" disabled="disabled" th:value="${note3}">
 		</div>
 
+		<!-- ADDED[S] AMULYA To Link the Particular Page-->
+
 		<div style="margin-top: 20px;">
-			<button type="submit" name="action" value="register" class="registerclose">Modify</button>
-			<button type="submit" name="action" value="revise" class="returnClear">Revise</button>
-			<button type="submit" name="action" value="clear" class="returnClear">Delete</button>
-			<button type="submit" name="action" value="return" class="returnClear">Return</button>
+			<button type="button" name="action" value="register" class="registerclose" onclick="openModifyPage()">Modify</button>			
+			<button type="button" name="action" value="revise" class="registerclose" onclick="openRevisePage()">Revise</button>
+            <button type="button" name="action" value="delete" class="registerclose" onclick="openDeletePage()">Delete</button>
+            <button type="button" name="action" value="return" class="returnClear">Return</button>  
 		</div>
+		
 	</form>
+	    
+ <script type="text/javascript">
+    var stmNumber = document.getElementById('stmNumber').value;
+    function openRevisePage() {
+        window.location.href = '/revise/' + stmNumber;
+    }
+    
+    function openModifyPage() {
+        window.location.href = '/modify/' + stmNumber;
+    }
+    
+    function openDeletePage() {
+        window.location.href = '/delete/' + stmNumber;
+    }
+</script>
+<!-- ADDED[E] AMULYA -->
 </body>
 
 </html>

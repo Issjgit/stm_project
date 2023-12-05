@@ -14,13 +14,19 @@
 </head>
 
 <body style="background-color: #C2D6A1;" th:onload="onLoadcall([[${STM}]])">
-	<input type="hidden" id="ssoid" name-="ssoid" th:value="${ssoid}" />
-	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
+	<!-- ADDED[S] AMULYA To Display the ssoid-->
+    <input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
+	<h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
+	<!-- ADDED[E] AMULYA To To Display the ssoid-->
 
 	<div class="row justify-content-center">
 		<div class="card" align="center">
 			<form method="post" class="form-horizontal" th:action="@{/searchClick(ssoid = ${ssoid})}" >
 				<h1>STM:silicone test method</h1>
+				<!-- ADDED[S] AMULYA To Add Success and Failer Message-->
+				<p id="message" th:text="${message}"></p>
+                <p id="message" th:text="${error}"></p>
+                <!-- ADDED[E] AMULYA To Add Success and Failer Message-->
 				<div class="form-group" style="margin-top: 50px;">
 					<label for="username" class="col-sm-5 control-label">STMnumber</label>
 					<div class="col-sm-2">
@@ -146,6 +152,7 @@
 				</table>
 				<div style="margin-right: 70%;">
 					<form action="/viewClick" method="post">
+					<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
 						<button style="color: white; background-color:darkblue" class="btn btn-lg btn-primary button1"
 							type="submit">View</button>
 					</form>
