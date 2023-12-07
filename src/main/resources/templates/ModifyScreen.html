@@ -141,7 +141,7 @@ button:hover {
 </style>
 </head>
 <body id="dashboardBody">
-<input type="hidden" id="ssoid" name-="ssoid" th:value="${ssoid}" />
+<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
 <h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
 
 
@@ -243,10 +243,48 @@ button:hover {
             <input type="text" id="note3" th:field="${stm.note3}" disabled="disabled"/>
         </div>
         <div style="margin-top: 20px;">
-            <button type="submit" name="action" value="modify" class="registerclose">Modify</button>
+            <button type="button" name="action" value="modify" class="registerclose" onclick="openModal('deleteConfirmation')">Modify</button>
             <button type="button" name="action" value="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage}'|">Return</button>
         </div>
+        <!-- Modal for Modify confirmation -->
+        <div id="deleteConfirmation" class="modal">
+         <div class="modal-content">
+         <span class="close-modal" onclick="closeModal('deleteConfirmation')">&times;</span>
+         <p>Is it okay if I correct it?</p>
+         <button onclick="confirmDelete()">yes(Y)</button>
+         <button type="button" onclick="closeModal('deleteConfirmation')">no(N)</button>
+         </div>
+        </div>
+        
     </form>
 
+<script>
+       function openModal(message) {
+			const modal = document.getElementById('modal');
+			const modalMessage = document.getElementById('modalMessage');
+			modalMessage.textContent = message;
+			modal.style.display = 'block';
+		}
+
+		function closeModal() {
+			const modal = document.getElementById('modal');
+			modal.style.display = 'none';
+		}
+
+		function openModal(modalId) {
+			const modal = document.getElementById(modalId);
+			modal.style.display = 'flex';
+		}
+
+		function closeModal(modalId) {
+			const modal = document.getElementById(modalId);
+			modal.style.display = 'none';
+		}
+		function confirmDelete() {
+		    console.log("Confirming Delete...");
+		    closeModal('deleteConfirmation');		    
+		    document.getElementById('deleteForm').submit();
+		}
+</script>
 </body>
 </html>

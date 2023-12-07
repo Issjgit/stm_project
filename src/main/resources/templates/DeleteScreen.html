@@ -180,37 +180,15 @@ button:hover {
         </div>
 
         <div class="label-container">
-            <label for="attachmentPdf">Attachment (PDF)</label>
-           <!--  <div class="file-input"> -->
-                <input type="text" id="attachedPdf" th:field="${stm.pdfFile}" disabled="disabled"/>
-                <!-- <input type="file" id="attachmentPdf" name="pdfFile" onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" /> -->
-            <!-- </div> -->
+            <label for="attachmentPdf">Attachment (PDF)</label>          
+                <input type="text" id="attachedPdf" th:field="${stm.pdfFile}" disabled="disabled"/>               
         </div>
 
         <div class="label-container">
             <label for="attachmentWord">Attachment (Word)</label>
-             <!--  <div class="file-input"> -->
                 <input type="text" id="attachedWord" th:field="${stm.wordFile}" disabled="disabled" />
-                <!-- <input type="file" id="attachmentWord" name="wordFile" onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" /> -->
-            <!-- </div> -->
         </div>
-
-        <!-- Modal for PDF error -->
-<!--         <div id="pdfError" class="modal">
-            <div class="modal-content">
-                <span class="close-modal" onclick="closeModal('pdfError')">&times;</span>
-                <p>Invalid file format. Please select a PDF file.</p>
-            </div>
-        </div>
-
-        Modal for Word error
-        <div id="wordError" class="modal">
-            <div class="modal-content">
-                <span class="close-modal" onclick="closeModal('wordError')">&times;</span>
-                <p>Invalid file format. Please select a Word file (doc or docx).</p>
-            </div>
-        </div> -->
-
+       
         <div class="label-container">
             <label for="lastUpdated">Last Updated (Drafting Date)</label>
             <input type="text" id="lastUpdated" disabled="disabled"  th:value="${#dates.format(stm.draftingDate, 'yyyy/MM/dd')}" th:field = "${stm.draftingDate}"/>
@@ -241,9 +219,49 @@ button:hover {
             <input type="text" id="note3" th:field="${stm.note3}" disabled="disabled"/>
         </div>
         <div style="margin-top: 20px;">
-            <button type="submit" name="action" value="modify" class="registerclose" >Delete</button>
+            <button type="button" name="action" value="modify" class="registerclose" onclick="openModal('modifyConfirmation')">Delete</button>
             <button type="button" name="action" value="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage}'|">Return</button>
         </div>
+        
+    <!-- Modal for Modify confirmation -->
+        <div id="modifyConfirmation" class="modal">
+         <div class="modal-content">
+         <span class="close-modal" onclick="closeModal('modifyConfirmation')">&times;</span>
+         <p>Are you sure you want to delete it?</p>
+         <button onclick="confirmModify()">yes(Y)</button>
+         <button type="button" onclick="closeModal('modifyConfirmation')">no(N)</button>
+         </div>
+        </div>
+        
     </form>
+
+<script>
+       function openModal(message) {
+			const modal = document.getElementById('modal');
+			const modalMessage = document.getElementById('modalMessage');
+			modalMessage.textContent = message;
+			modal.style.display = 'block';
+		}
+
+		function closeModal() {
+			const modal = document.getElementById('modal');
+			modal.style.display = 'none';
+		}
+
+		function openModal(modalId) {
+			const modal = document.getElementById(modalId);
+			modal.style.display = 'flex';
+		}
+
+		function closeModal(modalId) {
+			const modal = document.getElementById(modalId);
+			modal.style.display = 'none';
+		}
+		function confirmModify() {
+		    console.log("Confirming revise...");
+		    closeModal('modifyConfirmation');		    
+		    document.getElementById('deleteForm').submit();
+		}
+</script>
 </body>
 </html>
