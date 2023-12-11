@@ -1,47 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <script type="text/javascript"></script>
-<script>
-	function downloadPDF() {
-		var pdf = document.getElementById("attachedPdf").value;
-		console.log("File name " + pdf)
-		fetch('/STM_File/' + pdf, {
-			method: 'GET',
-		})
-			.then(response => response.blob())
-			.then(blob => {
-				var link = document.createElement('a');
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 
-				var blobUrl = window.URL.createObjectURL(blob);
 
-				link.href = blobUrl;
-				link.download = 'downloaded_file.pdf';
-				document.body.appendChild(link);
-				link.click();
-
-				document.body.removeChild(link);
-				window.URL.revokeObjectURL(blobUrl);
-			})
-			.catch(error => console.error('Error downloading file:', error));
-
-		var formData = {
-			pdfFile: pdf
-		}
-		console.log("Start")
-		$.ajax(
-			{
-				type: 'POST',
-				contentType: 'application/json; charset=utf-8',
-				url: 'http://localhost:8080/PDFBtnClick',
-				data: JSON.stringify(formData),
-				datatype: 'json',
-				success: function () {
-					window.location = '/stmNo';
-				}
-			}
-		);
-	}
-</script>
 <style>
 	body {
 		font-family: Arial, sans-serif;
@@ -116,14 +78,14 @@
 		color: red;
 	}
 
-	/* #adminMessage {
+	#adminMessage {
             position: absolute;
             top: 10px;
             right: 10px;
             color: #062d73;
             font-size: 18px;
             font-weight: bold;
-        } */
+        }
 
 	.close {
 		color: #aaa;
@@ -167,20 +129,12 @@
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="js/search.js"></script>
-	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-		integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
-	<!--<script src="html2pdf.bundle.min.js"></script>-->
-
 </head>
 
 <body style="background-color: #C2D6A1;" th:onload="onLoadcall([[${STM}]])">
 	<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
-	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
+	<h5 id=adminMessage th:text="'' + ${loginUser}" style="color: #062d73;"></h5>
 	<h1>STM:Silicone Test Method</h1>
-	<!-- <div id="pdfError" class="error-message"></div>
-    <div id="wordError" class="error-message"></div> -->
-
 	<p id="message" th:text="${message}"></p>
 	<p id="message" th:text="${error}"></p>
 	<div id="modal" class="modal">
@@ -190,7 +144,7 @@
 		</div>
 	</div>
 
-	<form method="get" enctype="multipart/form-data">
+	<form method="get" class="form-horizontal" th:action="@{/Modify(ssoid = ${ssoid})}">
 		<div class="label-container">
 			<label for="stmNumber">STM Number<br>(Quality inspection
 				method_master <br>quality inspection characteristics)
@@ -222,21 +176,24 @@
 		</div>
 
 		<div class="label-container">
-			<label for="attachmentPdf">Attachment (PDF)</label>
+			<label for="pdfFileName">Attachment (PDF)</label>
 			<div class="file-input">
-				<input type="text" id="attachedPdf" disabled="disabled" th:value="${pdf}" name="pdfFileName">
-				<label for="attachmentpdf">download</label>
-				<button type="button" class="download-button" onclick="downloadPDF()"
+				<input type="text" id="pdfFileName" disabled="disabled" th:value="${pdf}" name="pdfFileName">
+				<input type="hidden" id="pdfFileNameHid" th:value="${pdf}" name="pdfFileName">
+
+				<label for="pdfFileName">download</label>
+				<button type="button" class="download-button" onclick="downloadPDF()" id="pdfFileName"
 					th:value="${pdf}">PdfDownload</button>
 			</div>
 		</div>
 
 		<div class="label-container">
-			<label for="attachmentWord">Attachment (Word)</label>
+			<label for="docFileName">Attachment (Word)</label>
 			<div class="file-input">
-				<input type="text" id="attachedWord" disabled="disabled" th:value="${word}" name="DocFileName">
-				<label for="attachmentWord">download</label>
-				<button type="submit" class="download-button" onclick="downloadDocument()"
+				<input type="text" id="docFileName" disabled="disabled" th:value="${word}" name="docFileName">
+				<input type="hidden" id="docFileNameHid" th:value="${word}" name="docFileName">
+				<label for="docFileName">download</label>
+				<button type="button" class="download-button" onclick="downloadDocument()" id="docFileName"
 					th:value="${word}">DocDownload</button>
 			</div>
 		</div>
@@ -289,29 +246,32 @@
 		<!-- ADDED[S] AMULYA To Link the Particular Page-->
 
 		<div style="margin-top: 20px;">
-			<button type="button" name="action" value="register" class="registerclose" onclick="openModifyPage()">Modify</button>			
-			<button type="button" name="action" value="revise" class="registerclose" onclick="openRevisePage()">Revise</button>
-            <button type="button" name="action" value="delete" class="registerclose" onclick="openDeletePage()">Delete</button>
-            <button type="button" name="action" value="return" class="returnClear">Return</button>  
+			<button type="button" name="action" value="register" class="registerclose"
+				onclick="openModifyPage()">Modify</button>
+			<button type="button" name="action" value="revise" class="registerclose"
+				onclick="openRevisePage()">Revise</button>
+			<button type="button" name="action" value="delete" class="registerclose"
+				onclick="openDeletePage()">Delete</button>
+			<button type="button" name="action" value="return" class="returnClear">Return</button>
 		</div>
-		
+
 	</form>
-	    
- <script type="text/javascript">
-    var stmNumber = document.getElementById('stmNumber').value;
-    function openRevisePage() {
-        window.location.href = '/revise/' + stmNumber;
-    }
-    
-    function openModifyPage() {
-        window.location.href = '/modify/' + stmNumber;
-    }
-    
-    function openDeletePage() {
-        window.location.href = '/delete/' + stmNumber;
-    }
-</script>
-<!-- ADDED[E] AMULYA -->
+
+	<script type="text/javascript">
+		var stmNumber = document.getElementById('stmNumber').value;
+		function openRevisePage() {
+			window.location.href = '/revise/' + stmNumber;
+		}
+
+		function openModifyPage() {
+			window.location.href = '/modify/' + stmNumber;
+		}
+
+		function openDeletePage() {
+			window.location.href = '/delete/' + stmNumber;
+		}
+	</script>
+	<!-- ADDED[E] AMULYA -->
 </body>
 
 </html>
