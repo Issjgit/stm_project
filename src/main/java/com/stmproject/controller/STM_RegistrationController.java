@@ -129,7 +129,9 @@ public class STM_RegistrationController {
 	}
 
 	@GetMapping("/returnAdminDashboard")
-	public String returnToAdminDashBoard() {
+	public String returnToAdminDashBoard(Model model,
+            @RequestParam("ssoid") String ssoid) {
+		model.addAttribute("ssoid", ssoid);
 		return "AdminDashBoard";
 	}
 

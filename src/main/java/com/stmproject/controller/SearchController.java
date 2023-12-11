@@ -60,7 +60,7 @@ public class SearchController {
 		model.addAttribute("ssoid", ssoid);
 		session.setAttribute("username", ssoid);
 		
-		model.addAttribute("loginUser", session.getAttribute("username"));
+		model.addAttribute("ssoid", session.getAttribute("username"));
 		// logger.error("An ERROR Message");
 		return "SearchPage";
 	}
@@ -99,7 +99,7 @@ public class SearchController {
 		model.addAttribute("STM", "2");
 		model.addAttribute("ssoid", ssoid);
 		session.setAttribute("ListData", searchList);
-		model.addAttribute("loginUser", session.getAttribute("username"));
+		model.addAttribute("ssoid", session.getAttribute("username"));
 		return "SearchPage";
 	}
 
@@ -115,7 +115,7 @@ public class SearchController {
 				break;
 			}
 		}
-		model.addAttribute("loginUser", session.getAttribute("username"));
+		model.addAttribute("ssoid", session.getAttribute("username"));
 		model.addAttribute("STM", "2");
 		return "ModifySearchData";
 	}
@@ -137,7 +137,7 @@ public class SearchController {
 		model.addAttribute("note2", modifyUser.getNote2());
 		model.addAttribute("note3", modifyUser.getNote3());
 
-		model.addAttribute("loginUser", session.getAttribute("username"));
+		model.addAttribute("ssoid", session.getAttribute("username"));
 		return "ModifySearchData";
 	}
 

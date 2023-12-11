@@ -1,20 +1,35 @@
 package com.stmproject.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.stmproject.model.M_User;
+import com.stmproject.repository.M_UserRepository;
+
 @Controller
 public class DashBoardController {
-	@GetMapping("/admindash")
-	public String showDashboard() {
-		return "AdminDashBoard";
-	}
+	
+	@Autowired
+	private M_UserRepository userRepository;
+	
+	@GetMapping("/dashboard")
+	public String showDashboard(Model model, @RequestParam("ssoid") String ssoid) {	   
+		M_User user=userRepository.findBySsoid(ssoid);
+		Character userType=user.getUser_Type();
+	   
 
-	@GetMapping("/userDash")
-	public String showUserDashboard() {
-		return "UserDashBoard";
+	    // Redirect to the appropriate dashboard based on the condition
+		if (userType != null && userType.equals('A')) {
+			model.addAttribute("ssoid", ssoid);
+	        return "AdminDashBoard";
+	    } else {
+	    	model.addAttribute("ssoid", ssoid);
+	        return "UserDashBoard";
+	    }
+		
 	}
 
 	@GetMapping("/return")
@@ -48,6 +63,13 @@ public class DashBoardController {
 	public String returnToView(Model model,@RequestParam("ssoid") String ssoid) {
 		model.addAttribute("ssoid", ssoid);
 		return "UserView";
+	}
+	
+	@GetMapping("/searchPage")
+	public String returnToSearchPage(Model model,@RequestParam("ssoid") String ssoid) {
+		model.addAttribute("ssoid", ssoid);
+		System.out.println(ssoid);
+		return "SearchPage";
 	}
 
 }
