@@ -22,6 +22,7 @@ function onLoadcall(value) {
 		x.style.display = "none";
 		console.log(value);
 	}
+	window.onload = onLoadcall;
 };
 
 // Function to show and hide the popup 
@@ -59,58 +60,51 @@ $(function() {
 	})
 });
 
-//WordDocument Download
- function downloadDocument() {
-	 var word = document.getElementById("attachedWord").value;
-		console.log("File name "+word)
-		// Make a request to download the PDF file
-		/*fetch('/STM_File/' + word, {
-			method: 'GET',
+//PDF Download function
+function downloadPDF() {
+	var pdf = document.getElementById("pdfFileNameHid").value;
+	console.log("File name " + pdf);
+	fetch("http://localhost:8080/downloadattachmentpdf?file=" + pdf)
+		.then(response => response.blob())             
+		.then(blob => {									
+			var link = document.createElement('a');		
+														
+			var blobUrl = window.URL.createObjectURL(blob);	
+
+			link.href = blobUrl;
+			link.download = 'downloaded_file.pdf';
+			link.download = pdf;
+			document.body.appendChild(link);
+			link.click();
+
+			document.body.removeChild(link);
+			window.URL.revokeObjectURL(blobUrl);
 		})
-			.then(response => response.blob())
-			.then(blob => {
-				// Create a temporary link element
-				var link = document.createElement('a');
+		.catch(error => console.error('Error downloading file:', error));
 
-				// Create a blob URL for the PDF file content
-				var blobUrl = window.URL.createObjectURL(blob);
-
-				// Set the link's href attribute to the blob URL
-				link.href = blobUrl;
-
-				// Set the download attribute with the desired file name
-				link.download = 'Worddownloaded.docx';
-
-				// Append the link to the body
-				document.body.appendChild(link);
-
-				// Trigger a click event on the link
-				link.click();
-
-				// Remove the link from the body
-				document.body.removeChild(link);
-
-				// Release the blob URL
-				window.URL.revokeObjectURL(blobUrl);
-			})
-			.catch(error => console.error('Error downloading file:', error));
-			*/
-			var formData = {
-					DocFileName: word
-				}
-				console.log("Start")
-				$.ajax(
-					{
-						type: 'POST',
-						contentType: 'application/json; charset=utf-8',
-						url: 'http://localhost:8080/DocBtntnClick',
-						data: JSON.stringify(formData),
-						datatype: 'json',
-						success: function () {
-							window.location = '/stmNo';
-						}
-					}
-					// END
-				);
+	var formData = {
+		pdfFile: pdf
 	}
+	console.log("Start")
+}
 
+
+//Word Document Download
+ function downloadDocument() {
+	 var word = document.getElementById("docFileNameHid").value;
+     console.log("File name: " + word);
+
+   //var url = 'http://localhost:8080/generateWord.docx?word=' + encodeURIComponent(word);
+           fetch("http://localhost:8080/downloadattachmentpdf?file=" + word)
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download =word;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                })
+                .catch(error => console.error('Error:', error));
+        }
