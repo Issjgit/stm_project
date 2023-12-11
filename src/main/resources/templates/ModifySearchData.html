@@ -133,7 +133,7 @@
 
 <body style="background-color: #C2D6A1;" th:onload="onLoadcall([[${STM}]])">
 	<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
-	<h5 id=adminMessage th:text="'' + ${loginUser}" style="color: #062d73;"></h5>
+	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
 	<h1>STM:Silicone Test Method</h1>
 	<p id="message" th:text="${message}"></p>
 	<p id="message" th:text="${error}"></p>
@@ -252,7 +252,7 @@
 				onclick="openRevisePage()">Revise</button>
 			<button type="button" name="action" value="delete" class="registerclose"
 				onclick="openDeletePage()">Delete</button>
-			<button type="button" name="action" value="return" class="returnClear">Return</button>
+			<button type="button" name="action" value="return" class="returnClear" th:onclick="|window.location.href='@{/searchPage(ssoid = ${ssoid})}'|">Return</button>
 		</div>
 
 	</form>

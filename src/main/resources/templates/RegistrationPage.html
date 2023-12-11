@@ -204,7 +204,7 @@ button:hover {
 		<div style="margin-top: 20px;">
 			<button type="submit" name="action" value="register"
 				class="registerclose">Register</button>
-		<button type="button" name="action" value="return" class="returnClear" th:onclick="|window.location.href='@{/returnAdminDashboard}'|">Return</button>
+		<button type="button" name="action" value="return" class="returnClear" th:onclick="|window.location.href='@{/returnAdminDashboard(ssoid = ${ssoid})}'|">Return</button>
 			<button type="reset" name="action" value="clear" class="returnClear">Clear</button>
 			<button type="button" name="action" value="close"
 				class="registerclose" onclick="window.close();">Close</button>

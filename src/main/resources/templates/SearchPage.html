@@ -16,7 +16,7 @@
 <body style="background-color: #C2D6A1;" th:onload="onLoadcall([[${STM}]])">
 	<!-- ADDED[S] AMULYA To Display the ssoid-->
 	<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
-	<h5 id=adminMessage th:text="'' + ${loginUser}" style="color: #062d73;"></h5>
+	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
 	<!-- ADDED[E] AMULYA To To Display the ssoid-->
 
 	<div class="row justify-content-center">
@@ -100,7 +100,7 @@
 							onclick="resetcall()">reset</button>
 
 						<button type="button" class="btn btn-primary btn-lg"
-							th:onclick="|window.location.href='@{/admindash}'|">Menu</button>
+							th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button>
 					</p>
 				</div>
 			</form>
