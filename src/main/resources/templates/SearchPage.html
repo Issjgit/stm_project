@@ -11,6 +11,23 @@
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="js/search.js"></script>
+	<style>
+		input[type="text"] {
+			display: inline-block;
+			width: 30%;
+			padding: 10px;
+			margin: 5px 0;
+			/* 	border: 1px solid #ccc; */
+			border-radius: 5px;
+		}
+
+		form {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: #C2D6A1;
+		}
+	</style>
 </head>
 
 <body style="background-color: #C2D6A1;" th:onload="onLoadcall([[${STM}]])">
@@ -27,139 +44,114 @@
 				<p id="message" th:text="${message}"></p>
 				<p id="message" th:text="${error}"></p>
 				<!-- ADDED[E] AMULYA To Add Success and Failer Message-->
-				<div class="form-group">
-					<label for="username" class="col-sm-5 control-label">STMnumber</label>
-					<div class="col-sm-2">
-						<input style="border: 3px solid black;" type="text" class="form-control invalid-feedback"
-							name="stmNo" maxlength="11" required>
-					</div>
+				<div class="label-container" style="margin-top: 10%;">
+					<label for="stmNumber">STM Number
+					</label> <input type="text" style="border: 3px solid black; width: 172px;" name="stmNo"
+						maxlength="11" required>
 				</div>
-				<div class="form-group">
-					<label for="confirm-password" class="col-sm-5 control-label">Revision
-						number</label>
-					<div class="col-sm-2">
-						<input type="text" class="form-control" id="Revision number" name=""
-							style="border: 3px solid black;" maxlength="2">
-					</div>
+				<div class="label-container">
+					<label for="revisionNumber">Revision Number
+					</label> <input id="Revision number" style="border: 3px solid black; width: 172px;" maxlength="2">
 				</div>
-				<div class="form-group">
-					<label class="col-sm-5 control-label">Link
-						destination(STM_parent number) </label>
-					<div class="col-sm-2">
-						<input type="text" class="form-control" id="Link destination" name="linkDestination"
-							style="border: 3px solid black;" maxlength="11">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="password" class="col-sm-5 control-label">Text
-						(short) Japanese</label>
-					<div class="col-sm-2">
-						<input type="text" class="form-control" id="Japanese" name="textShortJP"
-							style="border: 3px solid black;" maxlength="255">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="confirm-password" class="col-sm-5 control-label">Text
-						(short) English</label>
-					<div class="col-sm-2">
-						<input type="text" class="form-control" id="English" name="textShortEN"
-							style="border: 3px solid black;" maxlength="255">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="confirm-password" class="col-sm-5 control-label">final
-						drafter(Last name)</label>
-					<div class="col-sm-2">
-						<input type="text" class="form-control" id="final drafter(Last name)" name="final_drafter_Name"
-							style="border: 3px solid black;" maxlength="255">
-					</div>
-				</div>
-				<div class="input-group has-validation">
-					<p class="text-white bg-dark">
-						<label for="last updated(Drafting date)" class="col-sm-2 col-form-label">last updated(Drafting
-							date)</label>
-						<input type="text" class="dobField timePeriodFrom1 datepicker-input" placeholder="yyyy/mm/dd"
-							name="" maxlength="8" /> ~
-						<input type="text" class="dobField timePeriodTo1 datepicker-input" placeholder="yyyy/mm/dd"
-							name="" maxlength="8" />
-					</p>
-				</div>
-				<div class="form-group">
-					<label for="confirm-password" class="col-sm-5 control-label">oldSTMnumber</label>
-					<div class="col-sm-2">
-						<input type="text" class="form-control" id="oldSTMnumber" name="oldSTMNumber"
-							style="border: 3px solid black;" maxlength="11">
-					</div>
-				</div>
-				<div>
-					<p>
-						<button class="btn btn-lg btn-primary button1" type="submit" style="background-color: darkblue;"
-							onsubmit="searchcall()">Search</button>
 
-						<button class="btn btn-primary btn-lg button2" type="reset" style="background-color: coral;"
-							onclick="resetcall()">reset</button>
-
-						<button type="button" class="btn btn-primary btn-lg"
-							th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button>
-					</p>
+				<div class="label-container">
+					<label for="linkDestination">Link Destination(STM_parent
+						number)</label> <input type="text" id="Link destination" name="linkDestination"
+						style="border: 3px solid black;" maxlength="11">
 				</div>
+
+				<div class="label-container">
+					<label for="textJapanese">Text (Short) Japanese</label> <input type="text" id="Japanese"
+						name="textShortJP" style="border: 3px solid black;" maxlength="255">
+				</div>
+
+				<div class="label-container">
+					<label for="textEnglish">Text (Short) English</label> <input type="text" id="English"
+						name="textShortEN" style="border: 3px solid black;" maxlength="255">
+				</div>
+
+				<div class="label-container">
+					<label for="finalDrafter">Final Drafter (Last Name)</label> <input type="text"
+						id="final drafter(Last name)" name="final_drafter_Name" style="border: 3px solid black;"
+						maxlength="255">
+				</div>
+
+
+				<div class="label-container">
+					<label for="last updated(Drafting date)">last updated(Drafting
+						date)</label>
+					<input type="text" style="border: 3px solid black;"
+						class="dobField timePeriodFrom1 datepicker-input" placeholder="yyyy/mm/dd" name=""
+						maxlength="8" /> ~
+					<input type="text" style="border: 3px solid black;" class="dobField timePeriodTo1 datepicker-input"
+						placeholder="yyyy/mm/dd" name="" maxlength="8" />
+				</div>
+				<div class="label-container">
+					<label for="oldStmNumber">Old STM Number</label> <input type="text" id="oldSTMnumber"
+						name="oldSTMNumber" style="border: 3px solid black;" maxlength="11">
+				</div>
+				<div style="display: flex; justify-content: space-between; margin-top: 80px;">
+					<button class="btn btn-primary button1" style="background-color: darkblue; color: white;"
+						type="submit" onsubmit="searchcall()">Search</button>
+
+					<button class="btn btn-primary button2" style="background-color: coral; color: white;" type="reset"
+						onclick="resetcall()">Reset</button>
+
+					<button class="btn btn-primary button4" style="color: white;" type="button"
+						th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button>
+				</div>
+
 			</form>
-			<!--<tr>
-				<td>
-					<button type="button" class="btn btn-primary btn-lg button3"
-						th:onclick="|window.location.href='@{/admindash}'|">Menu</button>
-				</td>
-			</tr>-->
-        </form>
-			<div class="table-responsive" style="margin-left: 10px; margin-top: 60px;">
-				<table border="3px solid black" class="table table-striped table-hover" style="width: 20%"
-					id="searchTable" title="Confidential information">
-					<thead>
-						<tr>
-							<th>No</th>
-							<th>STM_No</th>
-							<th>STM_Version</th>
-							<th>Link_Destination</th>
-							<th>Text_Short_JP</th>
-							<th>Text_Short_EN</th>
-							<th>Pdf_File</th>
-							<th>Word_file</th>
-							<th>Drafting_Date</th>
-							<th>Final_Drafter_Name</th>
-							<th>Old_STM_Number</th>
-							<th>Note1</th>
-							<th>Note2</th>
-							<th>Note3</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="n:${list}" onclick="">
-							<th th:text="${n.getNo()}"></th>
-							<th th:text="${n.getStmNo()}"></th>
-							<th th:text="${n.getStmVersion()}"></th>
-							<th th:text="${n.getLinkDestination()}"></th>
-							<th th:text="${n.getTextShortJP()}"></th>
-							<th th:text="${n.getTextShortEN()}"></th>
-							<th th:text="${n.getPdfFile()}"></th>
-							<th th:text="${n.getWordFile()}"></th>
-							<th th:text="${n.getDraftingDate()}"></th>
-							<th th:text="${n.getFinalDrafterName()}"></th>
-							<th th:text="${n.getOldSTMNumber()}"></th>
-							<th th:text="${n.getRemarks1()}"></th>
-							<th th:text="${n.getNote2()}"></th>
-							<th th:text="${n.getNote3()}"></th>
-						</tr>
-					<tbody>
-				</table>
-				<div style="margin-right: 70%;">
-					<form action="/viewClick" method="post">
-						<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
-						<button style="color: white; background-color:darkblue" class="btn btn-lg btn-primary button1"
-							type="submit">View</button>
-					</form>
-				</div>
-			</div>
 		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped table-hover" id="searchTable" title="Confidential information">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>STM_No</th>
+					<th>STM_Version</th>
+					<th>Link_Destination</th>
+					<th>Text_Short_JP</th>
+					<th>Text_Short_EN</th>
+					<th>Pdf_File</th>
+					<th>Word_file</th>
+					<th>Drafting_Date</th>
+					<th>Final_Drafter_Name</th>
+					<th>Old_STM_Number</th>
+					<th>Note1</th>
+					<th>Note2</th>
+					<th style="width: 20;">Note3</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="n:${list}" onclick="">
+					<th th:text="${n.getNo()}"></th>
+					<th th:text="${n.getStmNo()}"></th>
+					<th th:text="${n.getStmVersion()}"></th>
+					<th th:text="${n.getLinkDestination()}"></th>
+					<th th:text="${n.getTextShortJP()}"></th>
+					<th th:text="${n.getTextShortEN()}"></th>
+					<th th:text="${n.getPdfFile()}"></th>
+					<th th:text="${n.getWordFile()}"></th>
+					<th th:text="${n.getDraftingDate()}"></th>
+					<th th:text="${n.getFinalDrafterName()}"></th>
+					<th th:text="${n.getOldSTMNumber()}"></th>
+					<th th:text="${n.getRemarks1()}"></th>
+					<th th:text="${n.getNote2()}"></th>
+					<th th:text="${n.getNote3()}"></th>
+				</tr>
+			<tbody>
+		</table>
+		<div style="margin-right: 70%;">
+			<form action="/viewClick" method="post">
+				<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
+				<button class="btn btn-lg btn-primary button3" style="color: white; background-color:darkblue"
+					type="submit">View</button>
+			</form>
+		</div>
+	</div>
+	</div>
 	</div>
 </body>
 
