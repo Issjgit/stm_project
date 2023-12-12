@@ -11,9 +11,4 @@ public interface S_UserService {
 	public List<SearchResultlist> getAllValues();
 
 	public List<SearchResultlist> getValuesBySetValue(SearchResultlist dao);
-	
-	public boolean generatePDFFile(String pdfFileName);
-	
-	public boolean generateDocFile(String docFileName);
-	
 }
