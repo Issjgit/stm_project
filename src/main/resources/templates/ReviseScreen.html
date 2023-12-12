@@ -131,7 +131,7 @@ button:hover {
 <body> 
 
 <input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
-<!-- <h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5> -->  
+<h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5> 
     <h1>STM: Silicone Test Method</h1>
     <p id="message" th:text="${message}"></p>
     <p id="message" th:text="${error}"></p>    
@@ -237,7 +237,7 @@ button:hover {
         </div>
         <div style="margin-top: 20px;">
             <button type="button" name="revise" class="registerclose" onclick="openModal('reviseConfirmation')">Revise</button>
-            <button type="button" name="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage}'|">Return</button>            
+            <button type="button" name="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage(ssoid = ${ssoid})}'|">Return</button>            
         </div>
         
         <!-- Modal for Revise confirmation -->

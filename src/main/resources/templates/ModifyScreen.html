@@ -142,7 +142,7 @@ button:hover {
 </head>
 <body id="dashboardBody">
 <input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
-<!-- <h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5> -->
+<h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
 
 
  <h1>STM: Silicone Test Method</h1>
@@ -244,7 +244,7 @@ button:hover {
         </div>
         <div style="margin-top: 20px;">
             <button type="button" name="action" value="modify" class="registerclose" onclick="openModal('deleteConfirmation')">Modify</button>
-            <button type="button" name="action" value="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage}'|">Return</button>
+            <button type="button" name="action" value="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage(ssoid = ${ssoid})}'|">Return</button>
         </div>
         <!-- Modal for Modify confirmation -->
         <div id="deleteConfirmation" class="modal">
