@@ -59,7 +59,7 @@ public class SearchController {
 		model.addAttribute("STM", "1");
 		model.addAttribute("ssoid", ssoid);
 		session.setAttribute("username", ssoid);
-		
+
 		model.addAttribute("ssoid", session.getAttribute("username"));
 		// logger.error("An ERROR Message");
 		return "SearchPage";
@@ -81,12 +81,13 @@ public class SearchController {
 	public String searchBtnClick(Model model, @ModelAttribute SearchResultlist sDao,
 			@RequestParam("ssoid") String ssoid) throws SQLException, ClassNotFoundException, StreamReadException,
 			DatabindException, JsonProcessingException, IOException {
+
+		// boolean showTableHeader = true;
 		List<SearchResultlist> searchList = sUserService.getValuesBySetValue(sDao);
 		model.addAttribute("list", searchList);
 		model.addAttribute("STM", "2");
 		model.addAttribute("ssoid", ssoid);
 		session.setAttribute("ListData", searchList);
-
 		return "SearchPage";
 	}
 
@@ -143,10 +144,8 @@ public class SearchController {
 
 	@GetMapping("/downloadattachmentpdf")
 	public ResponseEntity<byte[]> downloadFile(@RequestParam("file") String fileName, Model model) throws IOException {
-		// Specify the local file path
-		String filePath = "C:/STM_File/STM_File/" + fileName;
 
-		// Read the file content
+		String filePath = "C:/STM_File/STM_File/" + fileName;
 		Path path = Paths.get(filePath);
 		byte[] fileContent = Files.readAllBytes(path);
 
@@ -155,8 +154,6 @@ public class SearchController {
 		headers.setContentType(MediaType.APPLICATION_PDF);
 		headers.setContentDispositionFormData("attachment", fileName);
 
-		// Log a success message
-		// logger.info("Pdf download successful: {}", fileName);
 		model.addAttribute("message", "Document Downloaded successfully!");
 
 		// Return a ResponseEntity with the file content and headers
@@ -177,16 +174,14 @@ public class SearchController {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 
-			// String filePath = "C:/STM_File/STM_File/generated_word.docx";
-
-			// Concatenate the base path with the file name
 			String basePath = "C:/STM_File/STM_File/";
 			String filePath = basePath + fileName;
 
+			String message = "Document Downloaded successfully!";
 			headers.setContentDispositionFormData("attachment", filePath);
 
 			// logger.info("Word download successful: {}", fileName);
-			model.addAttribute("message", "Document Downloaded successfully!");
+			model.addAttribute("message", message);
 			return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
 		} catch (IOException e) {
 			// Handle exceptions appropriately
@@ -197,13 +192,4 @@ public class SearchController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-//	@GetMapping("/menu")
-//    public String Menu(HttpSession session, Model model,@RequestParam("ssoid") String ssoid) {
-//        // Retrieve the username from the session
-//session.setAttribute("username", ssoid);
-//		
-//		model.addAttribute("loginUser", session.getAttribute("username"));
-//
-//		 return "redirect:/UserDashBoard";
-//    }
 }
