@@ -19,6 +19,8 @@ import com.stmproject.model.STM;
 
 import com.stmproject.service.ModifyService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class ModifyController {
 
@@ -27,9 +29,10 @@ public class ModifyController {
 	private ModifyService modifyService;
 
 	@GetMapping("modify/{stmNo}")
-	public String ModifyPage(@PathVariable String stmNo, Model model) {
+	public String ModifyPage(@PathVariable String stmNo, Model model,HttpSession session) {
 		STM stm = modifyService.getSTMByStmNoQuery(stmNo);
 		model.addAttribute("stm", stm);
+		model.addAttribute("ssoid", session.getAttribute("username"));
 		return "ModifyScreen";
 	}
 
@@ -67,7 +70,8 @@ public class ModifyController {
     }
 		
 	@GetMapping("/returnSearchPage")
-	public String returnToSearchPage() {
+	public String returnToSearchPage(@RequestParam("ssoid") String ssoid,Model model) {
+		model.addAttribute("ssoid", ssoid);
 		return "SearchPage";
 	}
 	

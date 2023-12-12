@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.stmproject.model.STM;
 import com.stmproject.service.ReviseService;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,13 +34,14 @@ public class ReviseController {
 //	private M_UserService userService;
 
 	@GetMapping("/revise/{id}")
-	public String reviewSTM(@PathVariable String id, Model model,
+	public String reviewSTM(@PathVariable String id, Model model,HttpSession session,
 		    @RequestParam(value = "ssoid",required = false) String ssoid) {
 		// M_User user = userService.findBySsoid(ssoid);
 		System.out.println(ssoid);
 	    STM stm = reviseService.getSTMById(id);
 	    model.addAttribute("stm", stm);	   
 	    model.addAttribute("ssoid", ssoid);
+	    model.addAttribute("ssoid", session.getAttribute("username"));
 	    //System.out.println(stm.getCreatorSSOID());
 	    return "ReviseScreen";
 	}

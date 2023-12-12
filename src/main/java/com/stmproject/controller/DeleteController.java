@@ -14,6 +14,8 @@ import com.stmproject.model.STM;
 import com.stmproject.service.DeleteService;
 import com.stmproject.service.ReviseService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class DeleteController {
 
@@ -25,9 +27,10 @@ public class DeleteController {
 	private ReviseService reviseService;
 	
 	@GetMapping("/delete/{id}")
-	public String reviewSTM(@PathVariable String id, Model model) {
+	public String reviewSTM(@PathVariable String id, Model model,HttpSession session) {
 	    STM stm = reviseService.getSTMById(id);
 	    model.addAttribute("stm", stm);
+	    model.addAttribute("ssoid", session.getAttribute("username"));
 	    return "DeleteScreen";
 	}
 	
