@@ -2,18 +2,18 @@ package com.stmproject.model;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "STM")
@@ -22,10 +22,11 @@ public class STM {
 	public STM() {
 		super();
 	}
+
 	@Column(name = "No", unique = true)
 	private int no;
 
-	@Column(name = "STM_No", length = 15,nullable = false)
+	@Column(name = "STM_No", length = 15, nullable = false)
 	@Id
 	private String stmNo;
 
@@ -67,14 +68,14 @@ public class STM {
 	@Column(name = "Note3", length = 200)
 	private String note3;
 
-	@Column(name = "Creator_SSO_ID", length = 11,nullable = false)
+	@Column(name = "Creator_SSO_ID", length = 11, nullable = false)
 	private String creatorSSOID;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "Creator_SSO_ID", referencedColumnName = "SSO_ID", updatable = false, insertable = false)
 	private M_User creator;
 
-	@Column(name = "Created_date" ,nullable = false)
+	@Column(name = "Created_date", nullable = false)
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date createdDate;
