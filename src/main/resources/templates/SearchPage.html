@@ -41,8 +41,14 @@
 			<form method="post" class="form-horizontal" th:action="@{/searchClick(ssoid = ${ssoid})}">
 				<h1>STM:silicone test method</h1>
 				<!-- ADDED[S] AMULYA To Add Success and Failer Message-->
-				<p id="message" th:text="${message}"></p>
-				<p id="message" th:text="${error}"></p>
+				<!-- <p id="message" th:text="${message}"></p>
+				<p id="message" th:text="${error}"></p> -->
+				<div id="successMessageDiv" th:if="${message}">
+    <p style="color: green;" th:text="${message}"></p>
+</div>
+<div id="errorMessageDiv" th:if="${error}">
+    <p style="color: red;" th:text="${error}"></p>
+</div>
 				<!-- ADDED[E] AMULYA To Add Success and Failer Message-->
 				<div class="label-container" style="margin-top: 10%;">
 					<label for="stmNumber">STM Number
@@ -100,7 +106,6 @@
 					<button class="btn btn-primary button4" style="color: white;" type="button"
 						th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button>
 				</div>
-
 			</form>
 		</div>
 	</div>
@@ -153,6 +158,33 @@
 	</div>
 	</div>
 	</div>
+	
+	<!-- Amulya[s] added For Timer purpose -->
+	<script type="text/javascript">
+	      //Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
+		  var messageDuration = 5000;
+
+		  // Function to hide the success message after a certain duration
+		  function hideSuccessMessage() {
+		    var successMessageDiv = document.getElementById('successMessageDiv');
+		    if (successMessageDiv) {
+		      successMessageDiv.style.display = 'none';
+		    }
+		  }
+
+		  // Function to hide the error message after a certain duration
+		  function hideErrorMessage() {
+		    var errorMessageDiv = document.getElementById('errorMessageDiv');
+		    if (errorMessageDiv) {
+		      errorMessageDiv.style.display = 'none';
+		    }
+		  }
+
+		  // Set timeouts to hide messages after the specified duration
+		  setTimeout(hideSuccessMessage, messageDuration);
+		  setTimeout(hideErrorMessage, messageDuration);
+		  </script>
+		  <!-- Amulya[E] added For Timer purpose -->
 </body>
 
 </html>

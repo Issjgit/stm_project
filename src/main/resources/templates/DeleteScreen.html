@@ -153,7 +153,7 @@ button:hover {
         </div>
     </div>
 
-    <form th:action="@{/delete}" th:object= "${stm}" method="post" enctype="multipart/form-data" id="deleteForm">
+    <form th:action="@{/delete(ssoid = ${ssoid})}" th:object= "${stm}" method="post" enctype="multipart/form-data" id="deleteForm">
         <div class="label-container">
             <label for="stmNumber">STM Number<br>(Quality inspection method_master <br>quality inspection characteristics)</label>
             <input type="text" id="stmNumber" name="stmNo" th:field="${stm.stmNo}" readonly style="height: 15px;"  />

@@ -135,10 +135,10 @@ button:hover {
     <h1>STM: Silicone Test Method</h1>
     <p id="message" th:text="${message}"></p>
     <p id="message" th:text="${error}"></p>    
-    <div th:if="${successMessage}">
+    <div id="successMessageDiv" th:if="${successMessage}">
     <p style="color: green;" th:text="${successMessage}"></p>
 </div>
-<div th:if="${errorMessage}">
+<div id="errorMessageDiv" th:if="${errorMessage}">
     <p style="color: red;" th:text="${errorMessage}"></p>
 </div>
     <div id="modal" class="modal">
@@ -148,7 +148,7 @@ button:hover {
         </div>
     </div>
 
-    <form th:action="@{/revise}" th:object="${stm}" enctype="multipart/form-data" method="post">            
+    <form th:action="@{/revise(ssoid = ${ssoid})}" th:object="${stm}" enctype="multipart/form-data" method="post">            
         <div class="label-container">
             <label for="stmNumber">STM Number<br>(Quality inspection method_master <br>quality inspection characteristics)</label>
             <input type="text" id="stmNumber" name="" th:field="*{stmNo}" th:value="${stmNo}" style="height: 15px;" readonly="readonly"/>
@@ -323,6 +323,30 @@ button:hover {
 		    closeModal('reviseConfirmation');		    
 		    document.getElementById('reviseForm').submit();
 		}
+		
+		
+		// Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
+		  var messageDuration = 5000;
+
+		  // Function to hide the success message after a certain duration
+		  function hideSuccessMessage() {
+		    var successMessageDiv = document.getElementById('successMessageDiv');
+		    if (successMessageDiv) {
+		      successMessageDiv.style.display = 'none';
+		    }
+		  }
+
+		  // Function to hide the error message after a certain duration
+		  function hideErrorMessage() {
+		    var errorMessageDiv = document.getElementById('errorMessageDiv');
+		    if (errorMessageDiv) {
+		      errorMessageDiv.style.display = 'none';
+		    }
+		  }
+
+		  // Set timeouts to hide messages after the specified duration
+		  setTimeout(hideSuccessMessage, messageDuration);
+		  setTimeout(hideErrorMessage, messageDuration);
 	</script>
 </body>
 </html>
