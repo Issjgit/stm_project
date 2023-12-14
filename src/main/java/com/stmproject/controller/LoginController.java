@@ -29,7 +29,7 @@ public class LoginController {
         if (user != null && password.equals(user.getPassword())) {
             if (user.getUser_Type().equals('A')) { // "A" represents admin
                 logger.info("Admin login successful: {}", ssoid);
-                return "redirect:/AdminDashboard?ssoid=" + ssoid;
+                return "redirect:/AdminDashBoard?ssoid=" + ssoid;
             } else if (user.getUser_Type().equals('N')) { // "N" represents normal user
                 logger.info("User login successful: {}", ssoid);
                 return "redirect:/UserDashBoard?ssoid=" + ssoid;
@@ -45,7 +45,7 @@ public class LoginController {
 	@GetMapping("/AdminDashboard")
 	public String adminDashboard(@RequestParam("ssoid") String ssoid, Model model) {
 		model.addAttribute("ssoid", ssoid);
-		return "AdminDashboard";
+		return "AdminDashBoard";
 	}
 
 	@GetMapping("/UserDashBoard")

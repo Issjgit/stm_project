@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -21,24 +23,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.stmproject.model.STM;
 import com.stmproject.model.SearchResultlist;
 import com.stmproject.service.S_UserService;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class SearchController {
@@ -79,8 +74,8 @@ public class SearchController {
 	// After Clicking Search button from Search Page
 	@PostMapping("/searchClick")
 	public String searchBtnClick(Model model, @ModelAttribute SearchResultlist sDao,
-			@RequestParam("ssoid") String ssoid) throws SQLException, ClassNotFoundException, StreamReadException,
-			DatabindException, JsonProcessingException, IOException {
+			@RequestParam("ssoid") String ssoid)
+			throws SQLException, ClassNotFoundException, StreamReadException, JsonProcessingException, IOException {
 
 		// boolean showTableHeader = true;
 		List<SearchResultlist> searchList = sUserService.getValuesBySetValue(sDao);
