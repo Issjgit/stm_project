@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +23,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.stmproject.model.STM;
 import com.stmproject.repository.S_UserRepository;
 import com.stmproject.service.S_UserService;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 
 @Service
 public class S_UserServiceImpl implements S_UserService {

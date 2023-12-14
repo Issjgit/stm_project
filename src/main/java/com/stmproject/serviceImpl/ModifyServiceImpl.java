@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +19,6 @@ import com.stmproject.repository.ModifyRepository;
 import com.stmproject.repository.STM_HistoryRepository;
 import com.stmproject.service.ModifyService;
 
-import jakarta.transaction.Transactional;
 @Service
 public class ModifyServiceImpl implements ModifyService {
 	@Autowired
