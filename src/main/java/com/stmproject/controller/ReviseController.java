@@ -48,7 +48,8 @@ public class ReviseController {
 	@PostMapping("/revise")
 	public String updateSTM(@ModelAttribute STM updatedSTM, BindingResult result, Model model,
 			@RequestParam(value = "pdfFile", required = false) MultipartFile pdfFile,
-			@RequestParam(value = "wordFile", required = false) MultipartFile wordFile) throws IOException {
+			@RequestParam(value = "wordFile", required = false) MultipartFile wordFile,
+			@RequestParam(value = "ssoid", required = false) String ssoid) throws IOException {
 
 		logger.info("Updating STM: {}", updatedSTM);
 		System.out.println(updatedSTM);
@@ -70,7 +71,7 @@ public class ReviseController {
 			model.addAttribute("errorMessage", "Failed to Revised STM. Please try again.");
 			e.printStackTrace();
 		}
-
+		model.addAttribute("ssoid", ssoid);
 		return "ReviseScreen";
 	}
 

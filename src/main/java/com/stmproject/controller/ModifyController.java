@@ -41,7 +41,8 @@ public class ModifyController {
 	@PostMapping("/modify")
     public String modifySTM(@ModelAttribute("stm") STM modifySTM, BindingResult result, Model model,
             @RequestParam(value = "pdfFile", required = false) MultipartFile pdfFile,
-            @RequestParam(value = "wordFile", required = false) MultipartFile wordFile) throws IOException {
+            @RequestParam(value = "wordFile", required = false) MultipartFile wordFile,
+            @RequestParam(value = "ssoid", required = false) String ssoid) throws IOException {
         System.out.println(modifySTM);
         System.out.println(modifySTM.getStmNo());
 
@@ -66,7 +67,7 @@ public class ModifyController {
             logger.error("Error occurred during STM modification.", e);
             e.printStackTrace();
         }
-
+        model.addAttribute("ssoid", ssoid);
         return "ModifyScreen";
     }
 		

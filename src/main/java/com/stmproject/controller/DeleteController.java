@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.stmproject.model.STM;
 import com.stmproject.service.DeleteService;
 import com.stmproject.service.ReviseService;
@@ -35,7 +37,7 @@ public class DeleteController {
 	}
 
 	@PostMapping("/delete")
-	public String deleteStm(@ModelAttribute("stm") STM stm, BindingResult result, Model model) {
+	public String deleteStm(@ModelAttribute("stm") STM stm, BindingResult result, Model model,@RequestParam(value = "ssoid", required = false) String ssoid) {
 		try {
 			boolean isDeleted = deleteService.isDeleteStm(stm.getStmNo());
 			System.out.println(stm.getStmNo());
@@ -45,8 +47,9 @@ public class DeleteController {
 
 				// Log successful deletion
 				logger.info("STM deletion successful. STM number: {}", stm.getStmNo());
+				model.addAttribute("ssoid", ssoid);
 				return "SearchPage";
-
+				
 			} else {
 				model.addAttribute("error", "STM not found. Deletion failed.");
 
@@ -62,8 +65,7 @@ public class DeleteController {
 			logger.error("Error occurred during STM deletion.", e);
 			e.printStackTrace();
 
-		}
-
+		}		
 		return "SearchPage";
 	}
 
