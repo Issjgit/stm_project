@@ -42,7 +42,7 @@ public class LoginController {
         return "LoginScreen";
     }
 
-	@GetMapping("/AdminDashboard")
+	@GetMapping("/AdminDashBoard")
 	public String adminDashboard(@RequestParam("ssoid") String ssoid, Model model) {
 		model.addAttribute("ssoid", ssoid);
 		return "AdminDashBoard";
