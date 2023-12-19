@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -64,13 +65,14 @@ public class ReviseServiceImpl implements ReviseService {
             existingSTM.setTextShortJP(updatedSTM.getTextShortJP());
             existingSTM.setPdfFile(pdfFileName);
             existingSTM.setWordFile(wordFileName);
-            existingSTM.setLastUpdated(updatedSTM.getLastUpdated());
+            existingSTM.setDraftingDate(updatedSTM.getDraftingDate());
             existingSTM.setFinalDrafterName(updatedSTM.getFinalDrafterName());
             existingSTM.setOldSTMNumber(updatedSTM.getOldSTMNumber());
             existingSTM.setRemarks1(updatedSTM.getRemarks1());
             existingSTM.setNote2(updatedSTM.getNote2());
             existingSTM.setNote3(updatedSTM.getNote3());
-            existingSTM.setStmVersion("0"+newRevisionString);                      
+            existingSTM.setStmVersion("0"+newRevisionString);
+            existingSTM.setLastUpdated(new Date());
             // Save the updated entity            
             reviceRepository.save(existingSTM);
             
@@ -91,7 +93,8 @@ public class ReviseServiceImpl implements ReviseService {
         stmHistory.setTextShortJP(existingSTM.getTextShortJP());
         stmHistory.setPdfFile(existingSTM.getPdfFile());
         stmHistory.setWordFile(existingSTM.getWordFile());
-        stmHistory.setLastUpdated(existingSTM.getLastUpdated());
+        stmHistory.setLastUpdated(new Date());
+        stmHistory.setDraftingDate(existingSTM.getDraftingDate());
         stmHistory.setFinalDrafterName(existingSTM.getFinalDrafterName());
         stmHistory.setOldSTMNumber(existingSTM.getOldSTMNumber());
         stmHistory.setRemarks1(existingSTM.getRemarks1());
