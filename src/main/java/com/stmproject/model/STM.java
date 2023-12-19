@@ -36,7 +36,7 @@ public class STM {
 	@Column(name = "Link_Destination", length = 15)
 	private String linkDestination;
 
-	@Column(name = "Text_Short_JP", length = 200)
+	@Column(name = "Text_Short_JP" ,columnDefinition = "NVARCHAR(200)")
 	private String textShortJP;
 
 	@Column(name = "Text_Short_EN", length = 200)
