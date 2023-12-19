@@ -1,3 +1,4 @@
+
 function openModal(message) {
 			const modal = document.getElementById('modal');
 			const modalMessage = document.getElementById('modalMessage');
@@ -63,28 +64,11 @@ function openModal(message) {
 				closeModal(errorElementId);
 			}
 		}
-
-		function updateDisabledField(input) {
-			const disabledField = document.getElementById('disabledField');
-
-			if (input.value.trim() !== '') {
-				disabledField.value = '00';
-			} else {
-				disabledField.value = '';
-			}
-		}
-
-		function updateFields() {
-			const stmNumber = document.getElementById('stmNumber').value;
-			const disabledField = document.getElementById('disabledField');
-			
-			//const linkDestination = document.getElementById('linkDestination');
-
-			// Assuming you want to concatenate stmNumber and disabledField values            
-			const concatenatedValue = stmNumber + disabledField.value;
-
-			// Update linkDestination field value
-			//linkDestination.value = concatenatedValue;
+		
+		function confirmRevise() {
+		    console.log("Confirming revise...");
+		    closeModal('reviseConfirmation');		    
+		    document.getElementById('reviseForm').submit();
 		}
 		
 		
@@ -109,7 +93,7 @@ function openModal(message) {
 		      successMessageDiv.style.display = 'none';
 		    }
 		  }
-
+		  
 		  // Function to hide the error message after a certain duration
 		  function hideErrorMessage() {
 		    var errorMessageDiv = document.getElementById('errorMessageDiv');
