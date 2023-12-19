@@ -192,16 +192,16 @@ button:hover {
         <div class="label-container">
             <label for="attachmentPdf">Attachment (PDF)</label>
             <div class="file-input">
-                <input type="text" id="attachedPdf" th:field="${stm.pdfFile}" disabled="disabled"/>
-                <input type="file" id="attachmentPdf" name="pdfFile" onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" />
+                <input type="text" id="attachedPdf" th:field="${stm.pdfFile}" disabled="disabled" maxlength="25"/>
+                <input type="file" id="attachmentPdf" name="pdfFile" onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" maxlength="25" />
             </div>
         </div>
 
         <div class="label-container">
             <label for="attachmentWord">Attachment (Word)</label>
             <div class="file-input">
-                <input type="text" id="attachedWord" th:field="${stm.wordFile}" disabled="disabled" />
-                <input type="file" id="attachmentWord" name="wordFile" onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" />
+                <input type="text" id="attachedWord" th:field="${stm.wordFile}" disabled="disabled" maxlength="25"/>
+                <input type="file" id="attachmentWord" name="wordFile" onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" maxlength="25"/>
             </div>
         </div>
 
@@ -223,12 +223,12 @@ button:hover {
 
         <div class="label-container">
             <label for="lastUpdated">Last Updated (Drafting Date)</label>
-            <input type="text" id="lastUpdated"   th:value="${#dates.format(stm.draftingDate, 'yyyy/MM/dd')}" th:field = "${stm.draftingDate}"/>
+            <input type="text" id="lastUpdated"   th:value="${#dates.format(stm.draftingDate, 'yyyy/MM/dd')}" th:field = "${stm.draftingDate}" maxlength="10" onblur="validateDateFormat(this)" required="required"/>
         </div>
 
         <div class="label-container">
             <label for="finalDrafter">Final Drafter (Last Name)</label>
-            <input type="text" id="finalDrafter" th:field="${stm.finalDrafterName}" />
+            <input type="text" id="finalDrafter" th:field="${stm.finalDrafterName}" maxlength="50" required="required" pattern="^[a-zA-Z\s]+$" title="Alphabet and Space only allowed"/>
         </div>
 
         <div class="label-container">
@@ -294,6 +294,17 @@ button:hover {
 		    document.getElementById('deleteForm').submit();
 		}
 		
+		
+		function validateDateFormat(inputField) {
+	        var enteredDate = inputField.value;
+	        var dateFormat = /^(\d{4})\/(\d{2})\/(\d{2})$/;
+
+	        if (!dateFormat.test(enteredDate)) {
+	            alert("Invalid date format. Please enter the date in yyyy/MM/dd format.");
+	            // Clear the input field or perform any other actions as needed
+	            inputField.value = "";
+	        }
+	    }
 		// Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
 		  var messageDuration = 5000;
 
