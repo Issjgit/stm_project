@@ -11,6 +11,7 @@ public interface ModifyService {
 
     void modifySTM(STM modifySTM, MultipartFile pdfFile, MultipartFile wordFile) throws IOException;
 
-    String saveFile(MultipartFile file, String extension) throws IOException;	
+    //String saveFile(MultipartFile file, String extension) throws IOException;
+    String saveFile(MultipartFile file, String stmNo, String revisionNo, String extension) throws IOException;
 }
     
