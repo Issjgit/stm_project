@@ -68,9 +68,9 @@ public class STM_RegistrationController {
 	            String pdfFileName = null;
 	            String wordFileName = null;
 	            if (pdfFile != null)
-	                pdfFileName = saveFile(pdfFile, "pdf");
+	                pdfFileName = saveFile(pdfFile,stmModel.getStmNo(),"00", "pdf");
 	            if (wordFile != null)
-	                wordFileName = saveFile(wordFile, "doc");
+	                wordFileName = saveFile(wordFile,stmModel.getStmNo(),"00", "doc");
 
 	            // If the STM number doesn't exist, proceed with registration
 	            STM stm = new STM();
@@ -114,20 +114,42 @@ public class STM_RegistrationController {
 		return maxCustomFieldValue + 1;
 	}
 
-	private String saveFile(MultipartFile file, String extension) throws IOException {
-		if (file != null && !file.isEmpty()) {
-			String originalFileName = file.getOriginalFilename();
-			Path uploadPath = Paths.get("/STM_File", UPLOAD_DIR);
-			Path filePath = uploadPath.resolve(originalFileName);
-			Files.createDirectories(uploadPath);
-			System.out.println("filePath " + filePath);
-			// Save the file to the specified directory
-			Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-			return originalFileName;
-		}
-		return null;
-	}
+//	private String saveFile(MultipartFile file, String extension) throws IOException {
+//		if (file != null && !file.isEmpty()) {
+//			String originalFileName = file.getOriginalFilename();
+//			Path uploadPath = Paths.get("/STM_File", UPLOAD_DIR);
+//			Path filePath = uploadPath.resolve(originalFileName);
+//			Files.createDirectories(uploadPath);
+//			System.out.println("filePath " + filePath);
+//			// Save the file to the specified directory
+//			Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+//			return originalFileName;
+//		}
+//		return null;
+//	}
 
+
+	   public String saveFile(MultipartFile file, String stmNo, String revisionNo, String extension) throws IOException {
+	       if (file != null && !file.isEmpty()) {
+	           //String originalFileName = file.getOriginalFilename();
+
+	           // Generate a new unique file name using STMNo, RevisionNo
+	           String newFileName = "STM" + stmNo+revisionNo+ "." + extension;
+
+	           Path uploadPath = Paths.get("/STM_File", UPLOAD_DIR);
+	           Path filePath = uploadPath.resolve(newFileName);
+
+	           // Create directories if they don't exist
+	           Files.createDirectories(uploadPath);
+	           // Save the file to the specified directory with the new file name
+	           Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+	           // Return the new file name to be stored in your model
+	           return newFileName;
+	       }
+	       return null;
+	   }
+	
 	@GetMapping("/returnAdminDashboard")
 	public String returnToAdminDashBoard(Model model,
             @RequestParam("ssoid") String ssoid) {
