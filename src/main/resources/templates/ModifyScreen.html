@@ -294,7 +294,61 @@ button:hover {
 		    document.getElementById('deleteForm').submit();
 		}
 		
-		
+		var stmNo = document.getElementById('stmNumber').value;
+	    var stmVersion = document.getElementById('revisionNumber').value;
+
+	         
+	       function updatePdfFileName(textInputId, fileInputId, errorElementId) {
+	        const textInput = document.getElementById(textInputId);
+	        const fileInput = document.getElementById(fileInputId);
+	        //const errorElement = document.getElementById(errorElementId);
+
+	        if (fileInput.files.length > 0) {
+	            const fileName = fileInput.files[0].name;
+	            const fileExtension = fileName.split('.').pop().toLowerCase();
+
+	            if (fileExtension !== 'pdf') {
+	                textInput.value = '';
+	                openModal(errorElementId);
+	            } else {
+	                // Construct the new file name (STMStmNoRevisionNo.extension)
+	                const newFileName = "STM" + stmNo + stmVersion + "." + fileExtension;
+	                
+	                // Update the value of the text input
+	                textInput.value = newFileName;
+	                closeModal(errorElementId);
+	            }
+	        } else {
+	            textInput.value = '';
+	            closeModal(errorElementId);
+	        }
+	    }
+	function updateWordFileName(textInputId, fileInputId, errorElementId) {
+	    const textInput = document.getElementById(textInputId);
+	    const fileInput = document.getElementById(fileInputId);
+	    //const errorElement = document.getElementById(errorElementId);
+
+	    if (fileInput.files.length > 0) {
+	        const fileName = fileInput.files[0].name;
+	        const fileExtension = fileName.split('.').pop().toLowerCase();
+
+	        if (fileExtension !== 'doc' && fileExtension !== 'docx') {
+	            textInput.value = '';
+	            openModal(errorElementId);
+	        } else {
+	            // Construct the new file name (STMStmNoRevisionNo.extension)
+	            const newFileName = "STM" + stmNo + stmVersion + "." + fileExtension;
+	            
+	            // Update the value of the text input
+	            textInput.value = newFileName;
+	            closeModal(errorElementId);
+	        }
+	    } else {
+	        textInput.value = '';
+	        closeModal(errorElementId);
+	    }
+	}
+
 		function validateDateFormat(inputField) {
 	        var enteredDate = inputField.value;
 	        var dateFormat = /^(\d{4})\/(\d{2})\/(\d{2})$/;

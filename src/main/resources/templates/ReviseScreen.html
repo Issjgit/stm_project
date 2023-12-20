@@ -153,7 +153,7 @@ button:hover {
 
         <div class="label-container">
             <label for="revisionNumber">Revision Number</label>
-            <input type="text" style="height: 15px;" th:field="*{stmVersion}" th:value="${stmVersion}" readonly="readonly" maxlength="4"/>
+            <input type="text" style="height: 15px;" id="revisionNumber"  th:field="*{stmVersion}" th:value="${stmVersion}" readonly="readonly" maxlength="4"/>
         </div>
 
         <div class="label-container">
@@ -249,7 +249,6 @@ button:hover {
          </div>
         </div>
     </form>  
-    <script th:src="@{/js/Revise.js}"></script>
-	
+    <script th:src="@{/js/Revise.js}"></script>	
 </body>
 </html>

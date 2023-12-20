@@ -118,7 +118,7 @@ button:hover {
 				style="height: 15px;" maxlength="15"
 				oninput="updateDisabledField(this),updateFields()" required pattern="[a-zA-Z0-9]*" title="Alphabet and Number characters only allowed">
 		</div>
-		<input type="text" id="disabledField" th:field="*{stmVersion}"disabled="disabled"
+		<input type="text" id="disabledField" th:field="*{stmVersion}" disabled="disabled"
 			style="height: 15px; margin-left: 280px;">
 
 		<!-- <div class="label-container"><label for="inspectionCharacteristics">Quality Inspection Characteristics</label>
@@ -215,5 +215,6 @@ button:hover {
 		</div>
 	</form>
 	 <script th:src="@{/js/register.js}"></script>
+
 </body>
 </html>
