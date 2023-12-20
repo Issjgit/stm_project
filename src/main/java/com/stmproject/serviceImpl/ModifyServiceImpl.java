@@ -62,11 +62,10 @@ public class ModifyServiceImpl implements ModifyService {
              System.out.println(newRevisionNo);
              createHistoryRecord(existingSTM);             
           // Check if a new PDF file is chosen
-             String pdfFileName = (pdfFile != null && !pdfFile.isEmpty()) ? saveFile(pdfFile, "pdf") : existingSTM.getPdfFile();
-
-             //Check if a new Word file is chosen
-             String wordFileName = (wordFile != null && !wordFile.isEmpty()) ? saveFile(wordFile, "doc") : existingSTM.getWordFile();
-
+             String pdfFileName = (pdfFile != null && !pdfFile.isEmpty()) ? saveFile(pdfFile, existingSTM.getStmNo(), newRevisionString, "pdf") : existingSTM.getPdfFile();
+             
+           //Check if a new Word file is chosen 
+             String wordFileName = (wordFile != null && !wordFile.isEmpty()) ? saveFile(wordFile, existingSTM.getStmNo(), newRevisionString, "doc") : existingSTM.getWordFile();
             
             existingSTM.setPdfFile(pdfFileName);
             existingSTM.setWordFile(wordFileName);
@@ -109,22 +108,26 @@ public class ModifyServiceImpl implements ModifyService {
 	}
     
     @Override
-    public String saveFile(MultipartFile file, String extension) throws IOException {
-	    if (file != null && !file.isEmpty()) {
-	        String originalFileName = file.getOriginalFilename();
-	        Path uploadPath = Paths.get("/STM_File", UPLOAD_DIR);
-	        Path filePath = uploadPath.resolve(originalFileName);
+    public String saveFile(MultipartFile file, String stmNo, String revisionNo, String extension) throws IOException {
+        if (file != null && !file.isEmpty()) {
+            //String originalFileName = file.getOriginalFilename();
 
-	        // Create directories if they don't exist
-	        Files.createDirectories(uploadPath);
+            // Generate a new unique file name using STMNo, RevisionNo
+            String newFileName = "STM" + stmNo +"0"+revisionNo+ "." + extension;
 
-	        // Save the file to the specified directory
-	        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+            Path uploadPath = Paths.get("/STM_File", UPLOAD_DIR);
+            Path filePath = uploadPath.resolve(newFileName);
 
-	        // Return the file name to be stored in your model
-	        return originalFileName;
-	    }
-	    return null;
-	}      
-    
-}
+            // Create directories if they don't exist
+            Files.createDirectories(uploadPath);
+            // Save the file to the specified directory with the new file name
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            // Return the new file name to be stored in your model
+            return newFileName;
+        }
+        return null;
+    }
+  
+ }
+

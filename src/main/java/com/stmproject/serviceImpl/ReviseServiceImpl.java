@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -54,11 +55,9 @@ public class ReviseServiceImpl implements ReviseService {
              System.out.println("New Revision No as String: " + newRevisionString);
              
              createHistoryRecord(existingSTM);             
-             //Check if a new PDF file is chosen
-             String pdfFileName = (pdfFile != null && !pdfFile.isEmpty()) ? saveFile(pdfFile, "pdf") : existingSTM.getPdfFile();
+             String pdfFileName = (pdfFile != null && !pdfFile.isEmpty()) ? saveFile(pdfFile, existingSTM.getStmNo(), newRevisionString, "pdf") : existingSTM.getPdfFile();
+             String wordFileName = (wordFile != null && !wordFile.isEmpty()) ? saveFile(wordFile, existingSTM.getStmNo(), newRevisionString, "doc") : existingSTM.getWordFile();
 
-             //Check if a new Word file is chosen
-             String wordFileName = (wordFile != null && !wordFile.isEmpty()) ? saveFile(wordFile, "doc") : existingSTM.getWordFile();
             //Update the existingSTM with values from updatedSTM
             existingSTM.setLinkDestination(updatedSTM.getLinkDestination());
             existingSTM.setTextShortEN(updatedSTM.getTextShortEN());
@@ -107,22 +106,28 @@ public class ReviseServiceImpl implements ReviseService {
         historyRepository.save(stmHistory);		
 	}
    
+   
    @Override
-   public String saveFile(MultipartFile file, String extension) throws IOException {
-	    if (file != null && !file.isEmpty()) {
-	        String originalFileName = file.getOriginalFilename();
-	        Path uploadPath = Paths.get("/STM_File", UPLOAD_DIR);
-	        Path filePath = uploadPath.resolve(originalFileName);
+   public String saveFile(MultipartFile file, String stmNo, String revisionNo, String extension) throws IOException {
+       if (file != null && !file.isEmpty()) {
+           //String originalFileName = file.getOriginalFilename();
 
-	        // Create directories if they don't exist
-	        Files.createDirectories(uploadPath);
-	        // Save the file to the specified directory
-	        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+           // Generate a new unique file name using STMNo, RevisionNo
+           String newFileName = "STM" + stmNo +"0"+revisionNo+ "." + extension;
 
-	        // Return the file name to be stored in your model
-	        return originalFileName;
-	    }
-	    return null;
-	}      
+           Path uploadPath = Paths.get("/STM_File", UPLOAD_DIR);
+           Path filePath = uploadPath.resolve(newFileName);
+
+           // Create directories if they don't exist
+           Files.createDirectories(uploadPath);
+           // Save the file to the specified directory with the new file name
+           Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+           // Return the new file name to be stored in your model
+           return newFileName;
+       }
+       return null;
+   }
+ 
 }
 
