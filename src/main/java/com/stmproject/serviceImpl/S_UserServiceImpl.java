@@ -15,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
+
 import com.stmproject.model.SearchResultlist;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -41,9 +43,14 @@ public class S_UserServiceImpl implements S_UserService {
 		List<STM> stms = sUserRepo.findAllValues();
 		List<SearchResultlist> daoList = new ArrayList<>();
 		int i = 1;
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy/MM/dd");
 		for (STM ent : stms) {
 			SearchResultlist sDao = new SearchResultlist();
 			sDao = modelMapper.map(ent, SearchResultlist.class);
+			if (ent.getDraftingDate() != null) {
+				String date = sd.format(ent.getDraftingDate());
+				sDao.setDraftingDate(date);
+			}
 			sDao.setRowIndex(i++);
 			daoList.add(sDao);
 		}
@@ -56,6 +63,10 @@ public class S_UserServiceImpl implements S_UserService {
 		StringBuffer sb = new StringBuffer();
 
 		sb.append(strQuery);
+		if (!ObjectUtils.isEmpty(dao.getStmVersion())) {
+			sb.append(" and STM_Version like '" + dao.getStmVersion() + "%'");
+		}
+
 		if (!ObjectUtils.isEmpty(dao.getLinkDestination())) {
 			sb.append(" and Link_Destination like '" + dao.getLinkDestination() + "%'");
 		}
@@ -72,6 +83,14 @@ public class S_UserServiceImpl implements S_UserService {
 		if (!ObjectUtils.isEmpty(dao.getOldSTMNumber())) {
 			sb.append(" and Old_STM_Number like '" + dao.getOldSTMNumber() + "%'");
 		}
+		if (!ObjectUtils.isEmpty(dao.getStartDraftDate())) {
+			sb.append(" and drafting_date > '" + dao.getStartDraftDate() + "' ");
+		}
+		if (!ObjectUtils.isEmpty(dao.getEndDraftDate())) {
+			sb.append(" and drafting_date < '" + dao.getEndDraftDate() + "' ");
+		}
+		sb.append(" and is_deleted='0' ");
+		sb.append(" ORDER BY no ");
 
 		String q = sb.toString();
 		System.out.println("Query is : " + q);
@@ -80,10 +99,15 @@ public class S_UserServiceImpl implements S_UserService {
 
 		List<STM> list = query.getResultList();
 		List<SearchResultlist> daoList = new ArrayList<>();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy/MM/dd");
 		int i = 1;
 		for (STM ent : list) {
 			SearchResultlist sDao = new SearchResultlist();
 			sDao = modelMapper.map(ent, SearchResultlist.class);
+			if (ent.getDraftingDate() != null) {
+				String date = sd.format(ent.getDraftingDate());
+				sDao.setDraftingDate(date);
+			}
 			sDao.setRowIndex(i++);
 			daoList.add(sDao);
 		}
