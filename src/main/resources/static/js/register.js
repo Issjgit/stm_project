@@ -24,8 +24,16 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 	         const textInput = document.getElementById(textInputId);
 	         const fileInput = document.getElementById(fileInputId);
 	         const stmNo = document.getElementById('stmNumber').value;
-	     	const stmVersion = document.getElementById('disabledField').value;
+	     	 const stmVersion = document.getElementById('disabledField').value;
 	         //const errorElement = document.getElementById(errorElementId);
+
+         if (!stmNo) {
+           // stmNo is null or empty, clear file name and input field
+           textInput.value = '';
+           fileInput.value = '';
+           closeModal(errorElementId);
+           return;
+           }
 
 	         if (fileInput.files.length > 0) {
 	             const fileName = fileInput.files[0].name;
@@ -33,6 +41,7 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 
 	             if (fileExtension !== 'pdf') {
 	                 textInput.value = '';
+	                 fileInput.value = '';
 	                 openModal(errorElementId);
 	             } else {
 	                 // Construct the new file name (STMStmNoRevisionNo.extension)
@@ -44,6 +53,7 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 	             }
 	         } else {
 	             textInput.value = '';
+	             fileInput.value = '';
 	             closeModal(errorElementId);
 	         }
 	     }
@@ -53,6 +63,13 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 	     const stmNo = document.getElementById('stmNumber').value;
 	 	 const stmVersion = document.getElementById('disabledField').value;
 	     //const errorElement = document.getElementById(errorElementId);
+         if (!stmNo) {
+        // stmNo is null or empty, clear file name and input field
+          textInput.value = '';
+          fileInput.value = '';
+          closeModal(errorElementId);
+          return;
+         }
 
 	     if (fileInput.files.length > 0) {
 	         const fileName = fileInput.files[0].name;
@@ -60,6 +77,7 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 
 	         if (fileExtension !== 'doc' && fileExtension !== 'docx') {
 	             textInput.value = '';
+	             fileInput.value = '';
 	             openModal(errorElementId);
 	         } else {
 	             // Construct the new file name (STMStmNoRevisionNo.extension)
@@ -71,6 +89,7 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 	         }
 	     } else {
 	         textInput.value = '';
+	         fileInput.value = '';
 	         closeModal(errorElementId);
 	     }
 	 }

@@ -36,6 +36,7 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 
 		if (fileExtension !== 'pdf') {
 			textInput.value = '';
+			fileInput.value='';
 			openModal(errorElementId);
 		} else {
 			// Construct the new file name (STMStmNoRevisionNo.extension)
@@ -47,6 +48,7 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 		}
 	} else {
 		textInput.value = '';
+		fileInput.value='';
 		closeModal(errorElementId);
 	}
 }
@@ -61,6 +63,7 @@ function updateWordFileName(textInputId, fileInputId, errorElementId) {
 
 		if (fileExtension !== 'doc' && fileExtension !== 'docx') {
 			textInput.value = '';
+			fileInput.value='';			
 			openModal(errorElementId);
 		} else {
 			// Construct the new file name (STMStmNoRevisionNo.extension)
@@ -72,6 +75,7 @@ function updateWordFileName(textInputId, fileInputId, errorElementId) {
 		}
 	} else {
 		textInput.value = '';
+		fileInput.value='';		
 		closeModal(errorElementId);
 	}
 }
