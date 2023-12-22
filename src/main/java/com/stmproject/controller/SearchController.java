@@ -10,27 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.stmproject.model.STM;
 import com.stmproject.model.SearchResultlist;
 import com.stmproject.service.S_UserService;
@@ -46,6 +45,12 @@ public class SearchController {
 	@Autowired
 	private S_UserService sUserService;
 
+	@Value("${Empty_Record_Message}")
+	private String failuereMsg;
+
+	@Value("${Record_Message}")
+	private String successMsg;
+
 	public SearchController() {
 	}
 
@@ -54,9 +59,8 @@ public class SearchController {
 		model.addAttribute("STM", "1");
 		model.addAttribute("ssoid", ssoid);
 		session.setAttribute("username", ssoid);
-
 		model.addAttribute("ssoid", session.getAttribute("username"));
-		// logger.error("An ERROR Message");
+
 		return "SearchPage";
 	}
 
@@ -74,13 +78,18 @@ public class SearchController {
 	// After Clicking Search button from Search Page
 	@PostMapping("/searchClick")
 	public String searchBtnClick(Model model, @ModelAttribute SearchResultlist sDao,
-			@RequestParam("ssoid") String ssoid)
-			throws SQLException, ClassNotFoundException, StreamReadException, JsonProcessingException, IOException {
+			@RequestParam("ssoid") String ssoid) throws Exception {
 
-		// boolean showTableHeader = true;
 		List<SearchResultlist> searchList = sUserService.getValuesBySetValue(sDao);
 		model.addAttribute("list", searchList);
-		model.addAttribute("STM", "2");
+		if (!searchList.isEmpty()) {
+			model.addAttribute("STM", "2");
+			model.addAttribute("records", searchList.size() + " " + successMsg);
+			logger.debug(searchList.size() + " " + successMsg);
+		} else {
+			model.addAttribute("records", failuereMsg);
+			logger.debug(failuereMsg);
+		}
 		model.addAttribute("ssoid", ssoid);
 		session.setAttribute("ListData", searchList);
 		return "SearchPage";
@@ -92,7 +101,14 @@ public class SearchController {
 		// fetching Data from searchUerServiceImpl class
 		List<SearchResultlist> searchList = sUserService.getAllValues();
 		model.addAttribute("list", searchList);
-		model.addAttribute("STM", "2");
+		if (!searchList.isEmpty()) {
+			model.addAttribute("STM", "2");
+			model.addAttribute("records", searchList.size() + " " + successMsg);
+			logger.debug(searchList.size() + " " + successMsg);
+		} else {
+			model.addAttribute("records", failuereMsg);
+			logger.debug(failuereMsg);
+		}
 		model.addAttribute("ssoid", ssoid);
 		session.setAttribute("ListData", searchList);
 		model.addAttribute("ssoid", session.getAttribute("username"));
@@ -127,6 +143,7 @@ public class SearchController {
 		model.addAttribute("enText", modifyUser.getTextShortEN());
 		model.addAttribute("pdf", modifyUser.getPdfFile());
 		model.addAttribute("word", modifyUser.getWordFile());
+		model.addAttribute("draftingdate", modifyUser.getDraftingDate());
 		model.addAttribute("lastName", modifyUser.getFinalDrafterName());
 		model.addAttribute("oldSTMNo", modifyUser.getOldSTMNumber());
 		model.addAttribute("remarks", modifyUser.getRemarks1());
@@ -137,6 +154,7 @@ public class SearchController {
 		return "ModifySearchData";
 	}
 
+	@CrossOrigin
 	@GetMapping("/downloadattachmentpdf")
 	public ResponseEntity<byte[]> downloadFile(@RequestParam("file") String fileName, Model model) throws IOException {
 
@@ -144,14 +162,10 @@ public class SearchController {
 		Path path = Paths.get(filePath);
 		byte[] fileContent = Files.readAllBytes(path);
 
-		// Set up HTTP headers for the response
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_PDF);
 		headers.setContentDispositionFormData("attachment", fileName);
 
-		model.addAttribute("message", "Document Downloaded successfully!");
-
-		// Return a ResponseEntity with the file content and headers
 		return new ResponseEntity<>(fileContent, headers, org.springframework.http.HttpStatus.OK);
 	}
 
@@ -175,12 +189,9 @@ public class SearchController {
 			String message = "Document Downloaded successfully!";
 			headers.setContentDispositionFormData("attachment", filePath);
 
-			// logger.info("Word download successful: {}", fileName);
 			model.addAttribute("message", message);
 			return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
 		} catch (IOException e) {
-			// Handle exceptions appropriately
-			logger.error("Error occurred during Search list.", e);
 			model.addAttribute("error", "Please try again.");
 
 			e.printStackTrace();
