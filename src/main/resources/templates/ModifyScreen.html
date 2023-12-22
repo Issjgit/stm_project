@@ -309,6 +309,7 @@ button:hover {
 
 	            if (fileExtension !== 'pdf') {
 	                textInput.value = '';
+	                fileInput.value = '';
 	                openModal(errorElementId);
 	            } else {
 	                // Construct the new file name (STMStmNoRevisionNo.extension)
@@ -320,6 +321,7 @@ button:hover {
 	            }
 	        } else {
 	            textInput.value = '';
+	            fileInput.value = '';
 	            closeModal(errorElementId);
 	        }
 	    }
@@ -334,6 +336,7 @@ button:hover {
 
 	        if (fileExtension !== 'doc' && fileExtension !== 'docx') {
 	            textInput.value = '';
+	            fileInput.value = '';
 	            openModal(errorElementId);
 	        } else {
 	            // Construct the new file name (STMStmNoRevisionNo.extension)
@@ -345,6 +348,7 @@ button:hover {
 	        }
 	    } else {
 	        textInput.value = '';
+	        fileInput.value = '';
 	        closeModal(errorElementId);
 	    }
 	}
