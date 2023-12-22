@@ -2,6 +2,7 @@ package com.stmproject.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,30 +11,6 @@ public class SearchResultlist {
 	public SearchResultlist() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public SearchResultlist(int rowIndex, Integer no, String stmNo, String stmVersion, String linkDestination,
-			String textShortJP, String textShortEN, String pdfFile, String wordFile, Date draftingDate,
-			String oldSTMNumber, String remarks1, String note2, String note3, String creator_sso_id, byte is_deleted,
-			String finalDrafterName) {
-		super();
-		this.rowIndex = rowIndex;
-		this.no = no;
-		this.stmNo = stmNo;
-		this.stmVersion = stmVersion;
-		this.linkDestination = linkDestination;
-		this.textShortJP = textShortJP;
-		this.textShortEN = textShortEN;
-		this.pdfFile = pdfFile;
-		this.wordFile = wordFile;
-		this.draftingDate = draftingDate;
-		this.oldSTMNumber = oldSTMNumber;
-		this.remarks1 = remarks1;
-		this.note2 = note2;
-		this.note3 = note3;
-		this.creator_sso_id = creator_sso_id;
-		this.is_deleted = is_deleted;
-		this.finalDrafterName = finalDrafterName;
 	}
 
 	private int rowIndex;
@@ -54,7 +31,14 @@ public class SearchResultlist {
 
 	private String wordFile;
 	
-	private Date draftingDate;
+//	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	private String draftingDate;
+	
+//	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	private String startDraftDate;
+	
+//	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	private String endDraftDate;
 	
 	private String oldSTMNumber;
 
@@ -67,7 +51,34 @@ public class SearchResultlist {
 	private String creator_sso_id;
 
 	private byte is_deleted;
-
+	
+	private String finalDrafterName;
+	
+	public SearchResultlist(int rowIndex, Integer no, String stmNo, String stmVersion, String linkDestination,
+			String textShortJP, String textShortEN, String pdfFile, String wordFile, String draftingDate,
+			String startDraftDate, String endDraftDate, String oldSTMNumber, String remarks1, String note2, String note3,
+			String creator_sso_id, byte is_deleted, String finalDrafterName) {
+		super();
+		this.rowIndex = rowIndex;
+		this.no = no;
+		this.stmNo = stmNo;
+		this.stmVersion = stmVersion;
+		this.linkDestination = linkDestination;
+		this.textShortJP = textShortJP;
+		this.textShortEN = textShortEN;
+		this.pdfFile = pdfFile;
+		this.wordFile = wordFile;
+		this.draftingDate = draftingDate;
+		this.startDraftDate = startDraftDate;
+		this.endDraftDate = endDraftDate;
+		this.oldSTMNumber = oldSTMNumber;
+		this.remarks1 = remarks1;
+		this.note2 = note2;
+		this.note3 = note3;
+		this.creator_sso_id = creator_sso_id;
+		this.is_deleted = is_deleted;
+		this.finalDrafterName = finalDrafterName;
+	}
 
 	public String getTextShortJP() {
 		return textShortJP;
@@ -101,15 +112,29 @@ public class SearchResultlist {
 		this.wordFile = wordFile;
 	}
 
-	public Date getDraftingDate() {
+	public String getDraftingDate() {
 		return draftingDate;
 	}
 
-	public void setDraftingDate(Date draftingDate) {
+	public void setDraftingDate(String draftingDate) {
 		this.draftingDate = draftingDate;
 	}
+	
+	public String getStartDraftDate() {
+		return startDraftDate;
+	}
 
-	private String finalDrafterName;
+	public void setStartDraftDate(String startDraftDate) {
+		this.startDraftDate = startDraftDate;
+	}
+
+	public String getEndDraftDate() {
+		return endDraftDate;
+	}
+
+	public void setEndDraftDate(String endDraftDate) {
+		this.endDraftDate = endDraftDate;
+	}
 
 	public String getFinalDrafterName() {
 		return finalDrafterName;
@@ -208,11 +233,15 @@ public class SearchResultlist {
 
 	@Override
 	public String toString() {
-		return "SearchPageDao [rowIndex=" + rowIndex + ", no=" + no + ", stmNo=" + stmNo + ", stmVersion=" + stmVersion
-				+ ", linkDestination=" + linkDestination + ", textShortJP=" + textShortJP + ", textShortEN="
-				+ textShortEN + ", pdfFile=" + pdfFile + ", wordFile=" + wordFile + ", draftingDate=" + draftingDate
-				+ ", finalDrafterName=" + finalDrafterName + ", oldSTMNumber=" + oldSTMNumber + ", remarks1=" + remarks1
-				+ ", note2=" + note2 + ", note3=" + note3 + ", creator_sso_id=" + creator_sso_id + ", is_deleted="
-				+ is_deleted + "]";
+		return "SearchResultlist [rowIndex=" + rowIndex + ", no=" + no + ", stmNo=" + stmNo + ", stmVersion="
+				+ stmVersion + ", linkDestination=" + linkDestination + ", textShortJP=" + textShortJP
+				+ ", textShortEN=" + textShortEN + ", pdfFile=" + pdfFile + ", wordFile=" + wordFile + ", draftingDate="
+				+ draftingDate + ", startDraftDate=" + startDraftDate + ", endDraftDate=" + endDraftDate
+				+ ", oldSTMNumber=" + oldSTMNumber + ", remarks1=" + remarks1 + ", note2=" + note2 + ", note3=" + note3
+				+ ", creator_sso_id=" + creator_sso_id + ", is_deleted=" + is_deleted + ", finalDrafterName="
+				+ finalDrafterName + "]";
 	}
+	
+	
+
 }
