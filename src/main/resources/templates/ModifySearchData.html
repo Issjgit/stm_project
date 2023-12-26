@@ -107,10 +107,10 @@
 		<div class="label-container">
 			<label for="pdfFileName">Attachment (PDF)</label>
 			<div class="file-input">
-				<input type="text" id="pdfFileName" disabled="disabled" th:value="${pdf}" name="pdfFileName">
+				<input type="text" id="pdfFileName" disabled="disabled" th:value="${pdf}" name="pdfFileName" style="width: 46%;"/>
 				<input type="hidden" id="pdfFileNameHid" th:value="${pdf}" name="pdfFileName">
 				<!--				<label for="pdfFileName">download</label>
---> <button type="button" class="download-button" onclick="downloadPDF()" id="pdfFileName" style="margin-left: 40px;"
+--> <button type="button" class="download-button" onclick="downloadPDF()" id="pdfFileName" style="margin-left: 6px;"
 					th:value="${pdf}">PdfDownload</button>
 			</div>
 		</div>
@@ -118,11 +118,11 @@
 		<div class="label-container">
 			<label for="docFileName">Attachment (Word)</label>
 			<div class="file-input">
-				<input type="text" id="docFileName" disabled="disabled" th:value="${word}" name="docFileName">
+				<input type="text" id="docFileName" disabled="disabled" th:value="${word}" name="docFileName" style="width: 46%;"/>
 				<input type="hidden" id="docFileNameHid" th:value="${word}" name="docFileName">
 				<!--				<label for="docFileName">download</label>
 --> <button type="button" class="download-button" onclick="downloadDocument()" id="docFileName"
-					style="margin-left: 40px;" th:value="${word}">DocDownload</button>
+					style="margin-left: 6px;" th:value="${word}">DocDownload</button>
 			</div>
 		</div>
 		<!-- Modal for PDF error -->
