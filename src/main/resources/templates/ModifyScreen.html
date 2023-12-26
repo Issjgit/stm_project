@@ -1,273 +1,287 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Modify</title>
- <link rel="stylesheet" type="text/css" href="CSS/styles.css">
-  <style>
-  body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	background-color: #cbe3b5;
-}
+	<meta charset="ISO-8859-1">
+	<title>Modify</title>
+	<link rel="stylesheet" type="text/css" href="CSS/styles.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+			background-color: #cbe3b5;
+		}
 
-h1 {
-	padding: 10px 0;
-}
+		h1 {
+			padding: 10px 0;
+		}
 
-form {
-	max-width: 600px;
-	margin: 0 auto;
-	padding: 20px;
-	background-color: #cbe3b5;
-	/* border: 1px solid #ddd;
+		form {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: #cbe3b5;
+			/* border: 1px solid #ddd;
 	border-radius: 5px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-}
+		}
 
-input[type="text"] {
-	display: inline-block;
-	width: 30%;
-	padding: 10px;
-	margin: 5px 0;
-	border: 2px solid rgb(0, 0, 0);
-	border-radius: 5px;
-	
-}
+		input[type="text"] {
+			display: inline-block;
+			width: 30%;
+			padding: 10px;
+			margin: 5px 0;
+			border: 2px solid rgb(0, 0, 0);
+			border-radius: 5px;
 
-#stmNumber{
-background: #cbe3b5;;
+		}
 
-}
+		#stmNumber {
+			background: #cbe3b5;
+			;
 
-#revisionNumber{
-background: #cbe3b5;
-}
+		}
 
-input[type="file"] {
-	width: 50%;
-}
+		#revisionNumber {
+			background: #cbe3b5;
+		}
 
-button {
-	display: inline-block;
-	padding: 10px 20px;
-	margin: 10px 5px;
-	background-color: #333;
-	color: #fff;
-	border: none;
-	border-radius: 3px;
-	cursor: pointer;
-}
+		input[type="file"] {
+			width: 50%;
+		}
 
-button:hover {
-	background-color: #555;
-}
+		button {
+			display: inline-block;
+			padding: 10px 20px;
+			margin: 10px 5px;
+			background-color: #333;
+			color: #fff;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+		}
 
-/* Modal styles */
-.modal {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-}
+		button:hover {
+			background-color: #555;
+		}
 
-.modal-content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #fefefe;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 300px;
-	color: red;
-}
+		/* Modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
 
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 20px;
-	font-weight: bold;
-	cursor: pointer;
-}
+		.modal-content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #fefefe;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 300px;
+			color: red;
+		}
 
-.close:hover {
-	color: black;
-}
+		.close {
+			color: #aaa;
+			float: right;
+			font-size: 20px;
+			font-weight: bold;
+			cursor: pointer;
+		}
 
-.registerclose {
-	width: 20%;
-	background-color: #000066;
-	color: #fff;
-	text-align: center;
-	border: 3px solid rgb(64, 0, 0);
-	border-radius: 10px;
-}
+		.close:hover {
+			color: black;
+		}
 
-.returnClear {
-	width: 20%;
-	background-color: orange;
-	color: #fff;
-	text-align: center;
-	border: 3px solid rgb(64, 0, 0);
-	border-radius: 10px;
-}
+		.registerclose {
+			width: 20%;
+			background-color: #000066;
+			color: #fff;
+			text-align: center;
+			border: 3px solid rgb(64, 0, 0);
+			border-radius: 10px;
+		}
 
-.label-container {
-	display: flex;
-	width: 100%;
-}
+		.returnClear {
+			width: 20%;
+			background-color: orange;
+			color: #fff;
+			text-align: center;
+			border: 3px solid rgb(64, 0, 0);
+			border-radius: 10px;
+		}
+
+		.label-container {
+			display: flex;
+			width: 100%;
+		}
 
 
-.label-container label {
-	width: 50%;
-	text-align: left;
-	margin: 10px 20px;
-	
-	
-}
-#adminMessage {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #062d73;
-    font-size: 18px;
-    font-weight: bold;
-}
-</style>
+		.label-container label {
+			width: 50%;
+			text-align: left;
+			margin: 10px 20px;
+
+
+		}
+
+		#adminMessage {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			color: #062d73;
+			font-size: 18px;
+			font-weight: bold;
+		}
+	</style>
 </head>
+
 <body id="dashboardBody">
-<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
-<h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
+	<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
+	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
 
 
- <h1>STM: Silicone Test Method</h1>
-    <!-- <p id="message" th:text="${message}"></p>
+	<h1>STM: Silicone Test Method</h1>
+	<!-- <p id="message" th:text="${message}"></p>
     <p id="message" th:text="${error}"></p> -->
-    
-    <div id="successMessageDiv" th:if="${message}">
-    <p style="color: green;" th:text="${message}"></p>
-</div>
-<div id="errorMessageDiv" th:if="${error}">
-    <p style="color: red;" th:text="${error}"></p>
-</div>
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modalMessage"></div>
-        </div>
-    </div>
 
-    <form th:action="@{/modify(ssoid = ${ssoid})}" th:object= "${stm}" method="post" enctype="multipart/form-data">
-        <div class="label-container">
-            <label for="stmNumber">STM Number<br>(Quality inspection method_master <br>quality inspection characteristics)</label>
-            <input type="text" id="stmNumber" th:field="${stm.stmNo}" readonly style="height: 15px;"  />
-        </div>
+	<div id="successMessageDiv" th:if="${message}">
+		<p style="color: green;" th:text="${message}"></p>
+	</div>
+	<div id="errorMessageDiv" th:if="${error}">
+		<p style="color: red;" th:text="${error}"></p>
+	</div>
+	<div id="modal" class="modal">
+		<div class="modal-content">
+			<span class="close" onclick="closeModal()">&times;</span>
+			<div id="modalMessage"></div>
+		</div>
+	</div>
 
-        <div class="label-container">
-            <label for="revisionNumber">Revision Number</label>
-            <input id ="revisionNumber" type="text" style="height: 15px;" th:field="${stm.stmVersion}" readonly />
-        </div>
+	<form th:action="@{/modify(ssoid = ${ssoid})}" th:object="${stm}" method="post" enctype="multipart/form-data">
+		<div class="label-container">
+			<label for="stmNumber">STM Number<br>(Quality inspection method_master <br>quality inspection
+				characteristics)</label>
+			<input type="text" id="stmNumber" th:field="${stm.stmNo}" readonly style="height: 15px;" />
+		</div>
 
-        <div class="label-container">
-            <label for="linkDestination">Link Destination(STM_parent number)</label>
-            <input type="text" id="linkDestination" th:field="${stm.linkDestination}" disabled="disabled"/>
-        </div>
+		<div class="label-container">
+			<label for="revisionNumber">Revision Number</label>
+			<input id="revisionNumber" type="text" style="height: 15px;" th:field="${stm.stmVersion}" readonly />
+		</div>
 
-        <div class="label-container">
-            <label for="textJapanese">Text (Short) Japanese</label>
-            <input type="text" id="textJapanese" th:field="${stm.textShortJP}" disabled="disabled" />
-        </div>
+		<div class="label-container">
+			<label for="linkDestination">Link Destination(STM_parent number)</label>
+			<input type="text" id="linkDestination" th:field="${stm.linkDestination}" disabled="disabled" />
+		</div>
 
-        <div class="label-container">
-            <label for="textEnglish">Text (Short) English</label>
-            <input type="text" id="textEnglish" th:field="${stm.textShortEN}" disabled="disabled" />
-        </div>
+		<div class="label-container">
+			<label for="textJapanese">Text (Short) Japanese</label>
+			<input type="text" id="textJapanese" th:field="${stm.textShortJP}" disabled="disabled" />
+		</div>
 
-        <div class="label-container">
-            <label for="attachmentPdf">Attachment (PDF)</label>
-            <div class="file-input">
-                <input type="text" id="attachedPdf" th:field="${stm.pdfFile}" disabled="disabled" maxlength="25"/>
-                <input type="file" id="attachmentPdf" name="pdfFile" onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" maxlength="25" />
-            </div>
-        </div>
+		<div class="label-container">
+			<label for="textEnglish">Text (Short) English</label>
+			<input type="text" id="textEnglish" th:field="${stm.textShortEN}" disabled="disabled" />
+		</div>
 
-        <div class="label-container">
-            <label for="attachmentWord">Attachment (Word)</label>
-            <div class="file-input">
-                <input type="text" id="attachedWord" th:field="${stm.wordFile}" disabled="disabled" maxlength="25"/>
-                <input type="file" id="attachmentWord" name="wordFile" onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" maxlength="25"/>
-            </div>
-        </div>
+		<div class="label-container">
+			<label for="attachmentPdf">Attachment (PDF)</label>
+			<div class="file-input">
+				<input type="text" id="attachedPdf" th:field="${stm.pdfFile}" disabled="disabled" maxlength="25" />
+				<input type="file" id="attachmentPdf" name="pdfFile"
+					onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" maxlength="25" />
+			</div>
+		</div>
 
-        <!-- Modal for PDF error -->
-        <div id="pdfError" class="modal">
-            <div class="modal-content">
-                <span class="close-modal" onclick="closeModal('pdfError')">&times;</span>
-                <p>Invalid file format. Please select a PDF file.</p>
-            </div>
-        </div>
+		<div class="label-container">
+			<label for="attachmentWord">Attachment (Word)</label>
+			<div class="file-input">
+				<input type="text" id="attachedWord" th:field="${stm.wordFile}" disabled="disabled" maxlength="25" />
+				<input type="file" id="attachmentWord" name="wordFile"
+					onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" maxlength="25" />
+			</div>
+		</div>
 
-        <!-- Modal for Word error -->
-        <div id="wordError" class="modal">
-            <div class="modal-content">
-                <span class="close-modal" onclick="closeModal('wordError')">&times;</span>
-                <p>Invalid file format. Please select a Word file (doc or docx).</p>
-            </div>
-        </div>
+		<!-- Modal for PDF error -->
+		<div id="pdfError" class="modal">
+			<div class="modal-content">
+				<span class="close-modal" onclick="closeModal('pdfError')">&times;</span>
+				<p>Invalid file format. Please select a PDF file.</p>
+			</div>
+		</div>
 
-        <div class="label-container">
-            <label for="lastUpdated">Last Updated (Drafting Date)</label>
-            <input type="text" id="lastUpdated"   th:value="${#dates.format(stm.draftingDate, 'yyyy/MM/dd')}" th:field = "${stm.draftingDate}" maxlength="10" onblur="validateDateFormat(this)" required="required"/>
-        </div>
+		<!-- Modal for Word error -->
+		<div id="wordError" class="modal">
+			<div class="modal-content">
+				<span class="close-modal" onclick="closeModal('wordError')">&times;</span>
+				<p>Invalid file format. Please select a Word file (doc or docx).</p>
+			</div>
+		</div>
 
-        <div class="label-container">
-            <label for="finalDrafter">Final Drafter (Last Name)</label>
-            <input type="text" id="finalDrafter" th:field="${stm.finalDrafterName}" maxlength="50" required="required" pattern="^[a-zA-Z\s]+$" title="Alphabet and Space only allowed"/>
-        </div>
+	    <!-- ADDED[S] Samata added date format -->
+		<div class="label-container">
+			<label for="lastUpdated">Last Updated (Drafting Date)</label>
+			<input type="text" id="lastUpdated" th:value="${#dates.format(stm.draftingDate, 'yyyy/MM/dd')}"
+				th:field="${stm.draftingDate}" maxlength="10" required="required" title="Please Enter Date in yyyy/MM/dd."  onkeydown="enterClick(1,event)"
+				pattern="(?:19|20)(?:[0-9]{2}\/(?:(?:0[1-9]|1[0-2])\/(?:0[1-9]|1[0-9]|2[0-8])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:29|30))|(?:(?:0[13578]|1[02])-31))|(?:[13579][26]|[02468][048])\/02\/29)" />
+		</div>
+	    <!-- ADDED[E] Samata_2023/12/22 -->
 
-        <div class="label-container">
-            <label for="oldStmNumber">Old STM Number</label>
-            <input type="text" id="oldStmNumber" th:field="${stm.oldSTMNumber}" disabled="disabled" />
-        </div>
+		<div class="label-container">
+			<label for="finalDrafter">Final Drafter (Last Name)</label>
+			<input type="text" id="finalDrafter" th:field="${stm.finalDrafterName}" maxlength="50" required="required" onkeydown="enterClickkey(2,event)"
+				pattern="^[a-zA-Z\s]+$" title="Alphabet and Space only allowed" />
+		</div>
 
-        <div class="label-container">
-            <label for="remarks1">Remarks 1</label>
-            <input id="remarks1" type="text" th:field="${stm.remarks1}" disabled="disabled" />
-        </div>
+		<div class="label-container">
+			<label for="oldStmNumber">Old STM Number</label>
+			<input type="text" id="oldStmNumber" th:field="${stm.oldSTMNumber}" disabled="disabled" />
+		</div>
 
-        <div class="label-container">
-            <label for="note2">Note 2</label>
-            <input type="text" id="note2" th:field="${stm.note2}" disabled="disabled" />
-        </div>
+		<div class="label-container">
+			<label for="remarks1">Remarks 1</label>
+			<input id="remarks1" type="text" th:field="${stm.remarks1}" disabled="disabled" />
+		</div>
 
-        <div class="label-container">
-            <label for="note3">Note 3</label>
-            <input type="text" id="note3" th:field="${stm.note3}" disabled="disabled"/>
-        </div>
-        <div style="margin-top: 20px;">
-            <button type="button" name="action" value="modify" class="registerclose" onclick="openModal('deleteConfirmation')">Modify</button>
-            <button type="button" name="action" value="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage(ssoid = ${ssoid})}'|">Return</button>
-        </div>
-        <!-- Modal for Modify confirmation -->
-        <div id="deleteConfirmation" class="modal">
-         <div class="modal-content">
-         <span class="close-modal" onclick="closeModal('deleteConfirmation')">&times;</span>
-         <p>Is it okay if I correct it?</p>
-         <button onclick="confirmDelete()">yes(Y)</button>
-         <button type="button" onclick="closeModal('deleteConfirmation')">no(N)</button>
-         </div>
-        </div>
-        
-    </form>
+		<div class="label-container">
+			<label for="note2">Note 2</label>
+			<input type="text" id="note2" th:field="${stm.note2}" disabled="disabled" />
+		</div>
 
-<script>
-       function openModal(message) {
+		<div class="label-container">
+			<label for="note3">Note 3</label>
+			<input type="text" id="note3" th:field="${stm.note3}" disabled="disabled" />
+		</div>
+		<div style="margin-top: 20px;">
+			<button type="button" name="action" value="modify" class="registerclose"
+				onclick="openModal('deleteConfirmation')">Modify</button>
+			<button type="button" name="action" value="return" class="returnClear"
+				th:onclick="|window.location.href='@{/returnSearchPage(ssoid = ${ssoid})}'|">Return</button>
+		</div>
+		<!-- Modal for Modify confirmation -->
+		<div id="deleteConfirmation" class="modal">
+			<div class="modal-content">
+				<span class="close-modal" onclick="closeModal('deleteConfirmation')">&times;</span>
+				<p>Is it okay if I correct it?</p>
+				<button onclick="confirmDelete()">yes(Y)</button>
+				<button type="button" onclick="closeModal('deleteConfirmation')">no(N)</button>
+			</div>
+		</div>
+
+	</form>
+
+	<script>
+		function openModal(message) {
 			const modal = document.getElementById('modal');
 			const modalMessage = document.getElementById('modalMessage');
 			modalMessage.textContent = message;
@@ -289,102 +303,103 @@ button:hover {
 			modal.style.display = 'none';
 		}
 		function confirmDelete() {
-		    console.log("Confirming Delete...");
-		    closeModal('deleteConfirmation');		    
-		    document.getElementById('deleteForm').submit();
+			console.log("Confirming Delete...");
+			closeModal('deleteConfirmation');
+			document.getElementById('deleteForm').submit();
 		}
-		
+
 		var stmNo = document.getElementById('stmNumber').value;
-	    var stmVersion = document.getElementById('revisionNumber').value;
+		var stmVersion = document.getElementById('revisionNumber').value;
 
-	         
-	       function updatePdfFileName(textInputId, fileInputId, errorElementId) {
-	        const textInput = document.getElementById(textInputId);
-	        const fileInput = document.getElementById(fileInputId);
-	        //const errorElement = document.getElementById(errorElementId);
 
-	        if (fileInput.files.length > 0) {
-	            const fileName = fileInput.files[0].name;
-	            const fileExtension = fileName.split('.').pop().toLowerCase();
+		function updatePdfFileName(textInputId, fileInputId, errorElementId) {
+			const textInput = document.getElementById(textInputId);
+			const fileInput = document.getElementById(fileInputId);
+			//const errorElement = document.getElementById(errorElementId);
 
-	            if (fileExtension !== 'pdf') {
-	                textInput.value = '';
-	                fileInput.value = '';
-	                openModal(errorElementId);
-	            } else {
-	                // Construct the new file name (STMStmNoRevisionNo.extension)
-	                const newFileName = "STM" + stmNo + stmVersion + "." + fileExtension;
-	                
-	                // Update the value of the text input
-	                textInput.value = newFileName;
-	                closeModal(errorElementId);
-	            }
-	        } else {
-	            textInput.value = '';
-	            fileInput.value = '';
-	            closeModal(errorElementId);
-	        }
-	    }
-	function updateWordFileName(textInputId, fileInputId, errorElementId) {
-	    const textInput = document.getElementById(textInputId);
-	    const fileInput = document.getElementById(fileInputId);
-	    //const errorElement = document.getElementById(errorElementId);
+			if (fileInput.files.length > 0) {
+				const fileName = fileInput.files[0].name;
+				const fileExtension = fileName.split('.').pop().toLowerCase();
 
-	    if (fileInput.files.length > 0) {
-	        const fileName = fileInput.files[0].name;
-	        const fileExtension = fileName.split('.').pop().toLowerCase();
+				if (fileExtension !== 'pdf') {
+					textInput.value = '';
+					fileInput.value = '';
+					openModal(errorElementId);
+				} else {
+					// Construct the new file name (STMStmNoRevisionNo.extension)
+					const newFileName = "STM" + stmNo + stmVersion + "." + fileExtension;
 
-	        if (fileExtension !== 'doc' && fileExtension !== 'docx') {
-	            textInput.value = '';
-	            fileInput.value = '';
-	            openModal(errorElementId);
-	        } else {
-	            // Construct the new file name (STMStmNoRevisionNo.extension)
-	            const newFileName = "STM" + stmNo + stmVersion + "." + fileExtension;
-	            
-	            // Update the value of the text input
-	            textInput.value = newFileName;
-	            closeModal(errorElementId);
-	        }
-	    } else {
-	        textInput.value = '';
-	        fileInput.value = '';
-	        closeModal(errorElementId);
-	    }
-	}
+					// Update the value of the text input
+					textInput.value = newFileName;
+					closeModal(errorElementId);
+				}
+			} else {
+				textInput.value = '';
+				fileInput.value = '';
+				closeModal(errorElementId);
+			}
+		}
+		function updateWordFileName(textInputId, fileInputId, errorElementId) {
+			const textInput = document.getElementById(textInputId);
+			const fileInput = document.getElementById(fileInputId);
+			//const errorElement = document.getElementById(errorElementId);
+
+			if (fileInput.files.length > 0) {
+				const fileName = fileInput.files[0].name;
+				const fileExtension = fileName.split('.').pop().toLowerCase();
+
+				if (fileExtension !== 'doc' && fileExtension !== 'docx') {
+					textInput.value = '';
+					fileInput.value = '';
+					openModal(errorElementId);
+				} else {
+					// Construct the new file name (STMStmNoRevisionNo.extension)
+					const newFileName = "STM" + stmNo + stmVersion + "." + fileExtension;
+
+					// Update the value of the text input
+					textInput.value = newFileName;
+					closeModal(errorElementId);
+				}
+			} else {
+				textInput.value = '';
+				fileInput.value = '';
+				closeModal(errorElementId);
+			}
+		}
 
 		function validateDateFormat(inputField) {
-	        var enteredDate = inputField.value;
-	        var dateFormat = /^(\d{4})\/(\d{2})\/(\d{2})$/;
+			var enteredDate = inputField.value;
+			var dateFormat = /^(\d{4})\/(\d{2})\/(\d{2})$/;
 
-	        if (!dateFormat.test(enteredDate)) {
-	            alert("Invalid date format. Please enter the date in yyyy/MM/dd format.");
-	            // Clear the input field or perform any other actions as needed
-	            inputField.value = "";
-	        }
-	    }
+			if (!dateFormat.test(enteredDate)) {
+				alert("Invalid date format. Please enter the date in yyyy/MM/dd format.");
+				// Clear the input field or perform any other actions as needed
+				inputField.value = "";
+			}
+		}
 		// Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
-		  var messageDuration = 5000;
+		var messageDuration = 5000;
 
-		  // Function to hide the success message after a certain duration
-		  function hideSuccessMessage() {
-		    var successMessageDiv = document.getElementById('successMessageDiv');
-		    if (successMessageDiv) {
-		      successMessageDiv.style.display = 'none';
-		    }
-		  }
+		// Function to hide the success message after a certain duration
+		function hideSuccessMessage() {
+			var successMessageDiv = document.getElementById('successMessageDiv');
+			if (successMessageDiv) {
+				successMessageDiv.style.display = 'none';
+			}
+		}
 
-		  // Function to hide the error message after a certain duration
-		  function hideErrorMessage() {
-		    var errorMessageDiv = document.getElementById('errorMessageDiv');
-		    if (errorMessageDiv) {
-		      errorMessageDiv.style.display = 'none';
-		    }
-		  }
+		// Function to hide the error message after a certain duration
+		function hideErrorMessage() {
+			var errorMessageDiv = document.getElementById('errorMessageDiv');
+			if (errorMessageDiv) {
+				errorMessageDiv.style.display = 'none';
+			}
+		}
 
-		  // Set timeouts to hide messages after the specified duration
-		  setTimeout(hideSuccessMessage, messageDuration);
-		  setTimeout(hideErrorMessage, messageDuration);
-</script>
+		// Set timeouts to hide messages after the specified duration
+		setTimeout(hideSuccessMessage, messageDuration);
+		setTimeout(hideErrorMessage, messageDuration);
+	</script>
 </body>
+
 </html>
