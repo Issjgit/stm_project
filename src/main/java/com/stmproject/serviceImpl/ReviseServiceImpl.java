@@ -39,19 +39,19 @@ public class ReviseServiceImpl implements ReviseService {
     
     @Override
     @Transactional
-    public void updateSTM(STM updatedSTM,MultipartFile pdfFile, MultipartFile wordFile) throws IOException {
+    public void updateSTM(STM updatedSTM,MultipartFile pdfFile, MultipartFile wordFile,String ssoid) throws IOException {
         Optional<STM> optionalSTM = reviceRepository.findByStmNo(updatedSTM.getStmNo());               
         if (optionalSTM.isPresent()){           
              STM existingSTM = optionalSTM.get();
                                       
              int latestRevisionNo = Integer.parseInt(updatedSTM.getStmVersion());
-             System.out.println("Latest Revision No: " + latestRevisionNo);
-
-             int newRevisionNo = latestRevisionNo + 1;
-             System.out.println("New Revision No: " + newRevisionNo);
-
-             //Convert the new revision number back to a String
-             String newRevisionString = String.valueOf(newRevisionNo);
+//             System.out.println("Latest Revision No: " + latestRevisionNo);
+//
+//             int newRevisionNo = latestRevisionNo + 1;
+//             System.out.println("New Revision No: " + newRevisionNo);
+//
+//             //Convert the new revision number back to a String
+             String newRevisionString = String.valueOf(latestRevisionNo);
              System.out.println("New Revision No as String: " + newRevisionString);
              
              createHistoryRecord(existingSTM);             
@@ -69,6 +69,7 @@ public class ReviseServiceImpl implements ReviseService {
             existingSTM.setOldSTMNumber(updatedSTM.getOldSTMNumber());
             existingSTM.setRemarks1(updatedSTM.getRemarks1());
             existingSTM.setNote2(updatedSTM.getNote2());
+            existingSTM.setCreatorSSOID(ssoid);
             existingSTM.setNote3(updatedSTM.getNote3());
             existingSTM.setStmVersion("0"+newRevisionString);
             existingSTM.setLastUpdated(new Date());
@@ -92,7 +93,7 @@ public class ReviseServiceImpl implements ReviseService {
         stmHistory.setTextShortJP(existingSTM.getTextShortJP());
         stmHistory.setPdfFile(existingSTM.getPdfFile());
         stmHistory.setWordFile(existingSTM.getWordFile());
-        stmHistory.setLastUpdated(new Date());
+        stmHistory.setLastUpdated(existingSTM.getLastUpdated());
         stmHistory.setDraftingDate(existingSTM.getDraftingDate());
         stmHistory.setFinalDrafterName(existingSTM.getFinalDrafterName());
         stmHistory.setOldSTMNumber(existingSTM.getOldSTMNumber());
