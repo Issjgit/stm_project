@@ -40,7 +40,9 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 			openModal(errorElementId);
 		} else {
 			// Construct the new file name (STMStmNoRevisionNo.extension)
-			const newFileName = "STM" + stmNo + stmVersion + "." + fileExtension;
+			 const formattedRevision = parseInt(stmVersion) + 1;
+                const paddedRevision = formattedRevision.toString().padStart(2, '0');
+                const newFileName = "STM" + stmNo + paddedRevision + "." + fileExtension;
 
 			// Update the value of the text input
 			textInput.value = newFileName;
@@ -67,7 +69,9 @@ function updateWordFileName(textInputId, fileInputId, errorElementId) {
 			openModal(errorElementId);
 		} else {
 			// Construct the new file name (STMStmNoRevisionNo.extension)
-			const newFileName = "STM" + stmNo + stmVersion + "." + fileExtension;
+			 const formattedRevision = parseInt(stmVersion) + 1;
+                const paddedRevision = formattedRevision.toString().padStart(2, '0');
+                const newFileName = "STM" + stmNo + paddedRevision + "." + fileExtension;
 
 			// Update the value of the text input
 			textInput.value = newFileName;
@@ -99,6 +103,14 @@ function validateDateFormat(inputField) {
 		inputField.value = "";
 	}
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+        var revisionNumberInput = document.getElementById('revisionNumber');
+        var currentRevision = parseInt(revisionNumberInput.value) + 1;
+        var formattedRevision = currentRevision.toString().padStart(2, '0');
+        revisionNumberInput.value = formattedRevision;
+    });
+
 
 // Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
 var messageDuration = 5000;
