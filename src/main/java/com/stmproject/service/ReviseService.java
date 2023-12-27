@@ -9,7 +9,7 @@ import com.stmproject.model.STM;
 public interface ReviseService {
 	    STM getSTMById(String id);
 
-	    void updateSTM(STM updatedSTM, MultipartFile pdfFile, MultipartFile wordFile) throws IOException;
+	    void updateSTM(STM updatedSTM, MultipartFile pdfFile, MultipartFile wordFile,String ssoid) throws IOException;
 
 	    //String saveFile(MultipartFile file, String extension) throws IOException;
 
