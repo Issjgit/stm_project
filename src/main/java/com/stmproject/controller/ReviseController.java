@@ -57,7 +57,7 @@ public class ReviseController {
 
 		try {
 			// Update the STM with the provided STM Number
-			reviseService.updateSTM(updatedSTM, pdfFile, wordFile);
+			reviseService.updateSTM(updatedSTM, pdfFile, wordFile,ssoid);
 
 			// Retrieve the updated STM
 			STM stm = reviseService.getSTMById(updatedSTM.getStmNo());
