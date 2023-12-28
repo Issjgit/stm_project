@@ -323,7 +323,6 @@
 				const fileExtension = fileName.split('.').pop().toLowerCase();
 
 				if (fileExtension !== 'pdf') {
-					textInput.value = '';
 					fileInput.value='';
 					openModal(errorElementId);
 				} else {
@@ -337,7 +336,6 @@
 					closeModal(errorElementId);
 				}
 			} else {
-				textInput.value = '';
 				fileInput.value='';
 				closeModal(errorElementId);
 			}
@@ -352,8 +350,7 @@
 				const fileExtension = fileName.split('.').pop().toLowerCase();
 
 				if (fileExtension !== 'doc' && fileExtension !== 'docx') {
-					textInput.value = '';
-					fileInput.value='';			
+					fileInput.value='';
 					openModal(errorElementId);
 				} else {
 					// Construct the new file name (STMStmNoRevisionNo.extension)
@@ -364,11 +361,11 @@
 
 					// Update the value of the text input
 					textInput.value = newFileName;
+					
 					closeModal(errorElementId);
 				}
-			} else {
-				textInput.value = '';
-				fileInput.value='';		
+			} else {	
+				fileInput.value='';
 				closeModal(errorElementId);
 			}
 		}
