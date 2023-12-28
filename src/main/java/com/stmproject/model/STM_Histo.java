@@ -79,8 +79,6 @@ public class STM_Histo {
     private Date createdDate;
 
     @Column(name = "Last_Updated")
-    @Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date lastUpdated;
     
    
