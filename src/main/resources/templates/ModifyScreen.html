@@ -229,14 +229,14 @@
 			</div>
 		</div>
 
-	    <!-- ADDED[S] Samata added date format -->
+	   
 		<div class="label-container">
 			<label for="lastUpdated">Last Updated (Drafting Date)</label>
-			<input type="text" id="lastUpdated" th:value="${#dates.format(stm.draftingDate, 'yyyy/MM/dd')}"
-				th:field="${stm.draftingDate}" maxlength="10" required="required" title="Please Enter Date in yyyy/MM/dd."  onkeydown="enterClick(1,event)"
-				pattern="(?:19|20)(?:[0-9]{2}\/(?:(?:0[1-9]|1[0-2])\/(?:0[1-9]|1[0-9]|2[0-8])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:29|30))|(?:(?:0[13578]|1[02])-31))|(?:[13579][26]|[02468][048])\/02\/29)" />
+			<input type="text" id="lastUpdated" th:value="${#dates.format(stm.draftingDate, 'yyyy/mm/dd')}"
+				th:field="${stm.draftingDate}" maxlength="10" required="required" pattern="(?:19|20)(?:[0-9]{2}\/(?:0[1-9]|1[0-2])\/(?:0[1-9]|[12][0-9]|3[01]))"
+				title="Please Enter Date in yyyy/mm/dd." oninput="formatInputDate(this)">
 		</div>
-	    <!-- ADDED[E] Samata_2023/12/22 -->
+	    
 
 		<div class="label-container">
 			<label for="finalDrafter">Final Drafter (Last Name)</label>
@@ -382,16 +382,19 @@
 	    });
 
 
-		function validateDateFormat(inputField) {
-			var enteredDate = inputField.value;
-			var dateFormat = /^(\d{4})\/(\d{2})\/(\d{2})$/;
+		function formatInputDate(input) {
+            let inputValue = input.value.replace(/\D/g, '');
 
-			if (!dateFormat.test(enteredDate)) {
-				alert("Invalid date format. Please enter the date in yyyy/MM/dd format.");
-				// Clear the input field or perform any other actions as needed
-				inputField.value = "";
-			}
-		}
+            if (inputValue.length === 8) {
+                const formattedDate = inputValue.replace(/(\d{4})(\d{2})(\d{2})/, '$1/$2/$3');
+                input.value = formattedDate;
+            }
+        }
+
+        // Add an event listener to the date input
+        document.getElementById('lastUpdated').addEventListener('input', function () {
+            formatInputDate(this);
+        });
 		// Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
 		var messageDuration = 5000;
 
