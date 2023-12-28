@@ -42,6 +42,7 @@ public class STM_RegistrationController {
 		else if (messageForRegister.equals("2"))
 			model.addAttribute("error", "STM Number has already been issued!");
 		model.addAttribute("ssoid", ssoid);
+		messageForRegister = "0";
 		return "RegistrationPage";
 	}
 
@@ -98,6 +99,8 @@ public class STM_RegistrationController {
 
 	            // Log successful registration
 	            logger.info("STM registration successful. STM number: {}", stmModel.getStmNo());
+	         // Set success message for the redirect
+	            messageForRegister = "1";
 
 	            return "redirect:/register?ssoid=" + ssoid;
 	        } catch (Exception e) {
