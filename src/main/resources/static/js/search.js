@@ -8,12 +8,21 @@ function resetcall() {
 
 function searchcall() {
 	var x = document.getElementById('searchTable');
+	var y = document.getElementById('vis');
+
 	{
 		if (x.style.display === "none") {
 			x.style.display = "block";
 		} else {
 			x.style.display = "none";
 		}
+
+		if (y.style.display === "none") {
+			y.style.display = "block";
+		} else {
+			y.style.display = "none";
+		}
+
 	}
 };
 
@@ -45,18 +54,20 @@ $(function() {
 
 		var formData = {
 			rowIndex: this.rowIndex
+			
 		}
 		console.log("Start")
 		$.ajax(
 			{
 				type: 'POST',
 				contentType: 'application/json; charset=utf-8',
-				//url: 'http://localhost:8080/doubleClickTableRow',
-				url: 'http://localhost:8080/doubleClickTableRow',
+				//url: 'http://localhost:8080/stmproject/doubleClickTableRow',
+				url: contextPath + '/doubleClickTableRow',
 				data: JSON.stringify(formData),
 				datatype: 'json',
 				success: function() {
-					window.location = '/Modify';
+					/*window.location = contextPath + '/Modify';*/
+					window.open(contextPath+"/Modify?");
 
 				}
 			}
@@ -69,12 +80,12 @@ function downloadPDF() {
 	var pdf = document.getElementById("pdfFileNameHid").value;
 	console.log("File name " + pdf);
 
-	if (!pdf) {
+	if (!pdf || pdf === "NULL") {
 		// Disable the button and return
 		downloadPDF.disabled = true;
 		return;
 	}
-	fetch("http://localhost:8080/downloadattachmentpdf?file=" + pdf)
+	fetch(contextPath + "/downloadattachmentpdf?file=" + pdf)
 		.then(response => response.blob())
 		.then(blob => {
 			var link = document.createElement('a');
@@ -102,12 +113,12 @@ function downloadPDF() {
 function downloadDocument() {
 	var word = document.getElementById("docFileNameHid").value;
 	console.log("File name: " + word);
-	if (!word) {
+	if (!word || word === "NULL") {
 		// Disable the button and return
 		downloadDocument.disabled = true;
 		return;
 	}
-	fetch("http://localhost:8080/downloadattachmentpdf?file=" + word)
+	fetch(contextPath + "/downloadattachmentpdf?file=" + word)
 		.then(response => response.blob())
 		.then(blob => {
 			const url = window.URL.createObjectURL(blob);
@@ -169,4 +180,27 @@ function enterClick(value, event) {
 		}
 	}
 };
+
+function disEnableBtn(x) {
+	console.log("Values is : " + x)
+	if (x == '1') {
+		document.getElementById("clkBtn").disabled = false;
+	}
+	else {
+		document.getElementById("clkBtn").disabled = true;
+	}
+	if (x == '1') {
+		document.getElementById("Btn").disabled = false;
+	}
+	else {
+		document.getElementById("Btn").disabled = true;
+	}
+	if (x == '1') {
+		document.getElementById("clkBtns").disabled = false;
+	}
+	else {
+		document.getElementById("clkBtns").disabled = true;
+	}
+}
+
 // ADD[E]
