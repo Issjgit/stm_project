@@ -114,19 +114,6 @@ public class STM_RegistrationController {
 		return maxCustomFieldValue + 1;
 	}
 
-//	private String saveFile(MultipartFile file, String extension) throws IOException {
-//		if (file != null && !file.isEmpty()) {
-//			String originalFileName = file.getOriginalFilename();
-//			Path uploadPath = Paths.get("/STM_File", UPLOAD_DIR);
-//			Path filePath = uploadPath.resolve(originalFileName);
-//			Files.createDirectories(uploadPath);
-//			System.out.println("filePath " + filePath);
-//			// Save the file to the specified directory
-//			Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-//			return originalFileName;
-//		}
-//		return null;
-//	}
 
 
 	   public String saveFile(MultipartFile file, String stmNo, String revisionNo, String extension) throws IOException {
