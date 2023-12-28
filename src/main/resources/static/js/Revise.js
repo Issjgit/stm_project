@@ -86,7 +86,13 @@ function updateWordFileName(textInputId, fileInputId, errorElementId) {
 	}
 }
 
-
+ document.querySelector('label[for="attachmentPdf"]').addEventListener('click', function(e) {
+        e.preventDefault();
+    });
+    
+    document.querySelector('label[for="attachmentWord"]').addEventListener('click', function(e) {
+        e.preventDefault();
+    });
 
 function confirmRevise() {
 	console.log("Confirming revise...");
