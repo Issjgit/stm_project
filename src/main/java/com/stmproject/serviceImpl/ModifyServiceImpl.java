@@ -43,23 +43,16 @@ public class ModifyServiceImpl implements ModifyService {
     
 	@Override
     @Transactional
-    public void modifySTM(STM modifySTM,MultipartFile pdfFile, MultipartFile wordFile) throws IOException {
+    public void modifySTM(STM modifySTM,MultipartFile pdfFile, MultipartFile wordFile,String ssoid) throws IOException {
         Optional<STM> optionalSTM = modifyRepository.findByStmNoQuery(modifySTM.getStmNo());               
         if (optionalSTM.isPresent()) {           
              STM existingSTM = optionalSTM.get();
              
-            // String latestRevisionNo=modifySTM.getStmVersion();
              int latestRevisionNo = Integer.parseInt(modifySTM.getStmVersion());
-             System.out.println("Latest Revision No: " + latestRevisionNo);
-             int newRevisionNo = latestRevisionNo + 1;
-             System.out.println("New Revision No: " + newRevisionNo);
           // Convert the new revision number back to a String
-             String newRevisionString = String.valueOf(newRevisionNo);
+             String newRevisionString = String.valueOf(latestRevisionNo);
              System.out.println("New Revision No as String: " + newRevisionString);
              
-            // String newRevisionNo = (latestRevisionNo != null) ? String.valueOf(Integer.parseInt(latestRevisionNo) + 1) : "01";
-            // String newRevisionNo = incrementRevisionNumber(latestRevisionNo);
-             System.out.println(newRevisionNo);
              createHistoryRecord(existingSTM);             
           // Check if a new PDF file is chosen
              String pdfFileName = (pdfFile != null && !pdfFile.isEmpty()) ? saveFile(pdfFile, existingSTM.getStmNo(), newRevisionString, "pdf") : existingSTM.getPdfFile();
@@ -72,7 +65,7 @@ public class ModifyServiceImpl implements ModifyService {
             existingSTM.setDraftingDate(modifySTM.getDraftingDate());
             existingSTM.setFinalDrafterName(modifySTM.getFinalDrafterName());
            
-            existingSTM.setStmVersion("0"+newRevisionNo);                      
+            existingSTM.setStmVersion("0"+newRevisionString);                      
             // Save the updated entity            
             modifyRepository.save(existingSTM);
             
@@ -93,7 +86,6 @@ public class ModifyServiceImpl implements ModifyService {
         stmHistory.setTextShortJP(existingSTM.getTextShortJP());
         stmHistory.setPdfFile(existingSTM.getPdfFile());
         stmHistory.setWordFile(existingSTM.getWordFile());
-        stmHistory.setLastUpdated(existingSTM.getLastUpdated());
         stmHistory.setFinalDrafterName(existingSTM.getFinalDrafterName());
         stmHistory.setDraftingDate(existingSTM.getDraftingDate());
         stmHistory.setOldSTMNumber(existingSTM.getOldSTMNumber());
