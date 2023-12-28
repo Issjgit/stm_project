@@ -13,6 +13,11 @@
 	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="js/search.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var contextPath = /*[[${#httpServletRequest.contextPath}]]*/ '/';
+    /*]]>*/
+	</script>
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -27,9 +32,6 @@
 			margin: 0 auto;
 			padding: 20px;
 			background-color: #cbe3b5;
-			/* border: 1px solid #ddd; 
-	border-radius: 5px;*/
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 		}
 
 		input[type="text"] {
@@ -40,9 +42,11 @@
 			border: 2px solid rgb(0, 0, 0);
 			border-radius: 5px;
 		}
+
 		input[type="file"] {
 			width: 55%;
 		}
+
 		button {
 			display: inline-block;
 			padding: 10px 20px;
@@ -60,7 +64,7 @@
 	</style>
 </head>
 
-<body>
+<body th:onload="disEnableBtn([[${enableBtn}]])">
 	<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
 	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
 	<h1>STM:Silicone Test Method</h1>
@@ -80,13 +84,11 @@
 			</label> <input type="text" id="stmNumber" style="height: 40px;" disabled="disabled" th:value="${stmNo}"
 				oninput="updateDisabledField(this),updateFields()">
 		</div>
-		<div class="label-container">
 
+		<div class="label-container">
 			<label for="Revision number">Revision number</label>
 			<input type="text" id="disabledField" disabled="disabled" th:value="${stmVer}">
 		</div>
-		<!-- <div class="label-container"><label for="inspectionCharacteristics">Quality Inspection Characteristics</label>
-        <input type="text" id="inspectionCharacteristics" name="inspectionCharacteristics" ></div> -->
 
 		<div class="label-container">
 			<label for="linkDestination">Link Destination(STM_parent
@@ -107,24 +109,25 @@
 		<div class="label-container">
 			<label for="pdfFileName">Attachment (PDF)</label>
 			<div class="file-input">
-				<input type="text" id="pdfFileName" disabled="disabled" th:value="${pdf}" name="pdfFileName" style="width: 46%;"/>
+				<input type="text" id="pdfFileName" disabled="disabled" th:value="${pdf}" name="pdfFileName"
+					style="width: 46%;" />
 				<input type="hidden" id="pdfFileNameHid" th:value="${pdf}" name="pdfFileName">
-				<!--				<label for="pdfFileName">download</label>
---> <button type="button" class="download-button" onclick="downloadPDF()" id="pdfFileName" style="margin-left: 6px;"
-					th:value="${pdf}">PdfDownload</button>
+				<button type="button" class="download-button" onclick="downloadPDF()" id="pdfFileName"
+					style="margin-left: 6px;" th:value="${pdf}">PdfDownload</button>
 			</div>
 		</div>
 
 		<div class="label-container">
 			<label for="docFileName">Attachment (Word)</label>
 			<div class="file-input">
-				<input type="text" id="docFileName" disabled="disabled" th:value="${word}" name="docFileName" style="width: 46%;"/>
+				<input type="text" id="docFileName" disabled="disabled" th:value="${word}" name="docFileName"
+					style="width: 46%;" />
 				<input type="hidden" id="docFileNameHid" th:value="${word}" name="docFileName">
-				<!--				<label for="docFileName">download</label>
---> <button type="button" class="download-button" onclick="downloadDocument()" id="docFileName"
+				<button type="button" class="download-button" onclick="downloadDocument()" id="docFileName"
 					style="margin-left: 6px;" th:value="${word}">DocDownload</button>
 			</div>
 		</div>
+
 		<!-- Modal for PDF error -->
 		<div id="pdfError" class="modal">
 			<div class="modal-content">
@@ -174,11 +177,11 @@
 		<!-- ADDED[S] AMULYA To Link the Particular Page-->
 
 		<div style="margin-top: 20px;">
-			<button type="button" name="action" value="register" class="registerclose"
+			<button type="button" disabled name="action" value="register" class="registerclose" id="clkBtn"
 				onclick="openModifyPage()">Modify</button>
-			<button type="button" name="action" value="revise" class="registerclose"
+			<button type="button" name="action" value="revise" class="registerclose" id="Btn"
 				onclick="openRevisePage()">Revise</button>
-			<button type="button" name="action" value="delete" class="registerclose"
+			<button type="button" name="action" value="delete" class="registerclose" id="clkBtns"
 				onclick="openDeletePage()">Delete</button>
 			<button type="button" name="action" value="return" class="returnClear"
 				th:onclick="|window.location.href='@{/searchPage(ssoid = ${ssoid})}'|">Return</button>
@@ -188,19 +191,19 @@
 	<script type="text/javascript">
 		var stmNumber = document.getElementById('stmNumber').value;
 		function openRevisePage() {
-			//window.location.href = '/revise/' + stmNumber;
-			window.location.href = '/revise/' + stmNumber;
+
+			//ADD[S]Samata_2023/12/26
+			window.location.href = contextPath + '/revise/' + stmNumber;
 		}
 
 		function openModifyPage() {
-			//window.location.href = '/modify/' + stmNumber;
-			window.location.href = '/modify/' + stmNumber;
+			window.location.href = contextPath + '/modify/' + stmNumber;
 		}
 
 		function openDeletePage() {
-			window.location.href = '/delete/' + stmNumber;
-			//window.location.href = '/delete/' + stmNumber;
+			window.location.href = contextPath + '/delete/' + stmNumber;
 		}
+		//ADD[E]Samata_2023/12/26
 	</script>
 </body>
 
