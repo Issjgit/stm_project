@@ -48,7 +48,7 @@ public class ModifyController {
 
         try {
             // Modify the STM with the provided STM Number
-            modifyService.modifySTM(modifySTM, pdfFile, wordFile);
+            modifyService.modifySTM(modifySTM, pdfFile, wordFile,ssoid);
 
             // Retrieve the updated STM
             STM stm = modifyService.getSTMByStmNoQuery(modifySTM.getStmNo());
