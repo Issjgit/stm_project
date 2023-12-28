@@ -11,4 +11,6 @@ public interface S_UserService {
 	public List<SearchResultlist> getAllValues();
 
 	public List<SearchResultlist> getValuesBySetValue(SearchResultlist dao);
+	
+	public boolean isAdminLogin(String userId);
 }
