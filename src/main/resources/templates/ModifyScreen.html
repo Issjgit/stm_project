@@ -49,7 +49,7 @@
 		}
 
 		input[type="file"] {
-			width: 50%;
+			width: 55%;
 		}
 
 		button {
@@ -176,7 +176,8 @@
 
 		<div class="label-container">
 			<label for="revisionNumber">Revision Number</label>
-			<input id="revisionNumber" type="text" style="height: 15px;" th:field="${stm.stmVersion}" readonly />
+			<input id="revisionNumber" type="text" style="height: 15px; width: 40px; margin-left: 25px;" th:field="${stm.stmVersion}" readonly /> Automatic renewal numbering
+			
 		</div>
 
 		<div class="label-container">
@@ -323,19 +324,21 @@
 
 				if (fileExtension !== 'pdf') {
 					textInput.value = '';
-					fileInput.value = '';
+					fileInput.value='';
 					openModal(errorElementId);
 				} else {
 					// Construct the new file name (STMStmNoRevisionNo.extension)
-					const newFileName = "STM" + stmNo + stmVersion + "." + fileExtension;
-
+					const formattedRevision = parseInt(stmVersion) + 1;			    
+                    const paddedRevision = formattedRevision.toString();
+                    const revision="0"+paddedRevision;               
+                    const newFileName = "STM" + stmNo + revision + "." + fileExtension;
 					// Update the value of the text input
 					textInput.value = newFileName;
 					closeModal(errorElementId);
 				}
 			} else {
 				textInput.value = '';
-				fileInput.value = '';
+				fileInput.value='';
 				closeModal(errorElementId);
 			}
 		}
@@ -350,11 +353,14 @@
 
 				if (fileExtension !== 'doc' && fileExtension !== 'docx') {
 					textInput.value = '';
-					fileInput.value = '';
+					fileInput.value='';			
 					openModal(errorElementId);
 				} else {
 					// Construct the new file name (STMStmNoRevisionNo.extension)
-					const newFileName = "STM" + stmNo + stmVersion + "." + fileExtension;
+					 const formattedRevision = parseInt(stmVersion) + 1;			    
+                     const paddedRevision = formattedRevision.toString();
+                     const revision="0"+paddedRevision;               
+                     const newFileName = "STM" + stmNo + revision + "." + fileExtension;
 
 					// Update the value of the text input
 					textInput.value = newFileName;
@@ -362,10 +368,19 @@
 				}
 			} else {
 				textInput.value = '';
-				fileInput.value = '';
+				fileInput.value='';		
 				closeModal(errorElementId);
 			}
 		}
+		
+		
+		document.addEventListener("DOMContentLoaded", function() {
+	        var revisionNumberInput = document.getElementById('revisionNumber');
+	        var currentRevision = parseInt(revisionNumberInput.value) + 1;
+	        var formattedRevision = currentRevision.toString().padStart(2, '0');
+	        revisionNumberInput.value = formattedRevision;
+	    });
+
 
 		function validateDateFormat(inputField) {
 			var enteredDate = inputField.value;
