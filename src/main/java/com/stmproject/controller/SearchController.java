@@ -149,8 +149,17 @@ public class SearchController {
 		model.addAttribute("remarks", modifyUser.getRemarks1());
 		model.addAttribute("note2", modifyUser.getNote2());
 		model.addAttribute("note3", modifyUser.getNote3());
-
-		model.addAttribute("ssoid", session.getAttribute("username"));
+		
+		String userId=(String) session.getAttribute("username");
+		model.addAttribute("ssoid",userId );
+		boolean isadminuser=sUserService.isAdminLogin(userId);
+		
+		System.out.println("User name is : "+userId +" & is admin login : "+isadminuser);
+		
+		if(isadminuser)
+		{
+			model.addAttribute("enableBtn", 1);
+		}
 		return "ModifySearchData";
 	}
 
