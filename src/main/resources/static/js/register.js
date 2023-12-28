@@ -121,16 +121,19 @@ function updateFields() {
 }
 
 
-function validateDateFormat(inputField) {
-	var enteredDate = inputField.value;
-	var dateFormat = /^(\d{4})\/(\d{2})\/(\d{2})$/;
+ function formatInputDate(input) {
+            let inputValue = input.value.replace(/\D/g, '');
 
-	if (!dateFormat.test(enteredDate)) {
-		alert("Invalid date format. Please enter the date in yyyy/MM/dd format.");
-		// Clear the input field or perform any other actions as needed
-		inputField.value = "";
-	}
-}
+            if (inputValue.length === 8) {
+                const formattedDate = inputValue.replace(/(\d{4})(\d{2})(\d{2})/, '$1/$2/$3');
+                input.value = formattedDate;
+            }
+        }
+
+        // Add an event listener to the date input
+        document.getElementById('lastUpdated').addEventListener('input', function () {
+            formatInputDate(this);
+        });
 
 // Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
 var messageDuration = 5000;
