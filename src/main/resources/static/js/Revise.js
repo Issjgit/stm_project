@@ -40,9 +40,10 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 			openModal(errorElementId);
 		} else {
 			// Construct the new file name (STMStmNoRevisionNo.extension)
-			 const formattedRevision = parseInt(stmVersion) + 1;
-                const paddedRevision = formattedRevision.toString().padStart(2, '0');
-                const newFileName = "STM" + stmNo + paddedRevision + "." + fileExtension;
+			    const formattedRevision = parseInt(stmVersion) + 1;			    
+                const paddedRevision = formattedRevision.toString();
+                const revision="0"+paddedRevision;               
+                const newFileName = "STM" + stmNo + revision + "." + fileExtension;
 
 			// Update the value of the text input
 			textInput.value = newFileName;
@@ -69,9 +70,10 @@ function updateWordFileName(textInputId, fileInputId, errorElementId) {
 			openModal(errorElementId);
 		} else {
 			// Construct the new file name (STMStmNoRevisionNo.extension)
-			 const formattedRevision = parseInt(stmVersion) + 1;
-                const paddedRevision = formattedRevision.toString().padStart(2, '0');
-                const newFileName = "STM" + stmNo + paddedRevision + "." + fileExtension;
+			    const formattedRevision = parseInt(stmVersion) + 1;			    
+                const paddedRevision = formattedRevision.toString();
+                const revision="0"+paddedRevision;               
+                const newFileName = "STM" + stmNo + revision + "." + fileExtension;
 
 			// Update the value of the text input
 			textInput.value = newFileName;
@@ -104,11 +106,29 @@ function validateDateFormat(inputField) {
 	}
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+function formatDraftingDate(input) {
+        // Remove any non-numeric characters from the input
+        var numericInput = input.value.replace(/\D/g, '');
+
+        // Check if the input has at least 8 characters (yyyymmdd)
+        if (numericInput.length >= 8) {
+            // Extract year, month, and day
+            var year = numericInput.substring(0, 4);
+            var month = numericInput.substring(4, 6);
+            var day = numericInput.substring(6, 8);
+
+            // Format the date as yyyy/mm/dd
+            var formattedDate = year + '/' + month + '/' + day;
+            // Set the formatted date back to the input
+            input.value = formattedDate;
+        }
+    }
+    document.addEventListener("DOMContentLoaded", function() {
         var revisionNumberInput = document.getElementById('revisionNumber');
         var currentRevision = parseInt(revisionNumberInput.value) + 1;
-        var formattedRevision = currentRevision.toString().padStart(2, '0');
-        revisionNumberInput.value = formattedRevision;
+        var formattedRevision = currentRevision.toString();
+        var revision="0"+formattedRevision;
+        revisionNumberInput.value = revision;
     });
 
 
