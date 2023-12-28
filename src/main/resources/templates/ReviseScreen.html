@@ -20,23 +20,24 @@ form {
 	max-width: 700px;
 	margin: 0 auto;
 	padding: 20px;
-	background-color: #cbe3b5;	
+	background-color: #cbe3b5;
+	 
+    grid-column-gap: 5%;	
 }
 
-input[type="text"] {
-	display: inline-block;
-        width: 30%;
-        padding:10px;
-        margin: 5px 0;
-        border: 2px solid rgb(0, 0, 0);
-        border-radius: 5px;
+.label-container input[type="text"] {
+    display: inline-block;
+    width: 30%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
 }
 
-input[type="file"] {
-	width: 55%;	        
-        padding: 10px;
-        margin: 5px 0;
-        
+.label-container input[type="file"] {
+    width: 55%;
+    padding: 10px;
+    margin: 5px 0;
 }
 
 button {
@@ -96,7 +97,7 @@ button:hover {
 	text-align: center;
 	border: 3px solid rgb(64, 0, 0);
 	border-radius:10px;
-	margin-right:200px;
+	margin-right:100px;
 }
 
 .returnClear {
@@ -106,20 +107,20 @@ button:hover {
 	text-align: center;
 	border: 3px solid rgb(64, 0, 0);
 	border-radius: 10px;
-	margin-right:200px;
+	margin-right:100px;
 } 
 
 .label-container {
         display: flex;
-        justify-content: flex-start;
+        justify-content: flex-start; 
         width: 100%;
-        margin-bottom: 10px; 
+         
     }
 
-    .label-container label {
-        width: 45%; 
+ .label-container label {
+        width: 42%; 
         text-align:left;
-        margin-top: 5px;
+        margin-top: 8px;
     }
 
 #adminMessage {
@@ -136,20 +137,33 @@ button:hover {
     background-color:#4d4d4d;
     color: #fff;
 }
+ .label-container #attachedPdf
+{
+    width:122px;
+    
+   
+}
+.label-container #attachedWord
+{
+    width:122px; 
+    
+}  
 
+#revisionNumber
+{
+ width:50px;
+}
 </style>
 </head>
 <body> 
 
 <input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
 <h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5> 
-    <h1>STM: Silicone Test Method</h1>
-    <p id="message" th:text="${message}"></p>
-    <p id="message" th:text="${error}"></p>    
+    <h1>STM: Silicone Test Method</h1>       
     <div id="successMessageDiv" th:if="${successMessage}">
     <p style="color: green;" th:text="${successMessage}"></p>
 </div>
-<div id="errorMessageDiv" th:if="${errorMessage}">
+ <div id="errorMessageDiv" th:if="${errorMessage}">
     <p style="color: red;" th:text="${errorMessage}"></p>
 </div>
     <div id="modal" class="modal">
@@ -158,7 +172,6 @@ button:hover {
             <div id="modalMessage"></div>
         </div>
     </div>
-
     <form th:action="@{/revise(ssoid = ${ssoid})}" th:object="${stm}" enctype="multipart/form-data" method="post">            
         <div class="label-container">
             <label for="stmNumber">STM Number<br>(Quality inspection method_master <br>quality inspection characteristics)</label>
@@ -190,18 +203,21 @@ button:hover {
         <div class="label-container">
             <label for="attachmentPdf">Attachment (PDF)</label>
             <div class="file-input">
-                <input type="text" id="attachedPdf" style="width:110px; text-align:left;" th:field="*{pdfFile}" th:value="${pdfFile}" maxlength="25" pattern="^[a-zA-Z0-9().\-\s]+$" title="Alphabet,number,dot,hypen and Space only allowed" readonly/>
-                <input type="file" id="attachmentPdf"  name="pdfFile" onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" maxlength="25"/>
+                <input type="text" id="attachedPdf" th:field="*{pdfFile}" th:value="${pdfFile}" maxlength="25" pattern="^[a-zA-Z0-9().\-\s]+$" title="Alphabet,number,dot,hypen and Space only allowed" readonly/>
+                <button type="button" style="background-color:red;border-radius:5px;" onclick="document.getElementById('attachmentPdf').click()">Choose PDF File</button>
+                <input type="file" id="attachmentPdf"  name="pdfFile" onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" maxlength="25" style="display: none;"/>
             </div>
         </div>
 
         <div class="label-container">
-            <label for="attachmentWord">Attachment (Word)</label>
-            <div class="file-input">
-                <input type="text" id="attachedWord" style="width:110px;" th:field="*{wordFile}" th:value="${wordFile}" maxlength="25" pattern="^[a-zA-Z0-9().\-\s]+$" title="Alphabet,number,dot,hypen and Space only allowed" readonly/>
-                <input type="file" id="attachmentWord"  name="wordFile" onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" maxlength="25"/>
-            </div>
-        </div>
+    <label for="attachmentWord">Attachment (Word)</label>
+    <div class="file-input">
+        <input type="text" id="attachedWord" th:field="*{wordFile}" th:value="${wordFile}" maxlength="25" pattern="^[a-zA-Z0-9().\-\s]+$" title="Alphabet, number, dot, hypen, and Space only allowed" readonly/>
+         <button type="button" style="background-color:red;border-radius:5px;" onclick="document.getElementById('attachmentWord').click()">Choose Word File</button> 
+        <input type="file" id="attachmentWord" name="wordFile" onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" maxlength="25" style="display: none;"/>
+    </div>
+</div>
+
 
         <!-- Modal for PDF error -->
         <div id="pdfError" class="modal">
@@ -221,7 +237,7 @@ button:hover {
 
         <div class="label-container">
             <label for="lastUpdated">Last Updated (Drafting Date)</label>
-            <input type="text" id="lastUpdated" th:field="*{draftingDate}"  th:value="${#dates.format(draftingDate, 'yyyy/MM/dd')}" maxlength="10" onblur="validateDateFormat(this)" required="required"/>
+            <input type="text" id="lastUpdated" th:field="*{draftingDate}"  th:value="${#dates.format(draftingDate, 'yyyy/MM/dd')}" maxlength="10"  onblur="validateDateFormat(this)" oninput="formatDraftingDate(this)" required="required"/>
         </div>
 
         <div class="label-container">
@@ -263,9 +279,6 @@ button:hover {
          </div>
         </div>
     </form>  
-    <script th:src="@{/js/Revise.js}"></script>	
-
-
-    
+    <script th:src="@{/js/Revise.js}"> </script>    
 </body>
 </html>
