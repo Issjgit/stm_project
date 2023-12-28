@@ -65,7 +65,8 @@ public class ModifyServiceImpl implements ModifyService {
             existingSTM.setDraftingDate(modifySTM.getDraftingDate());
             existingSTM.setFinalDrafterName(modifySTM.getFinalDrafterName());
            
-            existingSTM.setStmVersion("0"+newRevisionString);                      
+            existingSTM.setStmVersion("0"+newRevisionString);
+	    existingSTM.setCreatorSSOID(ssoid);
             // Save the updated entity            
             modifyRepository.save(existingSTM);
             
