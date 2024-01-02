@@ -122,6 +122,15 @@
 	<!-- ADDED[E] AMULYA To To Display the ssoid-->
 
 	<h1 id=hedding>STM:silicone test method</h1>
+	<!-- Added for Delete page Message-->
+	<div id="successMessageDiv" th:if="${message}">
+	
+    <p style="color: green;" th:text="${message}"></p>
+    </div>
+      <div id="errorMessageDiv" th:if="${error}">
+    <p style="color: red;" th:text="${error}"></p>
+    </div>
+     <!--  Added for Delete page Message-->
 	<p style="text-align: center;" id="recordDisplay" th:text="${records}"></p>
 
 	<form method="post" class="form-horizontal" th:action="@{/searchClick(ssoid = ${ssoid})}">
@@ -244,6 +253,32 @@
 	</div>
 	</div>
 	</div>
+	<!--  added For Timer purpose -->
+	<script type="text/javascript">
+	      //Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
+		  var messageDuration = 5000;
+
+		  // Function to hide the success message after a certain duration
+		  function hideSuccessMessage() {
+		    var successMessageDiv = document.getElementById('successMessageDiv');
+		    if (successMessageDiv) {
+		      successMessageDiv.style.display = 'none';
+		    }
+		  }
+
+		  // Function to hide the error message after a certain duration
+		  function hideErrorMessage() {
+		    var errorMessageDiv = document.getElementById('errorMessageDiv');
+		    if (errorMessageDiv) {
+		      errorMessageDiv.style.display = 'none';
+		    }
+		  }
+
+		  // Set timeouts to hide messages after the specified duration
+		  setTimeout(hideSuccessMessage, messageDuration);
+		  setTimeout(hideErrorMessage, messageDuration);
+		  </script>
+		  <!-- added For Timer purpose -->
 </body>
 
 </html>
