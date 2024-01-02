@@ -35,8 +35,7 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 		const fileExtension = fileName.split('.').pop().toLowerCase();
 
 		if (fileExtension !== 'pdf') {
-			textInput.value = '';
-			fileInput.value='';
+			fileInput.value = '';			
 			openModal(errorElementId);
 		} else {
 			// Construct the new file name (STMStmNoRevisionNo.extension)
@@ -49,8 +48,7 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 			textInput.value = newFileName;
 			closeModal(errorElementId);
 		}
-	} else {
-		textInput.value = '';
+	} else {		
 		fileInput.value='';
 		closeModal(errorElementId);
 	}
@@ -64,8 +62,7 @@ function updateWordFileName(textInputId, fileInputId, errorElementId) {
 		const fileName = fileInput.files[0].name;
 		const fileExtension = fileName.split('.').pop().toLowerCase();
 
-		if (fileExtension !== 'doc' && fileExtension !== 'docx') {
-			textInput.value = '';
+		if (fileExtension !== 'doc' && fileExtension !== 'docx') {			
 			fileInput.value='';			
 			openModal(errorElementId);
 		} else {
@@ -79,8 +76,7 @@ function updateWordFileName(textInputId, fileInputId, errorElementId) {
 			textInput.value = newFileName;
 			closeModal(errorElementId);
 		}
-	} else {
-		textInput.value = '';
+	} else {		
 		fileInput.value='';		
 		closeModal(errorElementId);
 	}
