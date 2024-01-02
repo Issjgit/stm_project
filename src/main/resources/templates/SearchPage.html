@@ -7,7 +7,8 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link rel="stylesheet" href="" th:href="@{/CSS/styles.css}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<!--	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+-->
 	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="js/search.js"></script>
 	<script th:inline="javascript">
@@ -48,6 +49,8 @@
 			border: 3px solid rgb(64, 0, 0);
 			border-radius: 10px;
 			background-color: darkblue;
+			height: 40px;
+
 		}
 
 		.reset {
@@ -74,6 +77,8 @@
 			border: 3px solid rgb(64, 0, 0);
 			border-radius: 10px;
 			background-color: darkblue;
+			height: 40px;
+
 		}
 
 
@@ -102,8 +107,8 @@
 		}
 
 		tr.tableHover {
-		/*	background-color: cornsilk; */
-		background-color: white;
+			/*	background-color: cornsilk; */
+			background-color: white;
 		}
 	</style>
 
@@ -130,7 +135,7 @@
 		<div class="label-container">
 			<label for="revisionNumber">Revision Number</label>
 			<input type="text" id="Revision number" minlength="1" maxlength="4" name="stmVersion" pattern="[0-9]*"
-				title="Enter only Numbers." onkeydown="enterClick(2,event)" style="width: 15%;margin-right: 32%;" />
+				title="Enter only Numbers." onkeydown="enterClick(2,event)" style="width: 11%;margin-right: 35%;" />
 		</div>
 
 		<div class="label-container">
@@ -158,11 +163,11 @@
 			<p style="margin-left: 27%;height: 30%;">
 				<input type="text" s class="dobField timePeriodFrom1 datepicker-input" placeholder="yyyy/MM/dd"
 					name="startDraftDate" maxlength="10" onkeydown="enterClick(6,event)" id="draft_start_date"
-					style="margin-left: -20%;width: 54%;" title="Please Enter Date in yyyy/MM/dd."
+					style="margin-left: -31%;width: 49%;" title="Please Enter Date in yyyy/MM/dd."
 					pattern="(19|20)\d{2}(\/)(0[1-9]|1[1,2])(\/)(0[1-9]|[12][0-9]|3[01])" />
 				~
 				<input type="text" class="dobField timePeriodTo1 datepicker-input" placeholder="yyyy/MM/dd"
-					style="margin-left: 2%;width: 54%;" name="endDraftDate" maxlength="10"
+					style="margin-left: 2%;width: 49%;" name="endDraftDate" maxlength="10"
 					onkeydown="enterClick(7,event)" id="draft_end_date" title="Please Enter Date in yyyy/MM/dd."
 					pattern="(19|20)\d{2}(\/)(0[1-9]|1[1,2])(\/)(0[1-9]|[12][0-9]|3[01])" />
 		</div>
