@@ -54,20 +54,18 @@ $(function() {
 
 		var formData = {
 			rowIndex: this.rowIndex
-			
+
 		}
 		console.log("Start")
 		$.ajax(
 			{
 				type: 'POST',
 				contentType: 'application/json; charset=utf-8',
-				//url: 'http://localhost:8080/stmproject/doubleClickTableRow',
 				url: contextPath + '/doubleClickTableRow',
 				data: JSON.stringify(formData),
 				datatype: 'json',
 				success: function() {
-					/*window.location = contextPath + '/Modify';*/
-					window.open(contextPath+"/Modify?");
+					window.open(contextPath + "/Modify?");
 
 				}
 			}
@@ -187,18 +185,21 @@ function disEnableBtn(x) {
 		document.getElementById("clkBtn").disabled = false;
 	}
 	else {
+		document.getElementById("clkBtn").style.color = '#999';
 		document.getElementById("clkBtn").disabled = true;
 	}
 	if (x == '1') {
 		document.getElementById("Btn").disabled = false;
 	}
 	else {
+		document.getElementById("Btn").style.color = '#999';
 		document.getElementById("Btn").disabled = true;
 	}
 	if (x == '1') {
 		document.getElementById("clkBtns").disabled = false;
 	}
 	else {
+		document.getElementById("clkBtns").style.color = '#999';
 		document.getElementById("clkBtns").disabled = true;
 	}
 }
