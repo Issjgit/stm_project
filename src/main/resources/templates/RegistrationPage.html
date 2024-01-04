@@ -17,7 +17,7 @@
 		}
 
 		form {
-			max-width: 600px;
+			max-width: 650px;
 			margin: 0 auto;
 			padding: 20px;
 			background-color: #cbe3b5;
@@ -31,6 +31,8 @@
 			margin: 5px 0;
 			/* 	border: 1px solid #ccc; */
 			border-radius: 5px;
+			
+			
 		}
 
 		input[type="file"] {
@@ -86,6 +88,22 @@
 		.close:hover {
 			color: black;
 		}
+		.stmNumber {
+       height: 15px;
+       background-color:#4d4d4d;
+       color: #fff;
+}
+.label-container #attachedPdf
+{
+    width:100px;
+    
+   
+}
+.label-container #attachedWord
+{
+    width:92px; 
+    
+}  
 	</style>
 </head>
 
@@ -120,20 +138,20 @@
 				oninput="updateDisabledField(this),updateFields()" required pattern="[a-zA-Z0-9]*"
 				title="Alphabet and Number characters only allowed">
 		</div>
-		<input type="text" id="disabledField" th:field="*{stmVersion}" disabled="disabled"
+		<input type="text"  class="stmNumber" id="disabledField" th:field="*{stmVersion}" disabled="disabled"
 			style="height: 15px; width: 40px; margin-left: 250px;"> Automatic (00)
 
 		<div class="label-container">
 			<label for="linkDestination">Link Destination(STM_parent
-				number)</label> <input type="text" id="linkDestination" th:field="*{linkDestination}"
+				number)</label> <input type="text"  class="stmNumber" id="linkDestination" th:field="*{linkDestination}"
 				disabled="disabled">
 		</div>
 
 		<div class="label-container">
 			<label for="textJapanese">Text (Short) Japanese</label> <input type="text" id="textJapanese"
 				th:field="*{textShortJP}" maxlength="200"
-				pattern="^[a-zA-Z\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s]+$"
-				title="Alphabet and japanese characters only allowed">
+				 pattern="[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}\s]*"
+                 title="Only Japanese characters are allowed">
 		</div>
 
 		<div class="label-container">
@@ -145,20 +163,20 @@
 		<div class="label-container">
 			<label for="attachmentPdf">Attachment (PDF)</label>
 			<div class="file-input">
-				<input type="text" id="attachedPdf" disabled="disabled" pattern="^[a-zA-Z0-9().\-\s]+$"
-					title="Alphabet,number,dot,hypen and Space only allowed"> <input type="file" id="attachmentPdf"
+				<input type="text" class="stmNumber" id="attachedPdf" disabled="disabled" pattern="^[a-zA-Z0-9().\-\s]+$"
+					title="Alphabet,number,dot,hypen and Space only allowed">  <button type="button" style="background-color:red;border-radius:5px;" onclick="document.getElementById('attachmentPdf').click()">Choose PDF File</button><input type="file" id="attachmentPdf"
 					name="pdfFile" maxlength="25"
-					onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')">
+					onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" style="display: none;">
 			</div>
 		</div>
 
 		<div class="label-container">
 			<label for="attachmentWord">Attachment (Word)</label>
 			<div class="file-input">
-				<input type="text" id="attachedWord" disabled="disabled" pattern="^[a-zA-Z0-9().\-\s]+$"
-					title="Alphabet,number,dot,hypen and Space only allowed"> <input type="file" id="attachmentWord"
+				<input type="text"  class="stmNumber" id="attachedWord" disabled="disabled" pattern="^[a-zA-Z0-9().\-\s]+$"
+					title="Alphabet,number,dot,hypen and Space only allowed"> <button type="button" style="background-color:red;border-radius:5px; width:150px;" onclick="document.getElementById('attachmentWord').click()">Choose Word File</button> <input type="file" id="attachmentWord"
 					name="wordFile" maxlength="25"
-					onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')">
+					onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" style="display: none;">
 			</div>
 		</div>
 		<!-- Modal for PDF error -->
@@ -176,6 +194,22 @@
 				<p>Invalid file format. Please select a Word file (doc or docx).</p>
 			</div>
 		</div>
+		
+		<!-- Modal for invalid month -->
+<div id="modalErrorMonth" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalErrorMonth')">&times;</span>
+        <p>Invalid month. Please enter a valid month (1-12).</p>
+    </div>
+</div>
+
+<!-- Modal for invalid day -->
+<div id="modalErrorDay" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalErrorDay')">&times;</span>
+        <p>Invalid day. Please enter a valid day for the selected month.</p>
+    </div>
+</div>
 
 		
 		<div class="label-container">
@@ -192,7 +226,7 @@
 		</div>
 
 		<div class="label-container">
-			<label for="oldStmNumber">Old STM Number</label> <input type="text" id="oldStmNumber"
+			<label for="oldStmNumber">Old STM Number</label> <input type="text" id="oldStmNumber" class="stmNumber"
 				th:field="*{oldSTMNumber}" disabled="disabled" maxlength="15">
 		</div>
 
@@ -217,6 +251,8 @@
 		</div>
 	</form>
 	<script th:src="@{/js/register.js}"></script>
+	
+	
 
 </body>
 
