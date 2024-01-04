@@ -35,6 +35,7 @@
 			margin: 5px 0;
 			border: 2px solid rgb(0, 0, 0);
 			border-radius: 5px;
+			font-weight: 700;
 		}
 		input[type="file"] {
 			width: 55%;
@@ -72,37 +73,37 @@
 		<div class="label-container">
 			<label for="stmNumber">STM Number<br>(Quality inspection
 				method_master <br>quality inspection characteristics)
-			</label> <input type="text" id="stmNumber" style="height: 10%;" disabled="disabled" th:value="${stmNo}"
+			</label> <input type="text" id="stmNumber" style="height: 10%;" disabled="disabled" th:value="${entValue.stmNo}"
 				oninput="updateDisabledField(this),updateFields()">
 		</div>
 
 		<div class="label-container">
 			<label for="Revision number">Revision number</label>
-			<input type="text" id="disabledField" disabled="disabled" th:value="${stmVer}">
+			<input type="text" id="disabledField" disabled="disabled" th:value="${entValue.stmVersion}">
 		</div>
 
 		<div class="label-container">
 			<label for="linkDestination">Link Destination(STM_parent
 				number)</label>
-			<input type="text" id="linkDestination" disabled="disabled" th:value="${linkdest}">
+			<input type="text" id="linkDestination" disabled="disabled" th:value="${entValue.linkDestination}">
 		</div>
 
 		<div class="label-container">
 			<label for="textJapanese">Text (Short) Japanese</label>
-			<input type="text" id="textJapanese" disabled="disabled" th:value="${jpText}">
+			<input type="text" id="textJapanese" disabled="disabled" th:value="${entValue.textShortJP}">
 		</div>
 
 		<div class="label-container">
 			<label for="textEnglish">Text (Short) English</label>
-			<input type="text" id="textEnglish" disabled="disabled" th:value="${enText}">
+			<input type="text" id="textEnglish" disabled="disabled" th:value="${entValue.textShortEN}">
 		</div>
 
 		<div class="label-container">
 			<label for="pdfFileName">Attachment (PDF)</label>
 			<div class="file-input">
-				<input type="text" id="pdfFileName" disabled="disabled" th:value="${pdf}" name="pdfFileName"
+				<input type="text" id="pdfFileName" disabled="disabled" th:value="${entValue.pdfFile}" name="pdfFileName"
 					style="width: 37%;" />
-				<input type="hidden" id="pdfFileNameHid" th:value="${pdf}" name="pdfFileName">
+				<input type="hidden" id="pdfFileNameHid" th:value="${entValue.pdfFile}" name="pdfFileName">
 				<button type="button" class="download-button" onclick="downloadPDF()" id="pdfFileName"
 					style="margin-left: 6px;width: 38%;text-align: start" th:value="${pdf}">PdfDownload</button>
 			</div>
@@ -111,9 +112,9 @@
 		<div class="label-container">
 			<label for="docFileName">Attachment (Word)</label>
 			<div class="file-input">
-				<input type="text" id="docFileName" disabled="disabled" th:value="${word}" name="docFileName"
+				<input type="text" id="docFileName" disabled="disabled" th:value="${entValue.wordFile}" name="docFileName"
 					style="width: 37%;" />
-				<input type="hidden" id="docFileNameHid" th:value="${word}" name="docFileName">
+				<input type="hidden" id="docFileNameHid" th:value="${entValue.wordFile}" name="docFileName">
 				<button type="button" class="download-button" onclick="downloadDocument()" id="docFileName"
 					style="margin-left: 6px;width: 38%;" th:value="${word}">DocDownload</button>
 			</div>
@@ -137,32 +138,32 @@
 
 		<div class="label-container">
 			<label for="lastUpdated">Last Updated (Drafting Date)</label>
-			<input type="text" id="lastUpdated" disabled="disabled" th:value="${draftingdate}" pattern="yyy/MM/dd">
+			<input type="text" id="lastUpdated" disabled="disabled" th:value="${entValue.draftingDate}" pattern="yyy/MM/dd">
 		</div>
 
 		<div class="label-container">
 			<label for="finalDrafter">Final Drafter (Last Name)</label>
-			<input type="text" id="finalDrafter" disabled="disabled" th:value="${lastName}">
+			<input type="text" id="finalDrafter" disabled="disabled" th:value="${entValue.finalDrafterName}">
 		</div>
 
 		<div class="label-container">
 			<label for="oldStmNumber">Old STM Number</label>
-			<input type="text" id="oldStmNumber" disabled="disabled" th:value="${oldSTMNo}">
+			<input type="text" id="oldStmNumber" disabled="disabled" th:value="${entValue.oldSTMNumber}">
 		</div>
 
 		<div class="label-container">
 			<label for="remarks1">Remarks 1</label>
-			<input id="remarks1" type="text" disabled="disabled" th:value="${remarks}">
+			<input id="remarks1" type="text" disabled="disabled" th:value="${entValue.remarks1}">
 		</div>
 
 		<div class="label-container">
 			<label for="note2">Note 2</label>
-			<input type="text" id="note2" disabled="disabled" th:value="${note2}">
+			<input type="text" id="note2" disabled="disabled" th:value="${entValue.note2}">
 		</div>
 
 		<div class="label-container">
 			<label for="note3">Note 3</label>
-			<input type="text" id="note3" disabled="disabled" th:value="${note3}">
+			<input type="text" id="note3" disabled="disabled" th:value="${entValue.note3}">
 		</div>
 
 		<div style="margin-top: 20px;">
