@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <script type="text/javascript"></script>
-
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link rel="stylesheet" href="" th:href="@{/CSS/styles.css}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="js/search.js"></script>
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var contextPath = /*[[${#httpServletRequest.contextPath}]]*/ '/';
-    /*]]>*/
+    /*]]>*/    
 	</script>
+	
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -21,14 +22,12 @@
 			text-align: center;
 			background-color: #cbe3b5;
 		}
-
 		form {
 			max-width: 600px;
 			margin: 0 auto;
 			padding: 20px;
 			background-color: #cbe3b5;
 		}
-
 		input[type="text"] {
 			display: inline-block;
 			width: 30%;
@@ -37,11 +36,9 @@
 			border: 2px solid rgb(0, 0, 0);
 			border-radius: 5px;
 		}
-
 		input[type="file"] {
 			width: 55%;
 		}
-
 		button {
 			display: inline-block;
 			padding: 10px 20px;
@@ -52,7 +49,6 @@
 			border-radius: 3px;
 			cursor: pointer;
 		}
-
 		button:hover {
 			background-color: #555;
 		}
@@ -184,15 +180,12 @@
 	<script type="text/javascript">
 		var stmNumber = document.getElementById('stmNumber').value;
 		function openRevisePage() {
-
 			//ADD[S]Samata_2023/12/26
 			window.location.href = contextPath + '/revise/' + stmNumber;
 		}
-
 		function openModifyPage() {
 			window.location.href = contextPath + '/modify/' + stmNumber;
 		}
-
 		function openDeletePage() {
 			window.location.href = contextPath + '/delete/' + stmNumber;
 		}
