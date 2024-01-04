@@ -20,6 +20,36 @@ function closeModal(modalId) {
 	modal.style.display = 'none';
 }
 
+  function validateDate(input) {
+    const dateInput = input.value;
+    const dateArray = dateInput.split('/');
+    
+    if (dateArray.length === 3) {
+        const year = parseInt(dateArray[0], 10);
+        const month = parseInt(dateArray[1], 10);
+        const day = parseInt(dateArray[2], 10);
+
+        // Check if the month is valid
+        if (month < 1 || month > 12) {
+            openModal('modalErrorMonth');
+            input.value = '';
+            return;
+        }
+
+        // Check if the day is valid for the given month
+        const daysInMonth = new Date(year, month, 0).getDate();
+        if (day < 1 || day > daysInMonth) {
+            openModal('modalErrorDay');
+            input.value = '';
+            return;
+        }
+    } else {
+        openModal('modalErrorFormat');
+        input.value = '';
+        return;
+    }
+}
+
 function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 	         const textInput = document.getElementById(textInputId);
 	         const fileInput = document.getElementById(fileInputId);
@@ -107,6 +137,15 @@ function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 
 
 
+ document.querySelector('label[for="attachmentPdf"]').addEventListener('click', function(e) {
+        e.preventDefault();
+    });
+    
+    document.querySelector('label[for="attachmentWord"]').addEventListener('click', function(e) {
+        e.preventDefault();
+    });
+
+
 function updateFields() {
 	//const stmNumber = document.getElementById('stmNumber').value;
 	//const disabledField = document.getElementById('disabledField');
@@ -121,18 +160,9 @@ function updateFields() {
 }
 
 
- function formatInputDate(input) {
-            let inputValue = input.value.replace(/\D/g, '');
-
-            if (inputValue.length === 8) {
-                const formattedDate = inputValue.replace(/(\d{4})(\d{2})(\d{2})/, '$1/$2/$3');
-                input.value = formattedDate;
-            }
-        }
-
         // Add an event listener to the date input
-        document.getElementById('lastUpdated').addEventListener('input', function () {
-            formatInputDate(this);
+        document.getElementById('lastUpdated').addEventListener('blur', function () {
+            validateDate(this);
         });
 
 // Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
