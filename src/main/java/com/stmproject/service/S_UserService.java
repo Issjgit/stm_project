@@ -13,4 +13,6 @@ public interface S_UserService {
 	public List<SearchResultlist> getValuesBySetValue(SearchResultlist dao);
 	
 	public boolean isAdminLogin(String userId);
+	
+	public SearchResultlist setEmptyForNullValues(SearchResultlist dao);
 }
