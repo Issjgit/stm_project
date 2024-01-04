@@ -41,12 +41,13 @@ function togglePopup() {
 	$(".content").toggle();
 }
 
-$(document).ready(function submiytData() {
+$(document).ready(function submitData() {
 	$(".content").click(function() {
 		$(this).toggle();
 	});
 });
 
+//Doubleclick Function
 $(function() {
 	$("table tr").dblclick(function() {
 		console.log("on Double Click")
@@ -78,7 +79,7 @@ function downloadPDF() {
 	var pdf = document.getElementById("pdfFileNameHid").value;
 	console.log("File name " + pdf);
 
-	if (!pdf || pdf === "NULL") {
+	if (!pdf || pdf === " ") {
 		// Disable the button and return
 		downloadPDF.disabled = true;
 		return;
@@ -111,7 +112,7 @@ function downloadPDF() {
 function downloadDocument() {
 	var word = document.getElementById("docFileNameHid").value;
 	console.log("File name: " + word);
-	if (!word || word === "NULL") {
+	if (!word || word === " ") {
 		// Disable the button and return
 		downloadDocument.disabled = true;
 		return;
@@ -143,6 +144,7 @@ $(document).ready(function() {
 	});
 });
 
+//Enter order for Search page
 function enterClick(value, event) {
 	let key = event.key;
 	if (key == "Enter") {
@@ -179,6 +181,7 @@ function enterClick(value, event) {
 	}
 };
 
+//Admin login Function
 function disEnableBtn(x) {
 	console.log("Values is : " + x)
 	if (x == '1') {
@@ -203,5 +206,38 @@ function disEnableBtn(x) {
 		document.getElementById("clkBtns").disabled = true;
 	}
 }
+
+//Drafting date Function
+function formatDraftingDate(input) {
+	// Remove any non-numeric characters from the input
+	var numericInput = input.value.replace(/\D/g, '');
+
+	// Check if the input has at least 8 characters (yyyymmdd)
+	if (numericInput.length >= 8) {
+		// Extract year, month, and day
+		var year = numericInput.substring(0, 4);
+		var month = numericInput.substring(4, 6);
+		var day = numericInput.substring(6, 8);
+
+		// Format the date as yyyy/mm/dd
+		var formattedDate = year + '/' + month + '/' + day;
+		// Set the formatted date back to the input
+		input.value = formattedDate;
+	}
+}
+
+//click fucntion
+$(document).ready(function() {
+
+  //Highlight clicked row
+  $('.table-layout td').on('click', function() {
+  
+    // Remove previous highlight class
+    $(this).closest('table').find('tr.clickedrow').removeClass('clickedrow');
+    
+    // add highlight to the parent tr of the clicked td
+    $(this).parent('tr').addClass("clickedrow");
+  });
+});
 
 // ADD[E]
