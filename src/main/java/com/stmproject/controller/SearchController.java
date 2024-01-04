@@ -138,26 +138,62 @@ public class SearchController {
 		System.out.println("Dao is : " + modifyUser);
 		model.addAttribute("stmNo", modifyUser.getStmNo());
 		model.addAttribute("stmVer", modifyUser.getStmVersion());
-		model.addAttribute("linkdest", modifyUser.getLinkDestination());
-		model.addAttribute("jpText", modifyUser.getTextShortJP());
-		model.addAttribute("enText", modifyUser.getTextShortEN());
-		model.addAttribute("pdf", modifyUser.getPdfFile());
-		model.addAttribute("word", modifyUser.getWordFile());
+		System.out.println("Value : " + modifyUser.getLinkDestination());
+		if (modifyUser.getLinkDestination() == "NULL") {
+			model.addAttribute("linkdest", " ");
+		} else {
+			model.addAttribute("linkdest", modifyUser.getLinkDestination());
+		}
+		if (modifyUser.getTextShortJP() == "NULL") {
+			model.addAttribute("jpText", " ");
+		} else {
+			model.addAttribute("jpText", modifyUser.getTextShortJP());
+		}
+		if (modifyUser.getTextShortEN() == "NULL") {
+			model.addAttribute("enText", " ");
+		} else {
+			model.addAttribute("enText", modifyUser.getTextShortEN());
+		}
+		if (modifyUser.getPdfFile() == "NULL") {
+			model.addAttribute("pdf", " ");
+		} else {
+			model.addAttribute("pdf", modifyUser.getPdfFile());
+		}
+		if (modifyUser.getWordFile() == "NULL") {
+			model.addAttribute("word", " ");
+		} else {
+			model.addAttribute("word", modifyUser.getWordFile());
+		}
 		model.addAttribute("draftingdate", modifyUser.getDraftingDate());
 		model.addAttribute("lastName", modifyUser.getFinalDrafterName());
-		model.addAttribute("oldSTMNo", modifyUser.getOldSTMNumber());
-		model.addAttribute("remarks", modifyUser.getRemarks1());
-		model.addAttribute("note2", modifyUser.getNote2());
-		model.addAttribute("note3", modifyUser.getNote3());
-		
-		String userId=(String) session.getAttribute("username");
-		model.addAttribute("ssoid",userId );
-		boolean isadminuser=sUserService.isAdminLogin(userId);
-		
-		System.out.println("User name is : "+userId +" & is admin login : "+isadminuser);
-		
-		if(isadminuser)
-		{
+
+		if (modifyUser.getOldSTMNumber() == "NULL") {
+			model.addAttribute("oldSTMNo", " ");
+		} else {
+			model.addAttribute("oldSTMNo", modifyUser.getOldSTMNumber());
+		}
+
+		if (modifyUser.getRemarks1() == "NULL") {
+			model.addAttribute("remarks", " ");
+		} else {
+			model.addAttribute("remarks", modifyUser.getRemarks1());
+		}
+		if (modifyUser.getNote2() == "NULL") {
+			model.addAttribute("note2", " ");
+		} else {
+			model.addAttribute("note2", modifyUser.getNote2());
+		}
+		if (modifyUser.getNote3() == "NULL") {
+			model.addAttribute("note3", " ");
+		} else {
+			model.addAttribute("note3", modifyUser.getNote3());
+		}
+		String userId = (String) session.getAttribute("username");
+		model.addAttribute("ssoid", userId);
+		boolean isadminuser = sUserService.isAdminLogin(userId);
+
+		System.out.println("User name is : " + userId + " & is admin login : " + isadminuser);
+		if (isadminuser) {
 			model.addAttribute("enableBtn", 1);
 		}
 		return "ModifySearchData";
