@@ -68,10 +68,10 @@ public class SearchController {
 	@SuppressWarnings("unchecked")
 	@PostMapping("/goBackToSearchAfterResetClick")
 	public String resetBtnClick(Model model) {
-		System.out.println("Welocme to Reset  Method");
 		List<STM> searchList = new ArrayList<>();
 		searchList = (List<STM>) session.getAttribute("ListData");
 		model.addAttribute("list", searchList);
+
 		return "SearchPage";
 	}
 
@@ -79,9 +79,9 @@ public class SearchController {
 	@PostMapping("/searchClick")
 	public String searchBtnClick(Model model, @ModelAttribute SearchResultlist sDao,
 			@RequestParam("ssoid") String ssoid) throws Exception {
-
 		List<SearchResultlist> searchList = sUserService.getValuesBySetValue(sDao);
 		model.addAttribute("list", searchList);
+		
 		if (!searchList.isEmpty()) {
 			model.addAttribute("STM", "2");
 			model.addAttribute("records", searchList.size() + " " + successMsg);
@@ -90,8 +90,10 @@ public class SearchController {
 			model.addAttribute("records", failuereMsg);
 			logger.debug(failuereMsg);
 		}
+		
 		model.addAttribute("ssoid", ssoid);
 		session.setAttribute("ListData", searchList);
+		
 		return "SearchPage";
 	}
 
@@ -101,6 +103,7 @@ public class SearchController {
 		// fetching Data from searchUerServiceImpl class
 		List<SearchResultlist> searchList = sUserService.getAllValues();
 		model.addAttribute("list", searchList);
+		
 		if (!searchList.isEmpty()) {
 			model.addAttribute("STM", "2");
 			model.addAttribute("records", searchList.size() + " " + successMsg);
@@ -109,17 +112,19 @@ public class SearchController {
 			model.addAttribute("records", failuereMsg);
 			logger.debug(failuereMsg);
 		}
+		
 		model.addAttribute("ssoid", ssoid);
 		session.setAttribute("ListData", searchList);
 		model.addAttribute("ssoid", session.getAttribute("username"));
+		
 		return "SearchPage";
 	}
 
 	@PostMapping("/doubleClickTableRow")
 	public String getModifyTableRowData(@RequestBody SearchResultlist dao, Model model) {
-
 		@SuppressWarnings("unchecked")
 		List<SearchResultlist> searchList = (List<SearchResultlist>) session.getAttribute("ListData");
+		
 		for (SearchResultlist ent : searchList) {
 			if (ent.getRowIndex() == dao.getRowIndex()) {
 				System.out.println(ent);
@@ -127,75 +132,26 @@ public class SearchController {
 				break;
 			}
 		}
+		
 		model.addAttribute("ssoid", session.getAttribute("username"));
 		model.addAttribute("STM", "2");
+		
 		return "ModifySearchData";
 	}
 
 	@GetMapping("/Modify")
 	public String ModifyViewPage(HttpSession session, Model model) {
-		SearchResultlist modifyUser = (SearchResultlist) session.getAttribute("modifyRowData");
-		System.out.println("Dao is : " + modifyUser);
-		model.addAttribute("stmNo", modifyUser.getStmNo());
-		model.addAttribute("stmVer", modifyUser.getStmVersion());
-		System.out.println("Value : " + modifyUser.getLinkDestination());
-		if (modifyUser.getLinkDestination() == "NULL") {
-			model.addAttribute("linkdest", " ");
-		} else {
-			model.addAttribute("linkdest", modifyUser.getLinkDestination());
-		}
-		if (modifyUser.getTextShortJP() == "NULL") {
-			model.addAttribute("jpText", " ");
-		} else {
-			model.addAttribute("jpText", modifyUser.getTextShortJP());
-		}
-		if (modifyUser.getTextShortEN() == "NULL") {
-			model.addAttribute("enText", " ");
-		} else {
-			model.addAttribute("enText", modifyUser.getTextShortEN());
-		}
-		if (modifyUser.getPdfFile() == "NULL") {
-			model.addAttribute("pdf", " ");
-		} else {
-			model.addAttribute("pdf", modifyUser.getPdfFile());
-		}
-		if (modifyUser.getWordFile() == "NULL") {
-			model.addAttribute("word", " ");
-		} else {
-			model.addAttribute("word", modifyUser.getWordFile());
-		}
-		model.addAttribute("draftingdate", modifyUser.getDraftingDate());
-		model.addAttribute("lastName", modifyUser.getFinalDrafterName());
+		SearchResultlist modifyUser = sUserService
+				.setEmptyForNullValues((SearchResultlist) session.getAttribute("modifyRowData"));
+		model.addAttribute("entValue", modifyUser);
 
-		if (modifyUser.getOldSTMNumber() == "NULL") {
-			model.addAttribute("oldSTMNo", " ");
-		} else {
-			model.addAttribute("oldSTMNo", modifyUser.getOldSTMNumber());
-		}
-
-		if (modifyUser.getRemarks1() == "NULL") {
-			model.addAttribute("remarks", " ");
-		} else {
-			model.addAttribute("remarks", modifyUser.getRemarks1());
-		}
-		if (modifyUser.getNote2() == "NULL") {
-			model.addAttribute("note2", " ");
-		} else {
-			model.addAttribute("note2", modifyUser.getNote2());
-		}
-		if (modifyUser.getNote3() == "NULL") {
-			model.addAttribute("note3", " ");
-		} else {
-			model.addAttribute("note3", modifyUser.getNote3());
-		}
 		String userId = (String) session.getAttribute("username");
 		model.addAttribute("ssoid", userId);
 		boolean isadminuser = sUserService.isAdminLogin(userId);
-
-		System.out.println("User name is : " + userId + " & is admin login : " + isadminuser);
 		if (isadminuser) {
 			model.addAttribute("enableBtn", 1);
 		}
+		
 		return "ModifySearchData";
 	}
 
@@ -205,6 +161,7 @@ public class SearchController {
 
 		String filePath = "C:/STM_File/STM_File/" + fileName;
 		Path path = Paths.get(filePath);
+		
 		byte[] fileContent = Files.readAllBytes(path);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -235,10 +192,11 @@ public class SearchController {
 			headers.setContentDispositionFormData("attachment", filePath);
 
 			model.addAttribute("message", message);
+			
 			return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
 		} catch (IOException e) {
 			model.addAttribute("error", "Please try again.");
-
+			logger.error("Failed generate word file",e);
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
