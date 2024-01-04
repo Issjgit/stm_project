@@ -116,7 +116,7 @@ public class S_UserServiceImpl implements S_UserService {
 			sb.append(" and Text_Short_EN like '" + dao.getTextShortEN() + "'");
 		}
 		if (!ObjectUtils.isEmpty(dao.getFinalDrafterName())) {
-			sb.append(" and Final_Drafter_Name like '" + dao.getFinalDrafterName() + "'");
+			sb.append(" and Final_Drafter_Name like '%" + dao.getFinalDrafterName() + "%'");
 		}
 		if (!ObjectUtils.isEmpty(dao.getOldSTMNumber())) {
 			sb.append(" and Old_STM_Number like '" + dao.getOldSTMNumber() + "'");
