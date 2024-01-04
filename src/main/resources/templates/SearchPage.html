@@ -7,8 +7,6 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link rel="stylesheet" href="" th:href="@{/CSS/styles.css}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
--->
 	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="js/search.js"></script>
 	<script th:inline="javascript">
@@ -24,14 +22,12 @@
 			text-align: center;
 			background-color: #cbe3b5;
 		}
-
 		form {
 			max-width: 600px;
 			margin: 0 auto;
 			padding: 20px;
 			background-color: #cbe3b5;
 		}
-
 		input[type="text"] {
 			display: inline-block;
 			width: 50%;
@@ -41,78 +37,8 @@
 			border: 2px solid rgb(0, 0, 0);
 			border-radius: 5px;
 		}
-
-		.search {
-			width: 30%;
-			color: #fff;
-			text-align: center;
-			border: 3px solid rgb(64, 0, 0);
-			border-radius: 10px;
-			background-color: darkblue;
-			height: 40px;
-
-		}
-
-		.reset {
-			width: 30%;
-			color: #fff;
-			text-align: center;
-			border: 3px solid rgb(64, 0, 0);
-			border-radius: 10px;
-			background-color: coral;
-		}
-
-		.menu {
-			width: 30%;
-			color: #fff;
-			text-align: center;
-			border: 3px solid rgb(64, 0, 0);
-			border-radius: 10px;
-		}
-
-		.view {
-			width: 30%;
-			color: #fff;
-			text-align: center;
-			border: 3px solid rgb(64, 0, 0);
-			border-radius: 10px;
-			background-color: darkblue;
-			height: 40px;
-
-		}
-
-
-		thead tr th {
-			height: 40px;
-			line-height: 40px;
-			text-align: center;
-			font-size: 14px;
-			font-weight: 900;
-		}
-
-		td {
-			text-align: center;
-			border: 1px solid black;
-
-		}
-
-		#table1 {
-			height: 400px;
-			width: 1600px;
-			overflow-y: scroll;
-		}
-
-		tr.tableHover:hover {
-			background-color: darkgrey;
-		}
-
-		tr.tableHover {
-			/*	background-color: cornsilk; */
-			background-color: white;
-		}
 	</style>
 
-	</style>
 </head>
 
 <body th:onload="onLoadcall([[${STM}]])">
@@ -124,13 +50,15 @@
 	<h1 id=hedding>STM:silicone test method</h1>
 	<!-- Added for Delete page Message-->
 	<div id="successMessageDiv" th:if="${message}">
+
+		<p style="color: green;" th:text="${message}"></p>
+	</div>
 	
-    <p style="color: green;" th:text="${message}"></p>
-    </div>
-      <div id="errorMessageDiv" th:if="${error}">
-    <p style="color: red;" th:text="${error}"></p>
-    </div>
-     <!--  Added for Delete page Message-->
+	<div id="errorMessageDiv" th:if="${error}">
+		<p style="color: red;" th:text="${error}"></p>
+	</div>
+	
+	<!--  Added for Delete page Message-->
 	<p style="text-align: center;" id="recordDisplay" th:text="${records}"></p>
 
 	<form method="post" class="form-horizontal" th:action="@{/searchClick(ssoid = ${ssoid})}">
@@ -173,12 +101,14 @@
 				<input type="text" s class="dobField timePeriodFrom1 datepicker-input" placeholder="yyyy/MM/dd"
 					name="startDraftDate" maxlength="10" onkeydown="enterClick(6,event)" id="draft_start_date"
 					style="margin-left: -31%;width: 49%;" title="Please Enter Date in yyyy/MM/dd."
-					pattern="(19|20)\d{2}(\/)(0[1-9]|1[1,2])(\/)(0[1-9]|[12][0-9]|3[01])" />
+					oninput="formatDraftingDate(this)"
+					pattern="(19|20)\d{2}/(0[1-9]|1[0-2])/(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 				~
 				<input type="text" class="dobField timePeriodTo1 datepicker-input" placeholder="yyyy/MM/dd"
 					style="margin-left: 2%;width: 49%;" name="endDraftDate" maxlength="10"
 					onkeydown="enterClick(7,event)" id="draft_end_date" title="Please Enter Date in yyyy/MM/dd."
-					pattern="(19|20)\d{2}(\/)(0[1-9]|1[1,2])(\/)(0[1-9]|[12][0-9]|3[01])" />
+					oninput="formatDraftingDate(this)"
+					pattern="(19|20)\d{2}/(0[1-9]|1[0-2])/(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 		</div>
 
 		<div class="label-container">
@@ -210,7 +140,7 @@
 	</form>
 	<!--	<div id="vis"  id="table1">
 -->
-	<div class="table-responsive" style="margin-top: 1%;margin-right: 1%;">
+	<div class="table-responsive table-layout" style="margin-left: 2%;margin-right: 1%;">
 		<table class="table" id="searchTable" title="Confidential information">
 			<thead style="text-align: center;">
 				<tr>
@@ -232,20 +162,20 @@
 			</thead>
 			<tbody>
 				<tr th:each="n:${list}" onclick="" class="tableHover">
-					<td th:text="${n.getNo()}"></td>
-					<td th:text="${n.getStmNo()}"></td>
+					<td style="text-align: center; width: 3%;" th:text="${n.getNo()}"></td>
+					<td style="text-align: center;" th:text="${n.getStmNo()}"></td>
 					<td style="text-align: right;width: 4%;" th:text="${n.getStmVersion()}"></td>
-					<td style="width: 7%;" th:text="${n.getLinkDestination()}"></td>
-					<td th:text="${n.getTextShortJP()}"></td>
-					<td th:text="${n.getTextShortEN()}"></td>
-					<td th:text="${n.getPdfFile()}"></td>
-					<td th:text="${n.getWordFile()}"></td>
-					<td th:text="${n.getDraftingDate()}"></td>
-					<td th:text="${n.getFinalDrafterName()}"></td>
-					<td th:text="${n.getOldSTMNumber()}"></td>
-					<td th:text="${n.getRemarks1()}"></td>
-					<td th:text="${n.getNote2()}"></td>
-					<td th:text="${n.getNote3()}"></td>
+					<td style="width: 7%;text-align: center;" th:text="${n.getLinkDestination()}"></td>
+					<td style="text-align: center;" th:text="${n.getTextShortJP()}"></td>
+					<td style="text-align: center;" th:text="${n.getTextShortEN()}"></td>
+					<td style="text-align: center;" th:text="${n.getPdfFile()}"></tdstyle="text-align: center;">
+					<td style="text-align: center;" th:text="${n.getWordFile()}"></td>
+					<td style="text-align: center;" th:text="${n.getDraftingDate()}"></td>
+					<td style="text-align: center;" th:text="${n.getFinalDrafterName()}"></td>
+					<td style="text-align: center;" th:text="${n.getOldSTMNumber()}"></td>
+					<td style="text-align: center;" th:text="${n.getRemarks1()}"></td>
+					<td style="text-align: center;" th:text="${n.getNote2()}"></td>
+					<td style="text-align: center;" th:text="${n.getNote3()}"></td>
 				</tr>
 			<tbody>
 		</table>
@@ -255,30 +185,29 @@
 	</div>
 	<!--  added For Timer purpose -->
 	<script type="text/javascript">
-	      //Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
-		  var messageDuration = 5000;
+		//Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
+		var messageDuration = 5000;
 
-		  // Function to hide the success message after a certain duration
-		  function hideSuccessMessage() {
-		    var successMessageDiv = document.getElementById('successMessageDiv');
-		    if (successMessageDiv) {
-		      successMessageDiv.style.display = 'none';
-		    }
-		  }
+		// Function to hide the success message after a certain duration
+		function hideSuccessMessage() {
+			var successMessageDiv = document.getElementById('successMessageDiv');
+			if (successMessageDiv) {
+				successMessageDiv.style.display = 'none';
+			}
+		}
 
-		  // Function to hide the error message after a certain duration
-		  function hideErrorMessage() {
-		    var errorMessageDiv = document.getElementById('errorMessageDiv');
-		    if (errorMessageDiv) {
-		      errorMessageDiv.style.display = 'none';
-		    }
-		  }
-
-		  // Set timeouts to hide messages after the specified duration
-		  setTimeout(hideSuccessMessage, messageDuration);
-		  setTimeout(hideErrorMessage, messageDuration);
-		  </script>
-		  <!-- added For Timer purpose -->
+		// Function to hide the error message after a certain duration
+		function hideErrorMessage() {
+			var errorMessageDiv = document.getElementById('errorMessageDiv');
+			if (errorMessageDiv) {
+				errorMessageDiv.style.display = 'none';
+			}
+		}
+		// Set timeouts to hide messages after the specified duration
+		setTimeout(hideSuccessMessage, messageDuration);
+		setTimeout(hideErrorMessage, messageDuration);
+	</script>
+	<!-- added For Timer purpose -->
 </body>
 
 </html>
