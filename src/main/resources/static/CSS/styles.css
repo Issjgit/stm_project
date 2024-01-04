@@ -96,6 +96,7 @@ input[type="text"] {
 	border: 2px solid rgb(0, 0, 0);
 }
 
+
 /* 
 /*Searchpage
 ADD[S]Samata 2023/11/14
@@ -134,7 +135,6 @@ thead {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-
 .selected {
 	background-color: darkgrey;
 	/* You can set the background color to any color you prefer */
