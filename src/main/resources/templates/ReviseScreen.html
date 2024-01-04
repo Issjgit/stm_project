@@ -192,7 +192,7 @@ button:hover {
         <div class="label-container">
             <label for="textJapanese">Text (Short) Japanese</label>
             <input type="text" id="textJapanese" th:field="*{textShortJP}" th:value="${textShortJP}" maxlength="200"
-            pattern="^[a-zA-Z\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s]+$" title="Alphabet and japanese characters only allowed"/>
+            pattern="^[\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s]+$" title="japanese characters only allowed"/>
         </div>
 
         <div class="label-container">
@@ -235,9 +235,26 @@ button:hover {
             </div>
         </div>
 
+<!-- Modal for invalid month -->
+<div id="modalErrorMonth" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalErrorMonth')">&times;</span>
+        <p>Invalid month. Please enter a valid month (1-12).</p>
+    </div>
+</div>
+
+<!-- Modal for invalid day -->
+<div id="modalErrorDay" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalErrorDay')">&times;</span>
+        <p>Invalid day. Please enter a valid day for the selected month.</p>
+    </div>
+</div>
+
         <div class="label-container">
             <label for="lastUpdated">Last Updated (Drafting Date)</label>
-            <input type="text" id="lastUpdated" th:field="*{draftingDate}"  th:value="${#dates.format(draftingDate, 'yyyy/MM/dd')}" maxlength="10"  onblur="validateDateFormat(this)" oninput="formatDraftingDate(this)" required="required"/>
+            <input type="text" id="lastUpdated" th:field="*{draftingDate}"  th:value="${#dates.format(draftingDate, 'yyyy/MM/dd')}" maxlength="10"  onblur="validateDate(this)" oninput="formatDraftingDate(this)" required="required" pattern="(?:19|20)(?:[0-9]{2}\/(?:0[1-9]|1[0-2])\/(?:0[1-9]|[12][0-9]|3[01]))"
+				title="Please Enter Date in yyyy/mm/dd."/>
         </div>
 
         <div class="label-container">
