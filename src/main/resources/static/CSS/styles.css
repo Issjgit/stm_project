@@ -135,6 +135,114 @@ thead {
 	border-collapse: collapse;
 }
 
+.selected {
+	background-color: darkgrey;
+	/* You can set the background color to any color you prefer */
+}
+
+.search {
+	width: 30%;
+	color: #fff;
+	text-align: center;
+	border: 3px solid rgb(64, 0, 0);
+	border-radius: 10px;
+	background-color: darkblue;
+	height: 40px;
+
+}
+
+.reset {
+	width: 30%;
+	color: #fff;
+	text-align: center;
+	border: 3px solid rgb(64, 0, 0);
+	border-radius: 10px;
+	background-color: #eea647;
+}
+
+.menu {
+	width: 30%;
+	color: #fff;
+	text-align: center;
+	border: 3px solid rgb(64, 0, 0);
+	border-radius: 10px;
+}
+
+.view {
+	width: 30%;
+	color: #fff;
+	text-align: center;
+	border: 3px solid rgb(64, 0, 0);
+	border-radius: 10px;
+	background-color: darkblue;
+	height: 40px;
+
+}
+
+thead tr th {
+	height: 60px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 900;
+}
+
+td {
+	text-align: center;
+	border: 1px solid black;
+}
+
+#table1 {
+	height: 400px;
+	width: 1600px;
+	overflow-y: scroll;
+}
+
+tr.tableHover:hover {
+	background-color: darkgrey;
+}
+
+tr.tableHover {
+	/*	background-color: cornsilk; */
+	background-color: white;
+}
+
+.table-layout .clickedrow td {
+	background-color: #caaf8f;
+}
+
+.table-layout {
+	/*text-align: center;*/
+	border-collapse: collapse;
+	font-family: arial-narrow, helvetica, sans-serif;
+	font-weight: 100;
+	font-size: 13px;
+	margin: 0 auto 0;
+	margin-bottom: 20px;
+	/*float:left;*/
+	height: 500px;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.table-layout td,
+.table-layout th {
+	border: 1px solid grey;
+	padding: 3px 3px 0;
+	height: 38px;
+	line-height: 38px;
+	width: 100px;
+	font-size: 120%;
+	background-color: #eea647;
+	height: 32px;
+	line-height: 22px;
+}
+
+.table-layout td {
+	text-align: left;
+	background-color: #fff;
+}
+
 /*ModifySearchdata */
 /*ADD[S]Samata */
 .close {
