@@ -114,7 +114,7 @@
 		<div class="label-container">
 			<label for="finalDrafter">Final Drafter (Last Name)</label>
 			<input type="text" id="finalDrafterName" name="finalDrafterName" max="100"
-				title="Enter only character and one space." pattern="[a-zA-Z]+[ ][a-zA-Z]+"
+				title="Enter only character and one space." pattern="^[a-zA-Z\s]+$"
 				onkeydown="enterClick(8,event)" />
 		</div>
 
