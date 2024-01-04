@@ -201,21 +201,49 @@ public class S_UserServiceImpl implements S_UserService {
 	@Override
 	public boolean isAdminLogin(String userId) {
 		String strQuery = "Select * from dbo.m_user where sso_id = '" + userId + "'";
-		
+
 		Query query = (Query) entManager.createNativeQuery(strQuery, M_User.class);
 		List<M_User> list = query.getResultList();
-		for(M_User ent:list)
-		{
-			if(ent.getUser_Type().equals('A'))
-			{
+		for (M_User ent : list) {
+			if (ent.getUser_Type().equals('A')) {
 				return true;
-			}
-			else
-			{
+			} else {
 				return false;
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public SearchResultlist setEmptyForNullValues(SearchResultlist modifyUser) {
+		if (modifyUser.getLinkDestination() == "NULL") {
+			modifyUser.setLinkDestination(" ");
+		}
+		if (modifyUser.getTextShortJP() == "NULL") {
+			modifyUser.setTextShortJP(" ");
+		}
+		if (modifyUser.getTextShortEN() == "NULL") {
+			modifyUser.setTextShortEN(" ");
+		}
+		if (modifyUser.getPdfFile() == "NULL") {
+			modifyUser.setPdfFile(" ");
+		}
+		if (modifyUser.getWordFile() == "NULL") {
+			modifyUser.setWordFile(" ");
+		}
+		if (modifyUser.getOldSTMNumber() == "NULL") {
+			modifyUser.setOldSTMNumber(" ");
+		}
+		if (modifyUser.getRemarks1() == "NULL") {
+			modifyUser.setRemarks1(" ");
+		}
+		if (modifyUser.getNote2() == "NULL") {
+			modifyUser.setNote2(" ");
+		}
+		if (modifyUser.getNote3() == "NULL") {
+			modifyUser.setNote3(" ");
+		}
+		return modifyUser;
 	}
 
 }
