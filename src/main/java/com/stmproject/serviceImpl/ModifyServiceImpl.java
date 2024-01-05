@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -65,8 +66,9 @@ public class ModifyServiceImpl implements ModifyService {
             existingSTM.setDraftingDate(modifySTM.getDraftingDate());
             existingSTM.setFinalDrafterName(modifySTM.getFinalDrafterName());
            
-            existingSTM.setStmVersion("0"+newRevisionString);
-	    existingSTM.setCreatorSSOID(ssoid);
+            existingSTM.setStmVersion("0"+newRevisionString); 
+            existingSTM.setCreatorSSOID(ssoid);
+            existingSTM.setLastUpdated(new Date());
             // Save the updated entity            
             modifyRepository.save(existingSTM);
             
