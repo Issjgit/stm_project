@@ -124,9 +124,9 @@ button:hover {
     }
 
 #adminMessage {
-    position: absolute;
+    position: fixed;
     top: 10px;
-    right: 10px;
+    right: 130px;
     color: #062d73;
     font-size: 18px;
     font-weight: bold;
@@ -153,12 +153,38 @@ button:hover {
 {
  width:50px;
 }
+
+.logout-button {
+
+            display: block;
+            width: 80px;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #000066;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            border: 3px solid rgb(64, 0, 0);
+            border-radius: 10px;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Style for the arrow inside the button */
+        .logout-button i {
+            margin-left: 5px; 
+        }
 </style>
 </head>
 <body> 
 
 <input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
 <h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5> 
+<a th:href="@{/login}" class="logout-button" onclick="logoutFunction()">
+    Logout
+    <i>&#10142;</i> 
+</a>
     <h1>STM: Silicone Test Method</h1>       
     <div id="successMessageDiv" th:if="${successMessage}">
     <p style="color: green;" th:text="${successMessage}"></p>
@@ -192,7 +218,7 @@ button:hover {
         <div class="label-container">
             <label for="textJapanese">Text (Short) Japanese</label>
             <input type="text" id="textJapanese" th:field="*{textShortJP}" th:value="${textShortJP}" maxlength="200"
-            pattern="^[\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s]+$" title="japanese characters only allowed"/>
+            pattern="^[\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s.]+$" title="japanese characters only allowed"/>
         </div>
 
         <div class="label-container">

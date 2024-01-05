@@ -110,7 +110,10 @@
 <body id="dashboardBody">
 	<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
 	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
-
+<a th:href="@{/login}" class="logout-button" onclick="logoutFunction()">
+    Logout
+    <i>&#10142;</i> 
+</a>
 	<h1>STM:Silicone Test Method</h1>
 	<!-- <div id="pdfError" class="error-message"></div>
     <div id="wordError" class="error-message"></div> -->
@@ -150,7 +153,7 @@
 		<div class="label-container">
 			<label for="textJapanese">Text (Short) Japanese</label> <input type="text" id="textJapanese"
 				th:field="*{textShortJP}" maxlength="200"
-				 pattern="^[\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s。]+$"
+				 pattern="[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}\s]*"
                  title="Only Japanese characters are allowed">
 		</div>
 

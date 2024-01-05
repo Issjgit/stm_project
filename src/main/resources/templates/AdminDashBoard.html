@@ -2,11 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" type="text/css" href="CSS/styles.css">
+        
 </head>
 <body id="dashboardBody">
 <input type= "hidden" id = "ssoid" name="ssoid" th:value = "${ssoid}"/>
-<h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
-         <h1>STM:Silicone Test Method</h1>
+<h5 id =adminMessage th:text="'' + ${ssoid}" style="color: #062d73;">
+</h5>
+<a th:href="@{/login}" class="logout-button" onclick="logoutFunction()">
+    Logout
+    <i>&#10142;</i> 
+</a>
+         <h1>STM:Silicone Test Method</h1>       
     <div class="dashboard">
         <a href="#" class="dashboard-button" th:href="@{/register(ssoid = ${ssoid})}" style="margin-top:30px;"><span>&#9733;</span>New Registration</a>
         <a href="#" class="dashboard-button" th:href="@{/search(ssoid = ${ssoid})}" style="margin-top:30px;"><span>&#9733;</span>Search</a>

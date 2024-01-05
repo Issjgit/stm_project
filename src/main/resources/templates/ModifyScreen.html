@@ -124,9 +124,9 @@
 		}
 
 		#adminMessage {
-			position: absolute;
+			position: fixed;
 			top: 10px;
-			right: 10px;
+			right: 130px;
 			color: #062d73;
 			font-size: 18px;
 			font-weight: bold;
@@ -148,14 +148,39 @@
 {
     width:92px; 
     
-}  
+} 
+
+.logout-button {
+
+            display: block;
+            width: 80px;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #000066;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            border: 3px solid rgb(64, 0, 0);
+            border-radius: 10px;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Style for the arrow inside the button */
+        .logout-button i {
+            margin-left: 5px; 
+        } 
 	</style>
 </head>
 
 <body id="dashboardBody">
 	<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
 	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
-
+<a th:href="@{/login}" class="logout-button" onclick="logoutFunction()">
+    Logout
+    <i>&#10142;</i> 
+</a>
 
 	<h1>STM: Silicone Test Method</h1>
 	<!-- <p id="message" th:text="${message}"></p>

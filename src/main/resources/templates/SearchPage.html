@@ -45,6 +45,10 @@
 	<!-- ADDED[S] AMULYA To Display the ssoid-->
 	<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
 	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
+	<a th:href="@{/login}" class="logout-button" onclick="logoutFunction()">
+    Logout
+    <i>&#10142;</i> 
+</a>
 	<!-- ADDED[E] AMULYA To To Display the ssoid-->
 
 	<h1 id=hedding>STM:silicone test method</h1>
