@@ -229,7 +229,7 @@ button:hover {
         <div class="label-container">
             <label for="attachmentPdf">Attachment (PDF)</label>
             <div class="file-input">
-                <input type="text" id="attachedPdf" th:field="*{pdfFile}" th:value="${pdfFile}" maxlength="25" pattern="^[a-zA-Z0-9().\-\s]+$" title="Alphabet,number,dot,hypen and Space only allowed" readonly/>
+                <input type="text" id="attachedPdf" class="stmNumber" th:field="*{pdfFile}" th:value="${pdfFile}" maxlength="25" pattern="^[a-zA-Z0-9().\-\s]+$" title="Alphabet,number,dot,hypen and Space only allowed" readonly/>
                 <button type="button" style="background-color:red;border-radius:5px;" onclick="document.getElementById('attachmentPdf').click()">Choose PDF File</button>
                 <input type="file" id="attachmentPdf"  name="pdfFile" onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" maxlength="25" style="display: none;"/>
             </div>
@@ -238,7 +238,7 @@ button:hover {
         <div class="label-container">
     <label for="attachmentWord">Attachment (Word)</label>
     <div class="file-input">
-        <input type="text" id="attachedWord" th:field="*{wordFile}" th:value="${wordFile}" maxlength="25" pattern="^[a-zA-Z0-9().\-\s]+$" title="Alphabet, number, dot, hypen, and Space only allowed" readonly/>
+        <input type="text" id="attachedWord" class="stmNumber" th:field="*{wordFile}" th:value="${wordFile}" maxlength="25" pattern="^[a-zA-Z0-9().\-\s]+$" title="Alphabet, number, dot, hypen, and Space only allowed" readonly/>
          <button type="button" style="background-color:red;border-radius:5px;" onclick="document.getElementById('attachmentWord').click()">Choose Word File</button> 
         <input type="file" id="attachmentWord" name="wordFile" onchange="updateWordFileName('attachedWord', 'attachmentWord', 'wordError')" maxlength="25" style="display: none;"/>
     </div>
