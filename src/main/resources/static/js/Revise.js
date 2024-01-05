@@ -107,10 +107,21 @@ function validateDateFormat(inputField) {
 		inputField.value = "";
 	}
 }
+document.addEventListener('DOMContentLoaded', function () {
+            const lastUpdatedInput = document.getElementById('lastUpdated');
+            lastUpdatedInput.dataset.initialValue = lastUpdatedInput.value;
+        });
+
+        // Function to fetch the initial value
+        function getInitialValue() {
+            const lastUpdatedInput = document.getElementById('lastUpdated');
+            return lastUpdatedInput.dataset.initialValue || '';
+        }
+        
 function validateDate(input) {
     const dateInput = input.value;
     const dateArray = dateInput.split('/');
-    
+    const initialValue = getInitialValue();
     if (dateArray.length === 3) {
         const year = parseInt(dateArray[0], 10);
         const month = parseInt(dateArray[1], 10);
@@ -118,18 +129,21 @@ function validateDate(input) {
 
         // Check if the month is valid
         if (month < 1 || month > 12) {
-            openModal('modalErrorMonth');           
+            openModal('modalErrorMonth');
+            input.value = initialValue;
             return;
         }
 
         // Check if the day is valid for the given month
         const daysInMonth = new Date(year, month, 0).getDate();
         if (day < 1 || day > daysInMonth) {
-            openModal('modalErrorDay');            
+            openModal('modalErrorDay');
+            input.value = initialValue;
             return;
         }
     } else {
-        openModal('modalErrorFormat');        
+        openModal('modalErrorFormat');
+        input.value = initialValue;
         return;
     }
 }
