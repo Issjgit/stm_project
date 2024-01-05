@@ -118,21 +118,18 @@ function validateDate(input) {
 
         // Check if the month is valid
         if (month < 1 || month > 12) {
-            openModal('modalErrorMonth');
-            input.value = '';
+            openModal('modalErrorMonth');           
             return;
         }
 
         // Check if the day is valid for the given month
         const daysInMonth = new Date(year, month, 0).getDate();
         if (day < 1 || day > daysInMonth) {
-            openModal('modalErrorDay');
-            input.value = '';
+            openModal('modalErrorDay');            
             return;
         }
     } else {
-        openModal('modalErrorFormat');
-        input.value = '';
+        openModal('modalErrorFormat');        
         return;
     }
 }
