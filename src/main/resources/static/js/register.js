@@ -50,6 +50,16 @@ function closeModal(modalId) {
     }
 }
 
+
+function formatInputDate(input) {
+            let inputValue = input.value.replace(/\D/g, '');
+
+            if (inputValue.length === 8) {
+                const formattedDate = inputValue.replace(/(\d{4})(\d{2})(\d{2})/, '$1/$2/$3');
+                input.value = formattedDate;
+            }
+        }
+
 function updatePdfFileName(textInputId, fileInputId, errorElementId) {
 	         const textInput = document.getElementById(textInputId);
 	         const fileInput = document.getElementById(fileInputId);
