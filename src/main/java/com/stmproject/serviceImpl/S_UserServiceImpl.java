@@ -110,7 +110,7 @@ public class S_UserServiceImpl implements S_UserService {
 		}
 
 		if (!ObjectUtils.isEmpty(dao.getTextShortJP())) {
-			sb.append(" and Text_Short_JP like '" + dao.getTextShortJP() + "'");
+		    sb.append(" and Text_Short_JP COLLATE Japanese_CI_AS LIKE N'%" + dao.getTextShortJP() + "%'");
 		}
 		if (!ObjectUtils.isEmpty(dao.getTextShortEN())) {
 			sb.append(" and Text_Short_EN like '" + dao.getTextShortEN() + "'");
