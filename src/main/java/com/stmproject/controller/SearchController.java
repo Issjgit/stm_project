@@ -75,72 +75,91 @@ public class SearchController {
 		return "SearchPage";
 	}
 
-	// After Clicking Search button from Search Page
+// After Clicking Search button from Search Page
 	@PostMapping("/searchClick")
 	public String searchBtnClick(Model model, @ModelAttribute SearchResultlist sDao,
 			@RequestParam("ssoid") String ssoid) throws Exception {
-		List<SearchResultlist> searchList = sUserService.getValuesBySetValue(sDao);
-		model.addAttribute("list", searchList);
-		
-		if (!searchList.isEmpty()) {
-			model.addAttribute("STM", "2");
-			model.addAttribute("records", searchList.size() + " " + successMsg);
-			logger.debug(searchList.size() + " " + successMsg);
-		} else {
-			model.addAttribute("records", failuereMsg);
-			logger.debug(failuereMsg);
+		try {
+			List<SearchResultlist> searchList = sUserService.getValuesBySetValue(sDao);
+			model.addAttribute("list", searchList);
+
+			if (!searchList.isEmpty()) {
+				model.addAttribute("STM", "2");
+				model.addAttribute("records", searchList.size() + " " + successMsg);
+				logger.debug(searchList.size() + " " + successMsg);
+			} else {
+				model.addAttribute("records", failuereMsg);
+				logger.debug(failuereMsg);
+			}
+
+			model.addAttribute("ssoid", ssoid);
+			session.setAttribute("username", ssoid);
+			session.setAttribute("ListData", searchList);
+
+			return "SearchPage";
+		} catch (Exception e) {
+			logger.error("An error occurred in searchBtnClick", e);
+			model.addAttribute("error", "Invalid day. Please enter a valid day for the selected month.");
+			model.addAttribute("ssoid", ssoid);
+			session.setAttribute("username", ssoid);
+			return "SearchPage";
 		}
-		
-		model.addAttribute("ssoid", ssoid);
-		session.setAttribute("ListData", searchList);
-		
-		return "SearchPage";
 	}
 
 	@PostMapping("/viewClick")
 	public String viewBtnClick(Model model, @RequestParam("ssoid") String ssoid)
 			throws ClassNotFoundException, SQLException {
-		// fetching Data from searchUerServiceImpl class
-		List<SearchResultlist> searchList = sUserService.getAllValues();
-		model.addAttribute("list", searchList);
-		
-		if (!searchList.isEmpty()) {
-			model.addAttribute("STM", "2");
-			model.addAttribute("records", searchList.size() + " " + successMsg);
-			logger.debug(searchList.size() + " " + successMsg);
-		} else {
-			model.addAttribute("records", failuereMsg);
-			logger.debug(failuereMsg);
+		try {
+			// fetching Data from searchUerServiceImpl class
+			List<SearchResultlist> searchList = sUserService.getAllValues();
+			model.addAttribute("list", searchList);
+
+			if (!searchList.isEmpty()) {
+				model.addAttribute("STM", "2");
+				model.addAttribute("records", searchList.size() + " " + successMsg);
+				logger.debug(searchList.size() + " " + successMsg);
+			} else {
+				model.addAttribute("records", failuereMsg);
+				logger.debug(failuereMsg);
+			}
+
+			model.addAttribute("ssoid", ssoid);
+			session.setAttribute("ListData", searchList);
+			session.setAttribute("username", ssoid);
+			return "SearchPage";
+		} catch (Exception e) {
+			logger.error("An error occurred in viewBtnClick", e);
+			model.addAttribute("error", "Failed to load SearchListData");
+			return "SearchPage";
 		}
-		
-		model.addAttribute("ssoid", ssoid);
-		session.setAttribute("ListData", searchList);
-		model.addAttribute("ssoid", session.getAttribute("username"));
-		
-		return "SearchPage";
 	}
 
 	@PostMapping("/doubleClickTableRow")
 	public String getModifyTableRowData(@RequestBody SearchResultlist dao, Model model) {
-		@SuppressWarnings("unchecked")
-		List<SearchResultlist> searchList = (List<SearchResultlist>) session.getAttribute("ListData");
-		
-		for (SearchResultlist ent : searchList) {
-			if (ent.getRowIndex() == dao.getRowIndex()) {
-				System.out.println(ent);
-				session.setAttribute("modifyRowData", ent);
-				break;
-			}
-		}
-		
-		model.addAttribute("ssoid", session.getAttribute("username"));
-		model.addAttribute("STM", "2");
-		
-		return "ModifySearchData";
-	}
+		try {
+			@SuppressWarnings("unchecked")
+			List<SearchResultlist> searchList = (List<SearchResultlist>) session.getAttribute("ListData");
 
+			for (SearchResultlist ent : searchList) {
+				if (ent.getRowIndex() == dao.getRowIndex()) {
+					System.out.println(ent);
+					session.setAttribute("modifyRowData", ent);
+					break;
+				}
+			}
+			model.addAttribute("ssoid", session.getAttribute("username"));
+			model.addAttribute("STM", "2");
+			return "ModifySearchData";
+		} catch (Exception e) {
+			logger.error("An error occurred in getModifyTableRowData", e);
+			model.addAttribute("error", "Failed to get TableRow Data");
+			return "ModifySearchData";
+		}
+	}
+	
 	@GetMapping("/Modify")
 	public String ModifyViewPage(HttpSession session, Model model) {
+		try {
 		SearchResultlist modifyUser = sUserService
 				.setEmptyForNullValues((SearchResultlist) session.getAttribute("modifyRowData"));
 		model.addAttribute("entValue", modifyUser);
@@ -151,10 +170,13 @@ public class SearchController {
 		if (isadminuser) {
 			model.addAttribute("enableBtn", 1);
 		}
-		
 		return "ModifySearchData";
-	}
-
+	}  catch (Exception e) {
+        logger.error("An error occurred in ModifyViewPage", e);
+        model.addAttribute("error", "An error occurred while loading data");
+        return "ModifySearchData"; 
+    }
+}	
 	@CrossOrigin
 	@GetMapping("/downloadattachmentpdf")
 	public ResponseEntity<byte[]> downloadFile(@RequestParam("file") String fileName, Model model) throws IOException {
