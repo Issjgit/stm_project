@@ -59,6 +59,9 @@
 <body th:onload="disEnableBtn([[${enableBtn}]])">
 	<input type="hidden" id="ssoid" name="ssoid" th:value="${ssoid}" />
 	<h5 id=adminMessage th:text="'' + ${ssoid}" style="color: #062d73;"></h5>
+	<a th:href="@{/login}" class="logout-button" onclick="logoutFunction()">Logout
+        <i>&#10142;</i> 
+        </a>
 	<h1>STM:Silicone Test Method</h1>
 	<p th:text="${message}"></p>
 	<p id="message" th:text="${error}"></p>
