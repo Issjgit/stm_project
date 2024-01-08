@@ -240,4 +240,33 @@ $(document).ready(function() {
   });
 });
 
+function validateDate(input) {
+	const dateInput = input.value;
+	const dateArray = dateInput.split('/');
+
+	if (dateArray.length === 3) {
+		const year = parseInt(dateArray[0], 10);
+		const month = parseInt(dateArray[1], 10);
+		const day = parseInt(dateArray[2], 10);
+
+		// Check if the month is valid
+		if (month < 1 || month > 12) {
+			openModal('modalErrorMonth');
+			input.value = '';
+			return;
+		}
+
+		// Check if the day is valid for the given month
+		const daysInMonth = new Date(year, month, 0).getDate();
+		if (day < 1 || day > daysInMonth) {
+			openModal('modalErrorDay');
+			input.value = '';
+			return;
+		}
+	} else {
+		openModal('modalErrorFormat');
+		input.value = '';
+		return;
+	}
+}
 // ADD[E]
