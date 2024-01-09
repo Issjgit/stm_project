@@ -12,10 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "M_User")
@@ -26,32 +22,28 @@ public class M_User {
 	private int no;
 
 	@Id
-	@Column(name = "SSO_ID", length = 11, nullable = false)
+	@Column(name = "SSO_ID",  columnDefinition = "NVARCHAR(11)",nullable = false)
 	private String ssoid;
 
-	@Column(name = "Password", length = 11, nullable = false)
+	@Column(name = "Password", columnDefinition = "NVARCHAR(11)", nullable = false)
 	private String password;
 
-	@Column(name = "User_Name_Eng", length = 255, nullable = false)
+	@Column(name = "User_Name_Eng", columnDefinition = "NVARCHAR(255)", nullable = false)
 	private String user_Name_Eng;
 
-	@Column(name = "User_Name_Jp", length = 255, nullable = false)
+	@Column(name = "User_Name_Jp",columnDefinition = "NVARCHAR(255)", nullable = false)
 	private String user_Name_Jp;
 
-	@Column(name = "User_Email_Id", length = 50, nullable = false)
+	@Column(name = "User_Email_Id", columnDefinition = "NVARCHAR(50)", nullable = false)
 	private String user_Email_Id;
 
 	@Column(name = "User_Type", length = 1, nullable = false)
 	private Character user_Type;
 
 	@Column(name = "User_Creation_Date", nullable = false)
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date user_Creation_Date;
 
 	@Column(name = "Updated_Date")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date updated_Date;
 
 	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
