@@ -136,8 +136,8 @@ button:hover {
 			</label> <input type="text" id="stmNumber" th:field="*{stmNo}"
 				style="height: 15px;" maxlength="15"
 				oninput="updateDisabledField(this),updateFields()" required
-				pattern="[a-zA-Z0-9]*"
-				title="Alphabet and Number characters only allowed">
+				pattern="[a-zA-Z0-9\u3040-\u30FF]*"
+				title="Alphabet, Japanese characters, and number characters only allowed">
 		</div>
 		<input type="text" class="stmNumber" id="disabledField"
 			th:field="*{stmVersion}" disabled="disabled"
@@ -242,8 +242,9 @@ button:hover {
 		<div class="label-container">
 			<label for="finalDrafter">Final Drafter (Last Name)</label> <input
 				type="text" id="finalDrafter" th:field="*{finalDrafterName}"
-				maxlength="50" required pattern="^[a-zA-Z\s]+$"
-				title="Alphabet and Space only allowed">
+				th:value="${finalDrafterName}" maxlength="50" required="required"
+				pattern="^[a-zA-Z\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s]+$"
+				title="Alphabet, Japanese characters, and Space only allowed" />
 		</div>
 
 		<div class="label-container">
