@@ -29,25 +29,25 @@ public class STM_Histo {
     @Column(name = "No")
     private Integer no;
 
-    @Column(name = "STM_No", length = 15,nullable = false)
+    @Column(name = "STM_No", columnDefinition = "NVARCHAR(15)",nullable = false)
     private String stmNo;
 
     @Column(name = "STM_Version", length = 4)
     private String stmVersion;
 
-    @Column(name = "Link_Destination", length = 15)
+    @Column(name = "Link_Destination", columnDefinition = "NVARCHAR(15)")
     private String linkDestination;
 
     @Column(name = "Text_Short_JP", columnDefinition = "NVARCHAR(200)")
     private String textShortJP;
 
-    @Column(name = "Text_Short_EN", length = 200)
+    @Column(name = "Text_Short_EN", columnDefinition = "NVARCHAR(200)")
     private String textShortEN;
 
-    @Column(name = "Pdf_File", length = 25)
+    @Column(name = "Pdf_File", columnDefinition = "NVARCHAR(25)")
     private String pdfFile;
 
-    @Column(name = "Word_File", length = 25)
+    @Column(name = "Word_File", columnDefinition = "NVARCHAR(25)")
     private String wordFile;
 
     @Column(name = "Drafting_Date")
@@ -55,27 +55,25 @@ public class STM_Histo {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date draftingDate;
 
-    @Column(name = "Final_Drafter_Name", length = 100)
+    @Column(name = "Final_Drafter_Name",columnDefinition = "NVARCHAR(100)")
     private String finalDrafterName;
 
-    @Column(name = "Old_STM_Number", length = 15)
+    @Column(name = "Old_STM_Number", columnDefinition = "NVARCHAR(15)")
     private String oldSTMNumber;
 
-    @Column(name = "Remarks1", length = 200)
+    @Column(name = "Remarks1", columnDefinition = "NVARCHAR(200)")
     private String remarks1;
 
-    @Column(name = "Note2", length = 200)
+    @Column(name = "Note2", columnDefinition = "NVARCHAR(200)")
     private String note2;
 
-    @Column(name = "Note3", length = 200)
+    @Column(name = "Note3", columnDefinition = "NVARCHAR(200)")
     private String note3;
 
-    @Column(name = "Creator_SSO_ID", length = 11,nullable = false)
+    @Column(name = "Creator_SSO_ID", columnDefinition = "NVARCHAR(11)",nullable = false)
     private String creatorSSOID;
 
     @Column(name = "Created_date",nullable = false)
-    @Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date createdDate;
 
     @Column(name = "Last_Updated")
