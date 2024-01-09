@@ -57,39 +57,69 @@ button:hover {
 
 /* Modal styles */
 .modal {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+   /*  background-color: transparent; */
 }
 
 .modal-content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #fefefe;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 300px;
-	color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: transparent;
+     border:none;
 }
 
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 20px;
-	font-weight: bold;
-	cursor: pointer;
+.upper-part {
+    background-color: #3399ff;
+    padding: 20px;
+    border-bottom: 1px solid #888; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.close:hover {
-	color: black;
+.upper-part p {
+    margin: 0;
+    font-weight: bold;
+    color: white;
 }
-// added style for register button
+
+.error-message {
+    background-color: #e6e6e6;
+    padding: 20px;
+    color: black;
+}
+
+.close-modal {
+    font-size: 30px;
+    color: red;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: darkred; /* Change the color on hover if needed */
+}
+
+.modal-content button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 5px; /* Adjust the margin as needed */
+}
+
+.modal-content button:hover {
+    background-color: #555;
+}
  .registerclose {
 	width: 20%;
 	background-color: #000066;
@@ -171,10 +201,12 @@ button:hover {
             right: 10px;
         }
 
-        /* Style for the arrow inside the button */
+        
         .logout-button i {
             margin-left: 5px; 
         }
+        
+   
 </style>
 </head>
 <body> 
@@ -192,12 +224,7 @@ button:hover {
  <div id="errorMessageDiv" th:if="${errorMessage}">
     <p style="color: red;" th:text="${errorMessage}"></p>
 </div>
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modalMessage"></div>
-        </div>
-    </div>
+    
     <form th:action="@{/revise(ssoid = ${ssoid})}" th:object="${stm}" enctype="multipart/form-data" method="post">            
         <div class="label-container">
             <label for="stmNumber">STM Number<br>(Quality inspection method_master <br>quality inspection characteristics)</label>
@@ -211,8 +238,10 @@ button:hover {
 
         <div class="label-container">
             <label for="linkDestination">Link Destination(STM_parent number)</label>
-            <input type="text" id="linkDestination"  th:field="*{linkDestination}" th:value="${linkDestination}" maxlength="15" pattern="^[a-zA-Z0-9_]+$" 
-       title="Alphabet, number, and underscore only allowed"/>
+           <input type="text" id="linkDestination" th:field="*{linkDestination}" th:value="${linkDestination}" maxlength="15"
+       pattern="^[a-zA-Z0-9_\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF]+$"
+       title="Alphabet, number, underscore, and Japanese characters allowed"/>
+
         </div>
 
         <div class="label-container">
@@ -229,7 +258,7 @@ button:hover {
         <div class="label-container">
             <label for="attachmentPdf">Attachment (PDF)</label>
             <div class="file-input">
-                <input type="text" id="attachedPdf" class="stmNumber" th:field="*{pdfFile}" th:value="${pdfFile}" maxlength="25" pattern="^[a-zA-Z0-9().\-\s]+$" title="Alphabet,number,dot,hypen and Space only allowed" readonly/>
+                <input type="text" class="stmNumber" id="attachedPdf" th:field="*{pdfFile}" th:value="${pdfFile}" maxlength="25" pattern="^[a-zA-Z0-9().\-\s]+$" title="Alphabet,number,dot,hypen and Space only allowed" readonly/>
                 <button type="button" style="background-color:red;border-radius:5px;" onclick="document.getElementById('attachmentPdf').click()">Choose PDF File</button>
                 <input type="file" id="attachmentPdf"  name="pdfFile" onchange="updatePdfFileName('attachedPdf', 'attachmentPdf', 'pdfError')" maxlength="25" style="display: none;"/>
             </div>
@@ -245,35 +274,56 @@ button:hover {
 </div>
 
 
-        <!-- Modal for PDF error -->
-        <div id="pdfError" class="modal">
-            <div class="modal-content">
-                <span class="close-modal" onclick="closeModal('pdfError')">&times;</span>
-                <p>Invalid file format. Please select a PDF file.</p>
-            </div>
-        </div>
-
-        <!-- Modal for Word error -->
-        <div id="wordError" class="modal">
-            <div class="modal-content">
-                <span class="close-modal" onclick="closeModal('wordError')">&times;</span>
-                <p>Invalid file format. Please select a Word file (doc or docx).</p>
-            </div>
-        </div>
-
-<!-- Modal for invalid month -->
-<div id="modalErrorMonth" class="modal">
+ <!-- Modal for PDF error -->
+  <div id="pdfError" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('modalErrorMonth')">&times;</span>
-        <p>Invalid month. Please enter a valid month (1-12).</p>
+        <div class="upper-part">
+         <p>error</p> <span class="close-modal" onclick="closeModal('pdfError')">&times;</span>
+        </div>
+        <div class="error-message">
+            <p>Invalid file format. Please select a PDF file.</p>
+        </div>
+    </div>
+</div>
+<div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalMessage"></div>
+        </div>
+    </div>
+
+<div id="wordError" class="modal">
+    <div class="modal-content">
+        <div class="upper-part">
+         <p>error</p> <span class="close-modal" onclick="closeModal('wordError')">&times;</span>
+        </div>
+        <div class="error-message">
+            <p>Invalid file format. Please select a Word file (doc or docx).</p>
+        </div>
     </div>
 </div>
 
-<!-- Modal for invalid day -->
+
+<div id="modalErrorMonth" class="modal">
+    <div class="modal-content">
+        <div class="upper-part">
+         <p>error</p> <span class="close-modal" onclick="closeModal('modalErrorMonth')">&times;</span>
+        </div>
+        <div class="error-message">
+            <p>Invalid month. Please enter a valid month (1-12).</p>
+        </div>
+    </div>
+</div>
+
+
 <div id="modalErrorDay" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('modalErrorDay')">&times;</span>
-        <p>Invalid day. Please enter a valid day for the selected month.</p>
+        <div class="upper-part">
+         <p>error</p> <span class="close-modal" onclick="closeModal('modalErrorDay')">&times;</span>
+        </div>
+        <div class="error-message">
+            <p>Invalid day. Please enter a valid day for the selected month.</p>
+        </div>
     </div>
 </div>
 
@@ -285,7 +335,7 @@ button:hover {
 
         <div class="label-container">
             <label for="finalDrafter">Final Drafter (Last Name)</label>
-            <input type="text" id="finalDrafter" th:field="*{finalDrafterName}" th:value="${finalDrafterName}" maxlength="100" required="required" pattern="^[a-zA-Z\s]+$" title="Alphabet and Space only allowed"/>
+            <input type="text" id="finalDrafter" th:field="*{finalDrafterName}" th:value="${finalDrafterName}" maxlength="100" required="required" pattern="^[a-zA-Z\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s]+$" title="Alphabet, Japanese characters, and Space only allowed"/>
         </div>
 
         <div class="label-container">
@@ -312,15 +362,21 @@ button:hover {
             <button type="button" name="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage(ssoid = ${ssoid})}'|">Return</button>            
         </div>
         
-        <!-- Modal for Revise confirmation -->
-        <div id="reviseConfirmation" class="modal">
-         <div class="modal-content">
-         <span class="close-modal" onclick="closeModal('reviseConfirmation')">&times;</span>
-         <p>Is it okay to revise it?</p>
+        
+   <div id="reviseConfirmation" class="modal" >
+    <div class="modal-content" style="width:300px;">
+        <div class="upper-part">
+         <p>Check for revisions
+</p> <span class="close-modal"  onclick="closeModal('reviseConfirmation')">&times;</span>
+        </div>
+        <div class="error-message">
+            <p>Is it okay to revise it?</p>
          <button onclick="confirmRevise()">yes(Y)</button>
          <button type="button" onclick="closeModal('reviseConfirmation')">no(N)</button>
-         </div>
         </div>
+    </div>
+</div>                
+
     </form>  
     <script th:src="@{/js/Revise.js}"> </script>    
 </body>
