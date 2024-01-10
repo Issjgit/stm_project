@@ -53,7 +53,7 @@ public class STM {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date draftingDate;
 
-	@Column(name = "Final_Drafter_Name", length = 100)
+	@Column(name = "Final_Drafter_Name", columnDefinition = "NVARCHAR(15)")
 	private String finalDrafterName;
 
 	@Column(name = "Old_STM_Number", columnDefinition = "NVARCHAR(15)")
