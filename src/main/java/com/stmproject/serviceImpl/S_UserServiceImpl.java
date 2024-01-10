@@ -97,7 +97,7 @@ public class S_UserServiceImpl implements S_UserService {
 
 	@Override
 	public List<SearchResultlist> getValuesBySetValue(SearchResultlist dao) {
-		String strQuery = "Select * from dbo.STM where STM_No like '%" + dao.getStmNo() + "%'";
+		String strQuery = "Select * from dbo.STM where STM_No like N'%" + dao.getStmNo() + "%'";
 		StringBuffer sb = new StringBuffer();
 
 		sb.append(strQuery);
@@ -106,7 +106,7 @@ public class S_UserServiceImpl implements S_UserService {
 		}
 
 		if (!ObjectUtils.isEmpty(dao.getLinkDestination())) {
-			sb.append(" and Link_Destination like '" + dao.getLinkDestination() + "'");
+			sb.append(" and Link_Destination like N'%" + dao.getLinkDestination() + "'");
 		}
 
 		if (!ObjectUtils.isEmpty(dao.getTextShortJP())) {
@@ -116,10 +116,10 @@ public class S_UserServiceImpl implements S_UserService {
 			sb.append(" and Text_Short_EN like '" + dao.getTextShortEN() + "'");
 		}
 		if (!ObjectUtils.isEmpty(dao.getFinalDrafterName())) {
-			sb.append(" and Final_Drafter_Name like '%" + dao.getFinalDrafterName() + "%'");
+			sb.append(" and Final_Drafter_Name like N'%" + dao.getFinalDrafterName() + "%'");
 		}
 		if (!ObjectUtils.isEmpty(dao.getOldSTMNumber())) {
-			sb.append(" and Old_STM_Number like '" + dao.getOldSTMNumber() + "'");
+			sb.append(" and Old_STM_Number like N'" + dao.getOldSTMNumber() + "'");
 		}
 		if (!ObjectUtils.isEmpty(dao.getStartDraftDate())) {
 			sb.append(" and drafting_date > '" + dao.getStartDraftDate() + "'");
@@ -200,7 +200,7 @@ public class S_UserServiceImpl implements S_UserService {
 
 	@Override
 	public boolean isAdminLogin(String userId) {
-		String strQuery = "Select * from dbo.m_user where sso_id = '" + userId + "'";
+		String strQuery = "Select * from dbo.m_user where sso_id = N'" + userId + "'";
 
 		Query query = (Query) entManager.createNativeQuery(strQuery, M_User.class);
 		List<M_User> list = query.getResultList();
