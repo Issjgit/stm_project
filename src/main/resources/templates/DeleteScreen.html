@@ -31,19 +31,13 @@ input[type="text"] {
 	margin: 5px 0;
 	border: 2px solid rgb(0, 0, 0);
 	border-radius: 5px;
-	background: #cbe3b5;
+	
 }
-
-#stmNumber{
-background: #cbe3b5;
-
+.stmNumber {
+	height: 15px;
+	background-color: #4d4d4d;
+	color: #fff;
 }
-
-#revisionNumber{
-background: #cbe3b5;
-}
-
-
 
 button {
 	display: inline-block;
@@ -179,67 +173,67 @@ button:hover {
     <form th:action="@{/delete(ssoid = ${ssoid})}" th:object= "${stm}" method="post" enctype="multipart/form-data" id="deleteForm">
         <div class="label-container">
             <label for="stmNumber">STM Number<br>(Quality inspection method_master <br>quality inspection characteristics)</label>
-            <input type="text" id="stmNumber" name="stmNo" th:field="${stm.stmNo}" readonly style="height: 15px;"  />
+            <input type="text" id="stmNumber"  class="stmNumber" name="stmNo" th:field="${stm.stmNo}" readonly style="height: 15px;"  />
         </div>
 
         <div class="label-container">
             <label for="revisionNumber">Revision Number</label>
-            <input id ="revisionNumber" type="text" style="height: 15px;" th:field="${stm.stmVersion}" disabled="disabled" />
+            <input id ="revisionNumber" type="text"  class="stmNumber" style="height: 15px;" th:field="${stm.stmVersion}" disabled="disabled" />
         </div>
 
         <div class="label-container">
             <label for="linkDestination">Link Destination(STM_parent number)</label>
-            <input type="text" id="linkDestination" th:field="${stm.linkDestination}" disabled="disabled"/>
+            <input type="text" id="linkDestination"  class="stmNumber"th:field="${stm.linkDestination}" disabled="disabled"/>
         </div>
 
         <div class="label-container">
             <label for="textJapanese">Text (Short) Japanese</label>
-            <input type="text" id="textJapanese" th:field="${stm.textShortJP}" disabled="disabled" />
+            <input type="text" id="textJapanese" class="stmNumber" th:field="${stm.textShortJP}" disabled="disabled" />
         </div>
 
         <div class="label-container">
             <label for="textEnglish">Text (Short) English</label>
-            <input type="text" id="textEnglish" th:field="${stm.textShortEN}" disabled="disabled" />
+            <input type="text" id="textEnglish"  class="stmNumber" th:field="${stm.textShortEN}" disabled="disabled" />
         </div>
 
         <div class="label-container">
             <label for="attachmentPdf">Attachment (PDF)</label>          
-                <input type="text" id="attachedPdf" th:field="${stm.pdfFile}" disabled="disabled"/>               
+                <input type="text"  class="stmNumber" id="attachedPdf" th:field="${stm.pdfFile}" disabled="disabled"/>               
         </div>
 
         <div class="label-container">
             <label for="attachmentWord">Attachment (Word)</label>
-                <input type="text" id="attachedWord" th:field="${stm.wordFile}" disabled="disabled" />
+                <input type="text"  class="stmNumber" id="attachedWord" th:field="${stm.wordFile}" disabled="disabled" />
         </div>
        
         <div class="label-container">
             <label for="lastUpdated">Last Updated (Drafting Date)</label>
-            <input type="text" id="lastUpdated" disabled="disabled"  th:value="${#dates.format(stm.draftingDate, 'yyyy/MM/dd')}" th:field = "${stm.draftingDate}"/>
+            <input type="text" id="lastUpdated" disabled="disabled"  class="stmNumber"  th:value="${#dates.format(stm.draftingDate, 'yyyy/MM/dd')}" th:field = "${stm.draftingDate}"/>
         </div>
 
         <div class="label-container">
             <label for="finalDrafter">Final Drafter (Last Name)</label>
-            <input type="text" id="finalDrafter" th:field="${stm.finalDrafterName}" disabled="disabled"/>
+            <input type="text" id="finalDrafter"  class="stmNumber" th:field="${stm.finalDrafterName}" disabled="disabled"/>
         </div>
 
         <div class="label-container">
             <label for="oldStmNumber">Old STM Number</label>
-            <input type="text" id="oldStmNumber" th:field="${stm.oldSTMNumber}" disabled="disabled" />
+            <input type="text" id="oldStmNumber"  class="stmNumber" th:field="${stm.oldSTMNumber}" disabled="disabled" />
         </div>
 
         <div class="label-container">
             <label for="remarks1">Remarks 1</label>
-            <input id="remarks1" type="text" th:field="${stm.remarks1}" disabled="disabled" />
+            <input id="remarks1" type="text"  class="stmNumber" th:field="${stm.remarks1}" disabled="disabled" />
         </div>
 
         <div class="label-container">
             <label for="note2">Note 2</label>
-            <input type="text" id="note2" th:field="${stm.note2}" disabled="disabled" />
+            <input type="text" id="note2"  class="stmNumber" th:field="${stm.note2}" disabled="disabled" />
         </div>
 
         <div class="label-container">
             <label for="note3">Note 3</label>
-            <input type="text" id="note3" th:field="${stm.note3}" disabled="disabled"/>
+            <input type="text" id="note3"  class="stmNumber" th:field="${stm.note3}" disabled="disabled"/>
         </div>
         <div style="margin-top: 20px;">
             <button type="button" name="action" value="modify" class="registerclose" onclick="openModal('modifyConfirmation')">Delete</button>
