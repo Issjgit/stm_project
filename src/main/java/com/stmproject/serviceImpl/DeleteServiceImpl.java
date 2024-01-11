@@ -22,6 +22,7 @@ public class DeleteServiceImpl implements DeleteService {
 	        STM stm = stmRepository.findById(stmNo).orElse(null);
 	        if (stm != null) {
 	            stm.setIsDeleted(true);
+	            stm.setLastUpdated(new Date());
 	            stmRepository.save(stm);
 	            return true;
 	        }
