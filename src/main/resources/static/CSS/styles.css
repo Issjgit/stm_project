@@ -123,23 +123,25 @@ ADD[S]Samata 2023/11/14
 	padding: 20px 0;
 }
 
-.table-responsive {
-	margin-left: 80px;
-	margin-top: 60px;
-}
-
 table,
 th,
 tr,
+td,
 thead {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.selected {
-	background-color: darkgrey;
-	/* You can set the background color to any color you prefer */
+th {
+  height: 40px;
+  background: #eea647;
+  font-size: 17px;
+  font-weight: 900;
 }
-
+tr{
+	height: 40px;
+	background: honeydew;
+	font-size: 15px;
+}
 .search {
 	width: 30%;
 	color: #fff;
@@ -179,18 +181,6 @@ thead {
 
 }
 
-thead tr th {
-	height: 60px;
-	line-height: 40px;
-	text-align: center;
-	font-size: 14px;
-	font-weight: 900;
-}
-
-td {
-	text-align: center;
-	border: 1px solid black;
-}
 
 #table1 {
 	height: 400px;
@@ -198,33 +188,23 @@ td {
 	overflow-y: scroll;
 }
 
-tr.tableHover:hover {
-	background-color: darkgrey;
-}
-
-tr.tableHover {
-	/*	background-color: cornsilk; */
-	background-color: white;
-}
-
 .table-layout .clickedrow td {
-	background-color: #caaf8f;
+	background-color: rgb(189, 189, 189);
 }
 
 .table-layout {
-	/*text-align: center;*/
 	border-collapse: collapse;
 	font-family: arial-narrow, helvetica, sans-serif;
 	font-weight: 100;
 	font-size: 13px;
 	margin: 0 auto 0;
 	margin-bottom: 20px;
-	/*float:left;*/
 	height: 500px;
 	overflow-x: auto;
 	white-space: nowrap;
 }
 
+/*
 .table-layout td,
 .table-layout th {
 	border: 1px solid grey;
@@ -237,14 +217,8 @@ tr.tableHover {
 	height: 32px;
 	line-height: 22px;
 }
-
-.table-layout td {
-	text-align: left;
-	background-color: #fff;
-}
-
+*/
 /*ModifySearchdata */
-/*ADD[S]Samata */
 .close {
 	color: #aaa;
 	float: right;
@@ -284,24 +258,24 @@ tr.tableHover {
 }
 
 .logout-button {
+	display: block;
+	width: 80px;
+	padding: 10px;
+	margin: 5px 0;
+	background-color: #000066;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	border: 3px solid rgb(64, 0, 0);
+	border-radius: 10px;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+}
 
-            display: block;
-            width: 80px;
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #000066;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            border: 3px solid rgb(64, 0, 0);
-            border-radius: 10px;
-            position: fixed;
-            top: 10px;
-            right: 10px;
-        }
+/* Style for the arrow inside the button */
+.logout-button i {
+	margin-left: 5px;
+}
 
-        /* Style for the arrow inside the button */
-        .logout-button i {
-            margin-left: 5px; 
-        }
 /*ADD[E] Samata*/
