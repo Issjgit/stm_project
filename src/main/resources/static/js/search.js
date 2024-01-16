@@ -80,6 +80,7 @@ function downloadPDF() {
 	console.log("File name " + pdf);
 
 	if (!pdf || pdf === " ") {
+
 		// Disable the button and return
 		downloadPDF.disabled = true;
 		return;
@@ -104,7 +105,6 @@ function downloadPDF() {
 
 		})
 		.catch(error => console.error('Error downloading file:', error));
-
 	downloadPDF.disabled = false;
 }
 
@@ -303,15 +303,15 @@ function formatDraftingDate(input) {
 //click fucntion
 $(document).ready(function() {
 
-  //Highlight clicked row
-  $('.table-layout td').on('click', function() {
-  
-    // Remove previous highlight class
-    $(this).closest('table').find('tr.clickedrow').removeClass('clickedrow');
-    
-    // add highlight to the parent tr of the clicked td
-    $(this).parent('tr').addClass("clickedrow");
-  });
+	//Highlight clicked row
+	$('.table-layout td').on('click', function() {
+
+		// Remove previous highlight class
+		$(this).closest('table').find('tr.clickedrow').removeClass('clickedrow');
+
+		// add highlight to the parent tr of the clicked td
+		$(this).parent('tr').addClass("clickedrow");
+	});
 });
 
 function validateDate(input) {
@@ -343,29 +343,4 @@ function validateDate(input) {
 		return;
 	}
 }
-
-/* Added [s] Amulya for date validation popup Purpose */
-function openModal(message) {
-	const modal = document.getElementById('modal');
-	const modalMessage = document.getElementById('modalMessage');
-	modalMessage.textContent = message;
-	modal.style.display = 'block';
-}
-
-function closeModal() {
-	const modal = document.getElementById('modal');
-	modal.style.display = 'none';
-}
-
-function openModal(modalId) {
-	const modal = document.getElementById(modalId);
-	modal.style.display = 'flex';
-}
-
-function closeModal(modalId) {
-	const modal = document.getElementById(modalId);
-	modal.style.display = 'none';
-}
-/* Added [E] Amulya for date validation popup Purpose */
-
 // ADD[E]
