@@ -148,7 +148,7 @@ $(document).ready(function() {
 function enterClick(value, event) {
 	let key = event.key;
 	console.log("Key is : " + key);
-	if (key == "Enter" || key == "ArrowDown") {
+	if (key == "Enter" ) {
 		if (value == '1') {
 			document.getElementById('Revision number').focus();
 		}
@@ -178,11 +178,54 @@ function enterClick(value, event) {
 		}
 		else if (value == '10') {
 			document.getElementById("searchbtn").click();
+		}else if (value == '11') {
+			document.getElementById("resetbtn").click();
+		}
+	}
+	
+	if (key == "ArrowDown" ) {
+		if (value == '1') {
+			document.getElementById('Revision number').focus();
+		}
+		else if (value == '2') {
+			document.getElementById('Link destination').focus();
+		}
+		else if (value == '3') {
+			document.getElementById('Japanese').focus();
+		}
+		else if (value == '4') {
+			document.getElementById('English').focus();
+		}
+		else if (value == '5') {
+			document.getElementById('draft_start_date').focus();
+		}
+		else if (value == '6') {
+			document.getElementById('draft_end_date').focus();
+		}
+		else if (value == '7') {
+			document.getElementById('finalDrafterName').focus();
+		}
+		else if (value == '8') {
+			document.getElementById('oldSTMnumber').focus();
+		}
+		else if (value == '9') {
+			document.getElementById('searchbtn').focus();
+		}
+		else if (value == '10') {
+			document.getElementById("resetbtn").focus();
+		}else if (value == '11') {
+			document.getElementById("stmNumber").focus();
 		}
 	}
 
 	if (key == "ArrowUp") {
-		if (value == '2') {
+		if (value == '10') {
+			document.getElementById('resetbtn').focus();
+		}
+		else if (value == '1') {
+			document.getElementById('searchbtn').focus();
+		}
+		else if (value == '2') {
 			document.getElementById('stmNumber').focus();
 		}
 		else if (value == '3') {
@@ -206,8 +249,8 @@ function enterClick(value, event) {
 		else if (value == '9') {
 			document.getElementById('finalDrafterName').focus();
 		}
-		else if (value == '10') {
-			document.getElementById("oldSTMnumber").click();
+		else if (value == '11') {
+			document.getElementById("oldSTMnumber").focus();
 		}
 	}
 };
