@@ -252,7 +252,7 @@
 			<button class="btn btn-primary search" type="submit" id="searchbtn" onsubmit="searchcall()"
 				onkeydown="enterClick(10,event)">Search</button>
 
-			<button class="btn btn-primary reset" type="reset" onclick="resetcall()" onkeydown="enterClick(11,event)">Reset</button>
+			<button class="btn btn-primary reset" type="reset" id="resetbtn" onclick="resetcall()" onkeydown="enterClick(11,event)">Reset</button>
 
 			<button class="btn btn-primary menu" style="color: white;background-color: limegreen;" type="button"
 				th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button>
