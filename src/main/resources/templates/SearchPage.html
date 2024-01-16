@@ -224,28 +224,28 @@
 
 <!-- Added [s] Amulya for date validation popup -->
 <div id="modalErrorMonth" class="modal">
-    <div class="modal-content">
-        <div class="upper-part">
-         <p>error</p> <span class="close-modal" onclick="closeModal('modalErrorMonth')">&times;</span>
-        </div>
-        <div class="error-message">
-            <p>Invalid month. Please enter a valid month (1-12).</p>
-        </div>
-    </div>
-</div>
+			<div class="modal-content">
+				<div class="upper-part">
+					<p>error</p> <span class="close-modal" onclick="closeModal('modalErrorMonth')">&times;</span>
+				</div>
+				<div class="error-message">
+					<p>Invalid month. Please enter a valid month (1-12).</p>
+					<button type="button" class="ok-button" onclick="closeModal('modalErrorMonth')">OK</button>
+				</div>
+			</div>
+		</div>
 
-
-<div id="modalErrorDay" class="modal">
-    <div class="modal-content">
-        <div class="upper-part">
-         <p>error</p> <span class="close-modal" onclick="closeModal('modalErrorDay')">&times;</span>
-        </div>
-        <div class="error-message">
-            <p>Invalid day. Please enter a valid day for the selected month.</p>
-        </div>
-    </div>
-</div>
-
+		<div id="modalErrorDay" class="modal">
+			<div class="modal-content">
+				<div class="upper-part">
+					<p>error</p> <span class="close-modal" onclick="closeModal('modalErrorDay')">&times;</span>
+				</div>
+				<div class="error-message">
+					<p>Invalid day. Please enter a valid day for the selected month.</p>
+					<button type="button" class="ok-button" onclick="closeModal('modalErrorDay')">OK</button>
+				</div>
+			</div>
+		</div>
 <!-- Added [E] Amulya for date validation popup -->
 		
 		<div style="display: flex; justify-content: space-between; margin-top: 100px;">
