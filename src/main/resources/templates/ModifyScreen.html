@@ -4,7 +4,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Modify</title>
-<link rel="stylesheet" type="text/css" href="CSS/styles.css">
+<link rel="stylesheet" href="" th:href="@{/CSS/styles.css}">
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -50,72 +50,6 @@ button {
 }
 
 button:hover {
-	background-color: #555;
-}
-
-/* Modal styles */
-.modal {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	/*  background-color: transparent; */
-}
-
-.modal-content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 500px;
-	background-color: transparent;
-	border: none;
-}
-
-.upper-part {
-	background-color: #3399ff;
-	padding: 20px;
-	border-bottom: 1px solid #888;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.upper-part p {
-	margin: 0;
-	font-weight: bold;
-	color: white;
-}
-
-.error-message {
-	background-color: #e6e6e6;
-	padding: 20px;
-	color: black;
-}
-
-.close-modal {
-	font-size: 30px;
-	color: red;
-	cursor: pointer;
-}
-
-.close-modal:hover {
-	color: darkred;
-}
-
-.modal-content button {
-	background-color: #333;
-	color: #fff;
-	border: none;
-	border-radius: 3px;
-	cursor: pointer;
-	margin: 5px;
-}
-
-.modal-content button:hover {
 	background-color: #555;
 }
 
@@ -171,26 +105,6 @@ button:hover {
 	width: 92px;
 }
 
-.logout-button {
-	display: block;
-	width: 80px;
-	padding: 10px;
-	margin: 5px 0;
-	background-color: #000066;
-	color: #fff;
-	text-decoration: none;
-	text-align: center;
-	border: 3px solid rgb(64, 0, 0);
-	border-radius: 10px;
-	position: fixed;
-	top: 10px;
-	right: 10px;
-}
-
-/* Style for the arrow inside the button */
-.logout-button i {
-	margin-left: 5px;
-}
 </style>
 </head>
 
@@ -201,16 +115,45 @@ button:hover {
 		Logout <i>&#10142;</i>
 	</a>
 
-	<h1>STM: Silicone Test Method</h1>
-	<!-- <p id="message" th:text="${message}"></p>
-    <p id="message" th:text="${error}"></p> -->
+	<h1>STM: Silicone Test Method</h1>	
+	<!-- Success Modal -->
+<div id="successModal" class="modal" th:if="${message}">
+    <div class="modal-content">
+        <!-- Upper part with green color -->
+        <div class="upper-part ">
+            <p>Success</p>
+            <span class="close-modal" onclick="closeModal('successModal')">&times;</span>
+        </div>
+        
+        <!-- Lower part with dark color -->
+        <div class="error-message">
+            <div class="success-message">
+                <p th:text="${message}" style="color: black;"></p>
+            </div>
+            <button type="button" class="ok-button" onclick="closeModal('successModal')">OK</button>
+        </div>
+    </div>
+</div>
 
-	<div id="successMessageDiv" th:if="${message}">
-		<p style="color: green;" th:text="${message}"></p>
-	</div>
-	<div id="errorMessageDiv" th:if="${error}">
-		<p style="color: red;" th:text="${error}"></p>
-	</div>
+<!-- Error Modal -->
+<div id="errorModal" class="modal" th:if="${error}">
+    <div class="modal-content">
+        <!-- Upper part with red color -->
+        <div class="upper-part error-upper">
+            <p>Error</p>
+            <span class="close-modal" onclick="closeModal('errorModal')">&times;</span>
+        </div>
+        
+        <!-- Lower part with dark color -->
+        <div class="error-message">
+            <div class="error-message">
+                <p th:text="${error}" style="color: red;"></p>
+            </div>
+            <button type="button" class="ok-button" onclick="closeModal('errorModal')">OK</button>
+        </div>
+    </div>
+</div>
+	
 	<div id="modal" class="modal">
 		<div class="modal-content">
 			<span class="close" onclick="closeModal()">&times;</span>
@@ -293,6 +236,7 @@ button:hover {
 				</div>
 				<div class="error-message">
 					<p>Invalid file format. Please select a PDF file.</p>
+					<button type="button" class="ok-button" onclick="closeModal('pdfError')">OK</button>
 				</div>
 			</div>
 		</div>
@@ -312,6 +256,7 @@ button:hover {
 				<div class="error-message">
 					<p>Invalid file format. Please select a Word file (doc or
 						docx).</p>
+					<button type="button" class="ok-button" onclick="closeModal('wordError')">OK</button>	
 				</div>
 			</div>
 		</div>
@@ -389,6 +334,7 @@ button:hover {
 				</div>
 				<div class="error-message">
 					<p>Invalid month. Please enter a valid month (1-12).</p>
+					<button type="button" class="ok-button" onclick="closeModal('modalErrorMonth')">OK</button>
 				</div>
 			</div>
 		</div>
@@ -402,13 +348,14 @@ button:hover {
 				<div class="error-message">
 					<p>Invalid day. Please enter a valid day for the selected
 						month.</p>
+						<button type="button" class="ok-button" onclick="closeModal('modalErrorDay')">OK</button>
 				</div>
 			</div>
 		</div>
 
 	</form>
 
-	<script>
+	<script th:inline="javascript">
 		function openModal(message) {
 			const modal = document.getElementById('modal');
 			const modalMessage = document.getElementById('modalMessage');
@@ -430,6 +377,20 @@ button:hover {
 			const modal = document.getElementById(modalId);
 			modal.style.display = 'none';
 		}
+		
+		// Check if the success message exists and open the success modal
+        var successMessage = /*[[${message}]]*/ '';
+        if (successMessage) {
+            openModal('successModal');
+        }
+
+        // Check if the error message exists and open the error modal
+        var errorMessage = /*[[${error}]]*/ '';
+        if (errorMessage) {
+            openModal('errorModal');
+        }  
+        
+		
 		function confirmModify() {
 			console.log("Confirming Modify...");
 			closeModal('modifyConfirmation');
@@ -568,13 +529,15 @@ button:hover {
         	    var dateInput = document.getElementById('lastUpdated');
         	    dateInput.setAttribute('data-original-date', dateInput.value);
         	});
-              
+           
+         
+      
 		// Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
 		var messageDuration = 5000;
 
 		// Function to hide the success message after a certain duration
 		function hideSuccessMessage() {
-			var successMessageDiv = document.getElementById('successMessageDiv');
+			var successMessageDiv = document.getElementById('successModal');
 			if (successMessageDiv) {
 				successMessageDiv.style.display = 'none';
 			}
@@ -582,7 +545,7 @@ button:hover {
 
 		// Function to hide the error message after a certain duration
 		function hideErrorMessage() {
-			var errorMessageDiv = document.getElementById('errorMessageDiv');
+			var errorMessageDiv = document.getElementById('errorModal');
 			if (errorMessageDiv) {
 				errorMessageDiv.style.display = 'none';
 			}
@@ -591,6 +554,9 @@ button:hover {
 		// Set timeouts to hide messages after the specified duration
 		setTimeout(hideSuccessMessage, messageDuration);
 		setTimeout(hideErrorMessage, messageDuration);
+		
+		
+		
 	</script>
 </body>
 
