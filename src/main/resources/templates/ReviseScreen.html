@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>ReVies Details</title>
-    <link rel="stylesheet" type="text/css" href="CSS/styles.css">
+    <link rel="stylesheet" th:href="@{/CSS/styles.css}">
     <style>
 body {
 	font-family: Arial, sans-serif;
@@ -55,71 +55,7 @@ button:hover {
 	background-color: #555;
 }
 
-/* Modal styles */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-   /*  background-color: transparent; */
-}
 
-.modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    background-color: transparent;
-     border:none;
-}
-
-.upper-part {
-    background-color: #3399ff;
-    padding: 20px;
-    border-bottom: 1px solid #888; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.upper-part p {
-    margin: 0;
-    font-weight: bold;
-    color: white;
-}
-
-.error-message {
-    background-color: #e6e6e6;
-    padding: 20px;
-    color: black;
-}
-
-.close-modal {
-    font-size: 30px;
-    color: red;
-    cursor: pointer;
-}
-
-.close-modal:hover {
-    color: darkred; /* Change the color on hover if needed */
-}
-
-.modal-content button {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 5px; /* Adjust the margin as needed */
-}
-
-.modal-content button:hover {
-    background-color: #555;
-}
  .registerclose {
 	width: 20%;
 	background-color: #000066;
@@ -183,30 +119,7 @@ button:hover {
 {
  width:50px;
 }
-
-.logout-button {
-
-            display: block;
-            width: 80px;
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #000066;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            border: 3px solid rgb(64, 0, 0);
-            border-radius: 10px;
-            position: fixed;
-            top: 10px;
-            right: 10px;
-        }
-
-        
-        .logout-button i {
-            margin-left: 5px; 
-        }
-        
-   
+  
 </style>
 </head>
 <body> 
@@ -218,12 +131,44 @@ button:hover {
     <i>&#10142;</i> 
 </a>
     <h1>STM: Silicone Test Method</h1>       
-    <div id="successMessageDiv" th:if="${successMessage}">
-    <p style="color: green;" th:text="${successMessage}"></p>
+<!-- Success Modal -->
+<div id="successModal" class="modal" th:if="${successMessage}">
+    <div class="modal-content">
+        <!-- Upper part with green color -->
+        <div class="upper-part success-upper">
+            <p>Success</p>
+            <span class="close-modal" onclick="closeModal('successModal')">&times;</span>
+        </div>
+        
+        <!-- Lower part with dark color -->
+        <div class="error-message">
+            <div class="success-message">
+                <p th:text="${successMessage}" style="color: black;"></p>
+            </div>
+            <button type="button" class="ok-button" onclick="closeModal('successModal')">OK</button>
+        </div>
+    </div>
 </div>
- <div id="errorMessageDiv" th:if="${errorMessage}">
-    <p style="color: red;" th:text="${errorMessage}"></p>
+
+<!-- Error Modal -->
+<div id="errorModal" class="modal" th:if="${errorMessage}">
+    <div class="modal-content">
+        <!-- Upper part with red color -->
+        <div class="upper-part error-upper">
+            <p>Error</p>
+            <span class="close-modal" onclick="closeModal('errorModal')">&times;</span>
+        </div>
+        
+        <!-- Lower part with dark color -->
+        <div class="error-message">
+            <div class="error-message">
+                <p th:text="${errorMessage}" style="color: red;"></p>
+            </div>
+            <button type="button" class="ok-button" onclick="closeModal('errorModal')">OK</button>
+        </div>
+    </div>
 </div>
+
     
     <form th:action="@{/revise(ssoid = ${ssoid})}" th:object="${stm}" enctype="multipart/form-data" method="post">            
         <div class="label-container">
@@ -282,15 +227,16 @@ button:hover {
         </div>
         <div class="error-message">
             <p>Invalid file format. Please select a PDF file.</p>
-        </div>
+            <button type="button" class="ok-button" onclick="closeModal('pdfError')">OK</button>
+        </div>        
     </div>
 </div>
-<div id="modal" class="modal">
+<!-- <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <div id="modalMessage"></div>
         </div>
-    </div>
+    </div> -->
 
 <div id="wordError" class="modal">
     <div class="modal-content">
@@ -299,7 +245,9 @@ button:hover {
         </div>
         <div class="error-message">
             <p>Invalid file format. Please select a Word file (doc or docx).</p>
+             <button type="button" class="ok-button" onclick="closeModal('wordError')">OK</button>
         </div>
+       
     </div>
 </div>
 
@@ -311,6 +259,7 @@ button:hover {
         </div>
         <div class="error-message">
             <p>Invalid month. Please enter a valid month (1-12).</p>
+            <button type="button" class="ok-button" onclick="closeModal('modalErrorMonth')">OK</button>
         </div>
     </div>
 </div>
@@ -323,6 +272,7 @@ button:hover {
         </div>
         <div class="error-message">
             <p>Invalid day. Please enter a valid day for the selected month.</p>
+            <button type="button" class="ok-button" onclick="closeModal('modalErrorDay')">OK</button>
         </div>
     </div>
 </div>
@@ -378,6 +328,22 @@ button:hover {
 </div>                
 
     </form>  
-    <script th:src="@{/js/Revise.js}"> </script>    
+    <script th:src="@{/js/Revise.js}"> </script> 
+    
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+    // Check if the success message exists and open the success modal
+    var successMessage = /*[[${successMessage}]]*/ '';
+    if (successMessage) {
+        openModal('successModal');
+    }
+
+    // Check if the error message exists and open the error modal
+    var errorMessage = /*[[${errorMessage}]]*/ '';
+    if (errorMessage) {
+        openModal('errorModal');
+    }
+  
+</script>   
 </body>
 </html>
