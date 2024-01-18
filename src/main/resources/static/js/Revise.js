@@ -178,7 +178,7 @@ var messageDuration = 5000;
 
 // Function to hide the success message after a certain duration
 function hideSuccessMessage() {
-	var successMessageDiv = document.getElementById('successMessageDiv');
+	var successMessageDiv = document.getElementById('successModal');
 	if (successMessageDiv) {
 		successMessageDiv.style.display = 'none';
 	}
@@ -186,7 +186,7 @@ function hideSuccessMessage() {
 
 // Function to hide the error message after a certain duration
 function hideErrorMessage() {
-	var errorMessageDiv = document.getElementById('errorMessageDiv');
+	var errorMessageDiv = document.getElementById('errorModal');
 	if (errorMessageDiv) {
 		errorMessageDiv.style.display = 'none';
 	}
@@ -195,3 +195,7 @@ function hideErrorMessage() {
 // Set timeouts to hide messages after the specified duration
  setTimeout(hideSuccessMessage, messageDuration);
  setTimeout(hideErrorMessage, messageDuration);
+
+ 
+ 
+ 
