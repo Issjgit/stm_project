@@ -245,20 +245,20 @@
 			</thead>
 			<tbody>
 				<tr th:each="n:${list}" onclick="" class="tableHover">
-					<td style="text-align: center; width: 3%;" th:text="${n.getNo()}"></td>
-					<td style="text-align: center;" th:text="${n.getStmNo()}"></td>
-					<td style="text-align: right;width: 5%;padding-left: 4%;" th:text="${n.getStmVersion()}"></td>
-					<td style="width:8%;text-align: center;" th:text="${n.getLinkDestination()}"></td>
-					<td style="text-align: center;" th:text="${n.getTextShortJP()}"></td>
-					<td style="text-align: center;" th:text="${n.getTextShortEN()}"></td>
-					<td style="text-align: center;" th:text="${n.getPdfFile()}"></td>
-					<td style="text-align: center;" th:text="${n.getWordFile()}"></td>
-					<td style="text-align: center;" th:text="${n.getDraftingDate()}"></td>
-					<td style="text-align: center;" th:text="${n.getFinalDrafterName()}"></td>
-					<td style="text-align: center;" th:text="${n.getOldSTMNumber()}"></td>
-					<td style="text-align: center;" th:text="${n.getRemarks1()}"></td>
-					<td style="text-align: center;" th:text="${n.getNote2()}"></td>
-					<td style="text-align: center;" th:text="${n.getNote3()}"></td>
+					<td style="width: 3%;" th:text="${n.getNo()}"></td>
+					<td th:text="${n.getStmNo()}"></td>
+					<td style="text-align: right;width: 5%;padding-right: 10px;" th:text="${n.getStmVersion()}"></td>
+					<td style="width:8%;" th:text="${n.getLinkDestination()}"></td>
+					<td th:text="${n.getTextShortJP()}"></td>
+					<td th:text="${n.getTextShortEN()}"></td>
+					<td th:text="${n.getPdfFile()}"></td>
+					<td th:text="${n.getWordFile()}"></td>
+					<td th:text="${n.getDraftingDate()}"></td>
+					<td th:text="${n.getFinalDrafterName()}"></td>
+					<td th:text="${n.getOldSTMNumber()}"></td>
+					<td th:text="${n.getRemarks1()}"></td>
+					<td th:text="${n.getNote2()}"></td>
+					<td th:text="${n.getNote3()}"></td>
 				</tr>
 			<tbody>
 		</table>
