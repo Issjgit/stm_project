@@ -14,7 +14,7 @@
 		var contextPath = /*[[${#httpServletRequest.contextPath}]]*/ '/';
     /*]]>*/
 	</script>
-	<style>
+<style>
 		body {
 			font-family: Arial, sans-serif;
 			margin: 0;
@@ -22,12 +22,14 @@
 			text-align: center;
 			background-color: #cbe3b5;
 		}
+
 		form {
 			max-width: 600px;
 			margin: 0 auto;
 			padding: 20px;
 			background-color: #cbe3b5;
 		}
+
 		input[type="text"] {
 			display: inline-block;
 			width: 50%;
@@ -37,76 +39,16 @@
 			border: 2px solid rgb(0, 0, 0);
 			border-radius: 5px;
 		}
+
 		h5 {
 			margin-top: 1%;
 		}
+
 		tr.tableHover:hover {
 			background-color:lightgray;
-		}
-                /* Added [s] Amulya for date validation popup Style part/*		
-		 Modal styles */
-		 .modal {
-		    display: none;
-		    position: fixed;
-		    top: 0;
-		    left: 0;
-		    width: 100%;
-		    height: 100%;
-		    background-color: rgba(0, 0, 0, 0.5); 
-		}
-		.modal-content {
-		    position: absolute;
-		    top: 50%;
-		    left: 50%;
-		    transform: translate(-50%, -50%);
-		    width: 500px;
-		    background-color: transparent;
-		     border:none;
-		}
-		.upper-part {
-		    background-color: #3399ff;
-		    padding: 0%;
-		    border-bottom: 1px solid #888; 
-		    display: flex;
-		    justify-content: space-between;
-		    align-items: center;
-		    padding-left: 5%;
-		}
-		.upper-part p {
-		    margin: 0;
-		    font-weight: bold;
-		    color: white;
-		}
-		
-		.error-message {
-		    background-color: #e6e6e6;
-		    padding: 20px;
-		    color: black;
-		}
-		
-		.close-modal {
-		    font-size: 30px;
-		    color: red;
-		    cursor: pointer;
-		}
-		
-		.close-modal:hover {
-		    color: darkred; /* Change the color on hover if needed */
-		}
-		
-		.modal-content button {
-		    background-color: #333;
-		    color: #fff;
-		    border: none;
-		    border-radius: 3px;
-		    cursor: pointer;
-		    margin: 5px; /* Adjust the margin as needed */
-		}
-		
-		.modal-content button:hover {
-		    background-color: #555;
-		}
-</style>
+		}		
+	</style>
+
 </head>
 <!--Added [s] Amulya for date validation popup Style part
 -->
@@ -121,14 +63,45 @@
 	<!-- ADDED[E] AMULYA To To Display the ssoid-->
 
 	<h1 id=hedding>STM:silicone test method</h1>
-	<!-- Added for Delete page Message-->
-	<div id="successMessageDiv" th:if="${message}">
-        <p style="color: green;" th:text="${message}"></p>
-	</div>
+	<!-- Added[s] Amulya for Delete page Message-->
+<!-- Success Modal -->
+<div id="successModal" class="modal" th:if="${message}">
+    <div class="modal-content">
+        <!-- Upper part with green color -->
+        <div class="upper-part success-upper">
+            <p>Success</p>
+            <span class="close-modal" onclick="closeModal('successModal')">&times;</span>
+        </div>
+        
+        <!-- Lower part with dark color -->
+        <div class="error-message">
+            <div class="success-message">
+                <p th:text="${message}" style="color: black;"></p>
+            </div>
+            <button type="button" class="ok-button" onclick="closeModal('successModal')">OK</button>
+        </div>
+    </div>
+</div>
 
-	<div id="errorMessageDiv" th:if="${error}">
-		<p style="color: red;" th:text="${error}"></p>
-	</div>
+<!-- Error Modal -->
+<div id="errorModal" class="modal" th:if="${error}">
+    <div class="modal-content">
+        <!-- Upper part with red color -->
+        <div class="upper-part error-upper">
+            <p>Error</p>
+            <span class="close-modal" onclick="closeModal('errorModal')">&times;</span>
+        </div>
+        
+        <!-- Lower part with dark color -->
+        <div class="error-message">
+            <div class="error-message">
+                <p th:text="${error}" style="color: red;"></p>
+            </div>
+            <button type="button" class="ok-button" onclick="closeModal('errorModal')">OK</button>
+        </div>
+    </div>
+</div>
+<!-- Added[E] Amulya for Delete page Message-->	
 	<div id="modal" class="modal">
 		<div class="modal-content">
 			<span class="close" onclick="closeModal()">&times;</span>
@@ -293,14 +266,27 @@
 	</div>
 	</div>
 	</div>
-	<!--  added For Timer purpose -->
-	<script type="text/javascript">
+	<!--  added[S] Amulya For Timer purpose -->
+	<script th:inline="javascript">
+	
+	 // Check if the success message exists and open the success modal
+    var successMessage = /*[[${message}]]*/ '';
+    if (successMessage) {
+        openModal('successModal');
+    }
+
+    // Check if the error message exists and open the error modal
+    var errorMessage = /*[[${error}]]*/ '';
+    if (errorMessage) {
+        openModal('errorModal');
+    }  
+	
 		//Set the duration for the messages to be displayed in milliseconds (e.g., 5000 for 5 seconds)
 		var messageDuration = 5000;
 
 		// Function to hide the success message after a certain duration
 		function hideSuccessMessage() {
-			var successMessageDiv = document.getElementById('successMessageDiv');
+			var successMessageDiv = document.getElementById('successModal');
 			if (successMessageDiv) {
 				successMessageDiv.style.display = 'none';
 			}
@@ -308,7 +294,7 @@
 
 		// Function to hide the error message after a certain duration
 		function hideErrorMessage() {
-			var errorMessageDiv = document.getElementById('errorMessageDiv');
+			var errorMessageDiv = document.getElementById('errorModal');
 			if (errorMessageDiv) {
 				errorMessageDiv.style.display = 'none';
 			}
@@ -317,7 +303,7 @@
 		setTimeout(hideSuccessMessage, messageDuration);
 		setTimeout(hideErrorMessage, messageDuration);
 	</script>
-	<!-- added For Timer purpose -->
+	<!-- added[E] Amulya For Timer purpose -->
 </body>
 
 </html>
