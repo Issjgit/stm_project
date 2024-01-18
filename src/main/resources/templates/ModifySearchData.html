@@ -23,14 +23,14 @@
 			background-color: #cbe3b5;
 		}
 		form {
-			max-width: 600px;
+			max-width: 700px;
 			margin: 0 auto;
 			padding: 20px;
 			background-color: #cbe3b5;
 		}
 		input[type="text"] {
 			display: inline-block;
-			width: 30%;
+			width: 40%;
 			padding: 10px;
 			margin: 5px 0;
 			border: 2px solid rgb(0, 0, 0);
@@ -86,7 +86,7 @@
 
 		<div class="label-container">
 			<label for="Revision number">Revision number</label>
-			<input type="text" id="disabledField" disabled="disabled" th:value="${entValue.stmVersion}">
+			<input type="text" id="disabledField" disabled="disabled" th:value="${entValue.stmVersion}" style="width: 11%;left:9px;">
 		</div>
 
 		<div class="label-container">
@@ -109,10 +109,10 @@
 			<label for="pdfFileName">Attachment (PDF)</label>
 			<div class="file-input">
 				<input type="text" id="pdfFileName" disabled="disabled" th:value="${entValue.pdfFile}" name="pdfFileName"
-					style="width: 37%;color: white;">
+					style="width: 39%;color: white;position:relative;left:9px;">
 				<input type="hidden" id="pdfFileNameHid" th:value="${entValue.pdfFile}" name="pdfFileName">
 				<button type="button" class="download-button" onclick="downloadPDF()" id="pdfFileName"
-					style="margin-left: 6px;width: 38%;" th:value="${pdf}">PdfDownload</button>
+					style="margin-left: 10px;width: 45%; height: auto;" th:value="${pdf}">PDF Download</button>
 			</div>
 		</div>
 
@@ -120,10 +120,10 @@
 			<label for="docFileName">Attachment (Word)</label>
 			<div class="file-input">
 				<input type="text" id="docFileName" disabled="disabled" th:value="${entValue.wordFile}" name="docFileName"
-					style="width: 37%;" />
+					style="width: 39%;position:relative;left:9px;" />
 				<input type="hidden" id="docFileNameHid" th:value="${entValue.wordFile}" name="docFileName">
 				<button type="button" class="download-button" onclick="downloadDocument()" id="docFileName"
-					style="margin-left: 6px;width: 38%;" th:value="${word}">DocDownload</button>
+					style="margin-left: 10px;width: 45%; height: auto;" th:value="${word}">DOC Download</button>
 			</div>
 		</div>
 
