@@ -148,7 +148,7 @@ $(document).ready(function() {
 function enterClick(value, event) {
 	let key = event.key;
 	console.log("Key is : " + key);
-	if (key == "Enter" ) {
+	if (key == "Enter") {
 		if (value == '1') {
 			document.getElementById('Revision number').focus();
 		}
@@ -178,12 +178,12 @@ function enterClick(value, event) {
 		}
 		else if (value == '10') {
 			document.getElementById("searchbtn").click();
-		}else if (value == '11') {
+		} else if (value == '11') {
 			document.getElementById("resetbtn").click();
 		}
 	}
-	
-	if (key == "ArrowDown" ) {
+
+	if (key == "ArrowDown") {
 		if (value == '1') {
 			document.getElementById('Revision number').focus();
 		}
@@ -213,7 +213,7 @@ function enterClick(value, event) {
 		}
 		else if (value == '10') {
 			document.getElementById("resetbtn").focus();
-		}else if (value == '11') {
+		} else if (value == '11') {
 			document.getElementById("stmNumber").focus();
 		}
 	}
@@ -367,3 +367,13 @@ function closeModal(modalId) {
 	modal.style.display = 'none';
 }
 // Added [E] Amulya for date validation popup Purpose //
+
+//Added validation message for STM Number
+function InvalidMsg(textbox, pattern) {
+	if (textbox.validity.patternMismatch) {
+		textbox.setCustomValidity(`${pattern}`);
+	} else {
+		textbox.setCustomValidity('');
+	}
+	return true;
+}
