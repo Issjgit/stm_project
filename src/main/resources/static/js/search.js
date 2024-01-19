@@ -368,7 +368,7 @@ function closeModal(modalId) {
 }
 // Added [E] Amulya for date validation popup Purpose //
 
-//Added validation message for STM Number
+//Added validation pattern message for all fields
 function InvalidMsg(textbox, pattern) {
 	if (textbox.validity.patternMismatch) {
 		textbox.setCustomValidity(`${pattern}`);
