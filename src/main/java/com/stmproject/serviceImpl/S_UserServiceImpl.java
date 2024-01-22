@@ -122,10 +122,10 @@ public class S_UserServiceImpl implements S_UserService {
 			sb.append(" and Old_STM_Number like N'" + dao.getOldSTMNumber() + "'");
 		}
 		if (!ObjectUtils.isEmpty(dao.getStartDraftDate())) {
-			sb.append(" and drafting_date > '" + dao.getStartDraftDate() + "'");
+			sb.append(" and drafting_date >= '" + dao.getStartDraftDate() + "'");
 		}
 		if (!ObjectUtils.isEmpty(dao.getEndDraftDate())) {
-			sb.append(" and drafting_date < '" + dao.getEndDraftDate() + "'");
+			sb.append(" and drafting_date <= '" + dao.getEndDraftDate() + "'");
 		}
 		sb.append(" and is_deleted='0' ");
 		sb.append(" ORDER BY no ");
