@@ -1,6 +1,8 @@
 package com.stmproject.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -62,7 +64,7 @@ public class STM_RegistrationController {
 	                // If the STM number already exists, log an info message and return an error message
 	                logger.info("Registration failed. STM number {} already exists.", stmModel.getStmNo());
 	                messageForRegister = "2";
-	                return "redirect:/register?ssoid=" + ssoid;
+	                return "redirect:/register?ssoid=" + URLEncoder.encode(ssoid, StandardCharsets.UTF_8.toString());
 	            }
 
 	            // Save the uploaded files
@@ -102,7 +104,7 @@ public class STM_RegistrationController {
 	         // Set success message for the redirect
 	            messageForRegister = "1";
 
-	            return "redirect:/register?ssoid=" + ssoid;
+	            return "redirect:/register?ssoid=" + URLEncoder.encode(ssoid, StandardCharsets.UTF_8.toString());
 	        } catch (Exception e) {
 	            // Log the error
 	            logger.error("Error occurred during STM registration.", e);
