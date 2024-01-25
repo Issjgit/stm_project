@@ -76,6 +76,7 @@
     <h1>STM: Silicone Test Method</h1>
     <form th:action="@{/login}" th:object="${loginScreen}" method="post">
         <p th:if="${invalidCredentials}" class="error" id="errorMessage">ID or password mismatch</p>
+        <p th:if="${accountDeleted}" class="error" id="errorMessage">User ID already deleted from system</p>
         <div class="form-group">
             <label for="ssoid">SSO ID</label>
             <input type="text" id="ssoid" name="ssoid" autofocus="autofocus" pattern="^[a-zA-Z0-9\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s]+$"
