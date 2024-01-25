@@ -34,6 +34,13 @@ public class LoginController {
 
 	    M_User user = userService.findBySsoid(ssoid);
 	    if (user != null && password.equals(user.getPassword())) {
+	    	
+	    	if (user.isIs_Deleted()) {
+	    	    logger.warn("Login failed for ssoid: {}", ssoid);
+	    	    model.addAttribute("accountDeleted", true);
+	    	    return "LoginScreen";
+	    	}
+	    	
 	        if (user.getUser_Type().equals('A')) {
 	            logger.info("Admin login successful: {}", ssoid);
 
