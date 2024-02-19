@@ -183,8 +183,8 @@
 			<button type="button" name="action" value="return" class="returnClear"
 				th:onclick="|window.location.href='@{/searchPage(ssoid = ${ssoid})}'|">Return</button>
 		</div>
-
 	</form>
+	<div style="right:100px; position: absolute;"> <button style="width: 120px; border: 3px solid rgb(64, 0, 0); border-radius: 10px; color: white; background-color: limegreen;" type="button" th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button></div>
 	<script type="text/javascript">
 		var stmNumber = document.getElementById('stmNumber').value;
 		function openRevisePage() {
