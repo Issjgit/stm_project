@@ -84,7 +84,6 @@ public class SearchController {
 			model.addAttribute("list", searchList);
 
 			if (!searchList.isEmpty()) {
-				model.addAttribute("STM", "2");
 				model.addAttribute("records", searchList.size() + " " + successMsg);
 				logger.debug(searchList.size() + " " + successMsg);
 			} else {
@@ -93,6 +92,8 @@ public class SearchController {
 			}
 
 			model.addAttribute("ssoid", ssoid);
+			model.addAttribute("STM", "2");
+
 			session.setAttribute("username", ssoid);
 			session.setAttribute("ListData", searchList);
 
@@ -115,7 +116,6 @@ public class SearchController {
 			model.addAttribute("list", searchList);
 
 			if (!searchList.isEmpty()) {
-				model.addAttribute("STM", "2");
 				model.addAttribute("records", searchList.size() + " " + successMsg);
 				logger.debug(searchList.size() + " " + successMsg);
 			} else {
@@ -124,6 +124,7 @@ public class SearchController {
 			}
 
 			model.addAttribute("ssoid", ssoid);
+			model.addAttribute("STM", "2");
 			session.setAttribute("ListData", searchList);
 			session.setAttribute("username", ssoid);
 			return "SearchPage";
