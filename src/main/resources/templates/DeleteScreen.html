@@ -35,8 +35,8 @@ input[type="text"] {
 }
 .stmNumber {
 	height: 15px;
-	background-color: #4d4d4d;
-	color: #fff;
+	background-color: #a2a2c3;
+	color: rgb(64, 0, 64);
 }
 
 button {
@@ -181,7 +181,7 @@ button:hover {
         </div>
         <div style="margin-top: 20px;">
             <button type="button" name="action" value="delete" class="registerclose" onclick="openModal('deleteConfirmation')">Delete</button>
-            <button type="button" name="action" value="return" class="returnClear" th:onclick="|window.location.href='@{/returnSearchPage(ssoid = ${ssoid})}'|">Return</button>
+            <button type="button" name="action" value="return" class="returnClear" style="margin-left: 80px;" th:onclick="|window.location.href='@{/returnSearchPage(ssoid = ${ssoid})}'|">Return</button>
         </div>
         
     <!-- Modal for Delete confirmation -->
@@ -200,6 +200,7 @@ button:hover {
 </div>
         
     </form>
+    <div style="right:100px; position: absolute;"> <button style="width: 120px; border: 3px solid rgb(64, 0, 0); border-radius: 10px;color: white; background-color: limegreen;" type="button" th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button></div>
 
 <script>
        function openModal(message) {
