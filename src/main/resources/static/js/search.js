@@ -24,7 +24,8 @@ function searchcall() {
 		}
 
 	}
-};
+
+}
 
 function onLoadcall(value) {
 	console.log("Value is : " + value);
@@ -49,6 +50,9 @@ $(document).ready(function submitData() {
 
 //Doubleclick Function
 $(function() {
+	function refreshPage() {
+		location.reload(true); // Reloads the page, forcing it to load from the server
+	}
 	$("table tr").dblclick(function() {
 		console.log("on Double Click")
 		console.log(this.rowIndex);
@@ -69,10 +73,15 @@ $(function() {
 					window.open(contextPath + "/Modify?");
 
 				}
-			}
-		);
-	})
+			});
+	});
+	document.addEventListener('visibilitychange', function() {
+		if (document.visibilityState === 'visible') {
+			refreshPage(); // Refresh the page when tab becomes visible
+		}
+	});
 });
+
 
 //PDF Download function
 function downloadPDF() {
