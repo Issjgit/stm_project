@@ -64,6 +64,19 @@ button:hover {
 .label-container #attachedWord {
 	width: 92px;
 }
+
+stmNumberValidationMessage {
+    position: absolute; /* Change position to absolute */
+    top: -40px; /* Adjust top position to move the message above the STM Number */
+    left: calc(50% - 100px); /* Adjust left position to center the message */
+    width: 200px; /* Set a fixed width to prevent width changes */
+    text-align: center; /* Center the text horizontally */
+    color: red;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 999; 
+}
 </style>
 </head>
 
@@ -121,7 +134,10 @@ button:hover {
 			<div id="modalMessage"></div>
 		</div>
 	</div>
-
+	<div style="height: 20px;">
+	 <span id="stmNumberValidationMessage" style="color: red;"></span>
+	</div>
+   
 	<form th:action="@{/register(ssoid = ${ssoid})}" th:object="${STM}"
 		method="post" enctype="multipart/form-data">
 		<div class="label-container">
@@ -130,9 +146,12 @@ button:hover {
 			</label> <input type="text" id="stmNumber" th:field="*{stmNo}"
 				style="height: 15px;" maxlength="15"
 				oninput="updateDisabledField(this),updateFields()" required
+				 onblur="validateSTMNumber()"	
 				pattern="[a-zA-Z0-9\u3040-\u30FF]*"
 				title="Alphabet, Japanese characters, and number characters only allowed">
 		</div>
+		
+		
 		<input type="text" class="stmNumber" id="disabledField"
 			th:field="*{stmVersion}" disabled="disabled"
 			style="height: 15px; width: 40px; margin-left: 250px;">
@@ -296,8 +315,11 @@ button:hover {
 			<button type="reset" name="action" value="clear" class="returnClear">Clear</button>
 		</div>
 	</form>
+	<div
+	 style="right:100px; position: absolute;"> <button style="width: 120px;border: 3px solid rgb(64, 0, 0); border-radius: 10px; color: white; background-color: limegreen;" type="button" th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button>
+	 </div>
 	<script th:src="@{/js/register.js}"></script>
-    <script th:inline="javascript">
+    <script th:inline="javascript">  
     /*<![CDATA[*/
     // Check if the success message exists and open the success modal
     var successMessage = /*[[${message}]]*/ '';
@@ -310,7 +332,45 @@ button:hover {
     if (errorMessage) {
         openModal('errorModal');
     }
-  
+    
+    function validateSTMNumber() {
+        var stmNumber = document.getElementById('stmNumber').value;
+        var ssoid = document.getElementById('ssoid').value;
+        
+        var validationMessageElement = document.getElementById('stmNumberValidationMessage');
+        var regex = /^[a-zA-Z0-9\u3040-\u30FF]+$/;
+
+        
+        
+        // Make an AJAX request to check if the STM number exists
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/checkSTMNumber?stmNumber=' + stmNumber, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.exists) {
+                        // STM number exists, show error message
+                    	 validationMessageElement.innerText = 'STM Number has already been issued!';
+                    } else {
+                        // STM number does not exist, clear error message
+                    	 validationMessageElement.innerText = '';
+                    }
+                } else {
+                    // Error occurred during AJAX request
+                    console.error('Error checking STM number:', xhr.status);
+                }
+            }
+        };
+        xhr.send();
+    }
+ // Trigger validation when the STM number field loses focus
+    document.getElementById('stmNumber').addEventListener('blur', validateSTMNumber);
+
+    // Trigger validation when the user clicks anywhere on the screen
+    document.addEventListener('click', function() {
+        validateSTMNumber();
+    });
 </script>   
 
 
