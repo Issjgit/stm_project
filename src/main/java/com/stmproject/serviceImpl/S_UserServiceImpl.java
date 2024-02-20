@@ -246,4 +246,26 @@ public class S_UserServiceImpl implements S_UserService {
 		return modifyUser;
 	}
 
+	@Override
+	public SearchResultlist findBySTMNo(String stmNo) {
+		String strQuery = "Select * from dbo.STM where stm_no='" + stmNo + "' and is_deleted='"+0+"';";
+
+		Query query = (Query) entManager.createNativeQuery(strQuery, STM.class);
+		List<STM> list = query.getResultList();
+		SearchResultlist sDao = new SearchResultlist();
+		if(list.size()>0)
+		{
+		for(STM ent:list)
+		{
+			sDao = modelMapper.map(ent, SearchResultlist.class);
+			break;
+		}
+		}
+		else
+		{
+			return null;
+		}
+		return sDao;
+	}
+
 }
