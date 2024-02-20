@@ -24,7 +24,7 @@
 		}
 
 		form {
-			max-width: 600px;
+			max-width: 650px;
 			margin: 0 auto;
 			padding: 20px;
 			background-color: #cbe3b5;
@@ -163,13 +163,13 @@
 			<p style="margin-left: 27%;height: 30%;">
 				<input type="text" s class="dobField timePeriodFrom1 datepicker-input" placeholder="yyyy/MM/dd" th:value="${startdate}"
 					name="startDraftDate" maxlength="10" onkeydown="enterClick(6,event)" id="draft_start_date"
-					style="margin-left: -31%;width: 49%;" title="Please Enter Date in yyyy/MM/dd."
+					style="margin-left: -32%;width: 51%;" title="Please Enter Date in yyyy/MM/dd."
 					oninput="formatDraftingDate(this)"
 					pattern="(?:19|20)(?:[0-9]{2}\/(?:0[1-9]|1[0-2])\/(?:0[1-9]|[12][0-9]|3[01]))"
 					onblur="validateDate(this, 'startDraftDateError')" />
 				~
 				<input type="text" class="dobField timePeriodTo1 datepicker-input" placeholder="yyyy/MM/dd" th:value="${enddate}"
-					style="margin-left: 2%;width: 49%;" name="endDraftDate" maxlength="10"
+					style="margin-left: 2%;width: 51%;" name="endDraftDate" maxlength="10"
 					onkeydown="enterClick(7,event)" id="draft_end_date" title="Please Enter Date in yyyy/MM/dd."
 					oninput="formatDraftingDate(this)"
 					pattern="(?:19|20)(?:[0-9]{2}\/(?:0[1-9]|1[0-2])\/(?:0[1-9]|[12][0-9]|3[01]))"
@@ -227,6 +227,9 @@
 			<button class="btn btn-primary reset" type="reset" id="resetbtn" onclick="resetcall()"
 				onkeydown="enterClick(11,event)">Reset</button>
 			<button type="submit" class="btn btn-primary view">View</button>
+			
+			<button class="btn btn-primary menu" style="color: white;background-color: limegreen;" type="button"
+			th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button>
 
 		</div>
 	</form>
@@ -277,10 +280,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div>
-		<button class="btn btn-primary menu" style="color: white;background-color: limegreen;" type="button"
-			th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button>
-	</div>
+	
 	<!--  added[S] Amulya For Timer purpose -->
 	<script th:inline="javascript">
 
