@@ -3,6 +3,8 @@ package com.stmproject.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
+import com.stmproject.model.STM;
 import com.stmproject.model.SearchResultlist;
 
 @Service
@@ -15,4 +17,6 @@ public interface S_UserService {
 	public boolean isAdminLogin(String userId);
 	
 	public SearchResultlist setEmptyForNullValues(SearchResultlist dao);
+	
+	public SearchResultlist findBySTMNo(String stmNo);
 }
