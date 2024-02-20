@@ -92,7 +92,16 @@ public class SearchController {
 			}
 
 			model.addAttribute("ssoid", ssoid);
-			model.addAttribute("STM", "2");
+			model.addAttribute("STM", "2");//stmNo
+			model.addAttribute("stmnum",sDao.getStmNo());
+			model.addAttribute("stmver",sDao.getStmVersion());
+			model.addAttribute("linkDest",sDao.getLinkDestination());
+			model.addAttribute("txtjp",sDao.getTextShortJP());
+			model.addAttribute("txteng",sDao.getTextShortEN());
+			model.addAttribute("startdate",sDao.getStartDraftDate());
+			model.addAttribute("enddate",sDao.getEndDraftDate());
+			model.addAttribute("final",sDao.getFinalDrafterName());
+			model.addAttribute("oldstm",sDao.getOldSTMNumber());
 
 			session.setAttribute("username", ssoid);
 			session.setAttribute("ListData", searchList);
@@ -163,12 +172,39 @@ public class SearchController {
 		try {
 		SearchResultlist modifyUser = sUserService
 				.setEmptyForNullValues((SearchResultlist) session.getAttribute("modifyRowData"));
-		model.addAttribute("entValue", modifyUser);
-
+		
+		// ADD[S]
+		SearchResultlist result=sUserService.findBySTMNo(modifyUser.getStmNo());
+		
+		if(result!=null)
+		{
+			model.addAttribute("entValue", result);
+			model.addAttribute("msgvalue", "");
+		}
+		else
+		{
+			SearchResultlist user=new SearchResultlist();
+			user.setStmVersion("");
+			user.setLinkDestination("");
+			user.setTextShortEN("");
+			user.setTextShortJP("");
+			user.setPdfFile("");
+			user.setWordFile("");
+			user.setDraftingDate("");
+			user.setOldSTMNumber("");
+			user.setRemarks1("");
+			user.setNote2("");
+			user.setNote3("");
+			
+			model.addAttribute("entValue", user);
+			model.addAttribute("msgvalue", "The STM No "+modifyUser.getStmNo()+" is already Deleted");
+		}
+		// ADD[E]
+	
 		String userId = (String) session.getAttribute("username");
 		model.addAttribute("ssoid", userId);
 		boolean isadminuser = sUserService.isAdminLogin(userId);
-		if (isadminuser) {
+		if (isadminuser && result!=null) {
 			model.addAttribute("enableBtn", 1);
 		}
 		return "ModifySearchData";
@@ -223,5 +259,28 @@ public class SearchController {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@PostMapping("/reset")
+	public String resetClick(@RequestParam("ssoid") String ssoid,Model model)
+			throws ClassNotFoundException, SQLException {
+				System.out.println("start");
+				SearchResultlist user=new SearchResultlist();
+				user.setStmVersion("");
+				user.setLinkDestination("");
+				user.setTextShortEN("");
+				user.setTextShortJP("");
+				user.setPdfFile("");
+				user.setWordFile("");
+				user.setDraftingDate("");
+				user.setOldSTMNumber("");
+				user.setRemarks1("");
+				user.setNote2("");
+				user.setNote3("");
+				
+				model.addAttribute("ssoid", ssoid);
+				model.addAttribute("entValue", user);
+				return "SearchPage";
+		
 	}
 }
