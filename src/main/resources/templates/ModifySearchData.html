@@ -66,6 +66,7 @@
 	<a th:href="@{/login}" class="logout-button" onclick="logoutFunction()">Logout
         <i>&#10142;</i> 
         </a>
+       <!-- <h3 th:text="${msgvalue}"></h3>-->
 	<h1>STM:Silicone Test Method</h1>
 	<p th:text="${message}"></p>
 	<p id="message" th:text="${error}"></p>
@@ -75,7 +76,7 @@
 			<div id="modalMessage"></div>
 		</div>
 	</div>
-
+ <h3 th:text="${msgvalue}" style="color: red;"></h3>
 	<form method="get" class="form-horizontal" th:action="@{/Modify(ssoid = ${ssoid})}">
 		<div class="label-container">
 			<label for="stmNumber">STM Number<br>(Quality inspection
