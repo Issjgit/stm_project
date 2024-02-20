@@ -4,27 +4,34 @@ function resetcall() {
 	x.style.display = "none";
 	document.getElementById('stmNumber').focus();
 	document.getElementById('recordDisplay').style.display = 'none';
+	// ADD
+	document.getElementById('stmNumber').value='';
+	document.getElementById('Revision number').innerHTML.valueOf = '';
+	document.getElementById('Link destination').innerHTML.valueOf = '';
+	document.getElementById('Japanese').innerHTML.valueOf = '';
+	document.getElementById('English').innerHTML.valueOf = '';
+	document.getElementById('draft_start_date').innerHTML.valueOf = '';
+	document.getElementById('draft_end_date').innerHTML.valueOf = '';
+	document.getElementById('finalDrafterName').innerHTML.valueOf = '';
+	document.getElementById('oldSTMnumber').innerHTML.valueOf = '';
+	document.getElementById('theForm').submit();
+
 };
 
 function searchcall() {
 	var x = document.getElementById('searchTable');
 	var y = document.getElementById('vis');
 
-	{
-		if (x.style.display === "none") {
-			x.style.display = "block";
-		} else {
-			x.style.display = "none";
-		}
-
-		if (y.style.display === "none") {
-			y.style.display = "block";
-		} else {
-			y.style.display = "none";
-		}
-
+	if (x.style.display === "none") {
+		x.style.display = "block";
+	} else {
+		x.style.display = "none";
 	}
-
+	if (y.style.display === "none") {
+		y.style.display = "block";
+	} else {
+		y.style.display = "none";
+	}
 }
 
 function onLoadcall(value) {
@@ -50,9 +57,9 @@ $(document).ready(function submitData() {
 
 //Doubleclick Function
 $(function() {
-	function refreshPage() {
+	/*function refreshPage() {
 		location.reload(true); // Reloads the page, forcing it to load from the server
-	}
+	}*/
 	$("table tr").dblclick(function() {
 		console.log("on Double Click")
 		console.log(this.rowIndex);
