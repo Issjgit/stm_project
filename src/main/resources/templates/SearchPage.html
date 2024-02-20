@@ -24,7 +24,7 @@
 		}
 
 		form {
-			max-width: 800px;
+			max-width: 600px;
 			margin: 0 auto;
 			padding: 20px;
 			background-color: #cbe3b5;
@@ -113,8 +113,8 @@
 	<!--  Added for Delete page Message-->
 	<!--	<p style="text-align: center;" id="recordDisplay" th:text="${records}"></p>
 -->
-	<form method="post" id="theForm" class="form-horizontal" th:action="@{/reset(ssoid = ${ssoid})}">
-	</form>
+<form method="post" id="theForm" class="form-horizontal" th:action="@{/reset(ssoid = ${ssoid})}">
+</form>
 	<form method="post" class="form-horizontal" th:action="@{/searchClick(ssoid = ${ssoid})}">
 		<div class="label-container" style="margin-top: 20px;">
 			<label for="stmNumber">STM Number <br>(Quality inspection
@@ -128,10 +128,9 @@
 
 		<div class="label-container">
 			<label for="revisionNumber">Revision Number</label>
-			<input type="text" id="Revision number" maxlength="4" name="stmVersion" pattern="[0-9]*"
-				th:value="${stmver}" oninvalid="InvalidMsg(this, 'Enter Only Numbers.');"
-				oninput="InvalidMsg(this, 'Enter Only Numbers.');" onkeydown="enterClick(2,event)"
-				style="width: 11%;margin-right: 35%;" />
+			<input type="text" id="Revision number" maxlength="4" name="stmVersion" pattern="[0-9]*"  th:value="${stmver}"
+				oninvalid="InvalidMsg(this, 'Enter Only Numbers.');" oninput="InvalidMsg(this, 'Enter Only Numbers.');"
+				onkeydown="enterClick(2,event)" style="width: 11%;margin-right: 35%;" />
 		</div>
 
 		<div class="label-container">
@@ -145,8 +144,8 @@
 
 		<div class="label-container">
 			<label for="textJapanese">Text (Short) Japanese</label>
-			<input type="text" id="Japanese" name="textShortJP" maxlength="200" onkeydown="enterClick(4,event)"
-				th:value="${txtjp}" pattern="^[\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s。]+$"
+			<input type="text" id="Japanese" name="textShortJP" maxlength="200" onkeydown="enterClick(4,event)" th:value="${txtjp}"
+				pattern="^[\u3040-\u30FF\u31F0-\u31FF\u4E00-\u9FAF\u3400-\u4DBF\s。]+$"
 				oninvalid="InvalidMsg(this, 'Enter Only Japanese characters.');"
 				oninput="InvalidMsg(this, 'Enter Only Japanese characters.');" />
 		</div>
@@ -162,15 +161,15 @@
 			<label for="last updated(Drafting date)">last updated(Drafting
 				date)</label>
 			<p style="margin-left: 27%;height: 30%;">
-				<input type="text" s class="dobField timePeriodFrom1 datepicker-input" placeholder="yyyy/MM/dd"
-					th:value="${startdate}" name="startDraftDate" maxlength="10" onkeydown="enterClick(6,event)"
-					id="draft_start_date" style="margin-left: -31%;width: 49%;" title="Please Enter Date in yyyy/MM/dd."
+				<input type="text" s class="dobField timePeriodFrom1 datepicker-input" placeholder="yyyy/MM/dd" th:value="${startdate}"
+					name="startDraftDate" maxlength="10" onkeydown="enterClick(6,event)" id="draft_start_date"
+					style="margin-left: -31%;width: 49%;" title="Please Enter Date in yyyy/MM/dd."
 					oninput="formatDraftingDate(this)"
 					pattern="(?:19|20)(?:[0-9]{2}\/(?:0[1-9]|1[0-2])\/(?:0[1-9]|[12][0-9]|3[01]))"
 					onblur="validateDate(this, 'startDraftDateError')" />
 				~
-				<input type="text" class="dobField timePeriodTo1 datepicker-input" placeholder="yyyy/MM/dd"
-					th:value="${enddate}" style="margin-left: 2%;width: 49%;" name="endDraftDate" maxlength="10"
+				<input type="text" class="dobField timePeriodTo1 datepicker-input" placeholder="yyyy/MM/dd" th:value="${enddate}"
+					style="margin-left: 2%;width: 49%;" name="endDraftDate" maxlength="10"
 					onkeydown="enterClick(7,event)" id="draft_end_date" title="Please Enter Date in yyyy/MM/dd."
 					oninput="formatDraftingDate(this)"
 					pattern="(?:19|20)(?:[0-9]{2}\/(?:0[1-9]|1[0-2])\/(?:0[1-9]|[12][0-9]|3[01]))"
@@ -189,8 +188,8 @@
 
 		<div class="label-container">
 			<label for="oldStmNumber">Old STM Number</label>
-			<input type="text" id="oldSTMnumber" name="oldSTMNumber" maxlength="15" pattern="[a-zA-Z0-9\u3040-\u30FF]*"
-				th:value="${oldstm}" onkeydown="enterClick(9,event)"
+			<input type="text" id="oldSTMnumber" name="oldSTMNumber" maxlength="15" pattern="[a-zA-Z0-9\u3040-\u30FF]*" th:value="${oldstm}"
+				onkeydown="enterClick(9,event)" 
 				oninvalid="InvalidMsg(this, 'Enter only Alphanumeric and Japanese Characters.');"
 				oninput="InvalidMsg(this, 'Enter only Alphanumeric and Japanese Characters.');" />
 		</div>
@@ -229,8 +228,6 @@
 				onkeydown="enterClick(11,event)">Reset</button>
 			<button type="submit" class="btn btn-primary view">View</button>
 
-			<button class="btn btn-primary menu" style="color: white;background-color: limegreen;" type="button"
-				th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button>
 		</div>
 	</form>
 	<!--<form th:action="@{/viewClick(ssoid = ${ssoid})}" method="post">
@@ -279,6 +276,10 @@
 			</tbody>
 			</tbody>
 		</table>
+	</div>
+	<div>
+		<button class="btn btn-primary menu" style="color: white;background-color: limegreen;" type="button"
+			th:onclick="|window.location.href='@{/dashboard(ssoid=${ssoid})}'|">Menu</button>
 	</div>
 	<!--  added[S] Amulya For Timer purpose -->
 	<script th:inline="javascript">
